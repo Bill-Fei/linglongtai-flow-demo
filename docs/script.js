@@ -109,6 +109,7 @@ const elements = {
   restartBtn: document.getElementById("restartBtn"),
   infoQuote: document.getElementById("infoQuote"),
   resultPrimary: document.getElementById("resultPrimary"),
+  runningTickerTrack: document.getElementById("runningTickerTrack"),
 };
 
 const state = {
@@ -118,6 +119,7 @@ const state = {
   companionBurstTimer: null,
   companionVisibilityTimer: null,
   resultDismissTimer: null,
+  runningTickerTimers: [],
 };
 
 function getCurrentState() {
@@ -156,6 +158,11 @@ function clearResultDismissTimer() {
   }
 }
 
+function clearRunningTickerTimers() {
+  state.runningTickerTimers.forEach((timerId) => window.clearTimeout(timerId));
+  state.runningTickerTimers = [];
+}
+
 function resetAnimationClasses(element) {
   element.classList.remove(...PANEL_ANIMATION_CLASSES);
 }
@@ -187,6 +194,41 @@ function updateDynamicCopy() {
   const selected = getRestaurantById(state.selectedRestaurantId);
   elements.infoQuote.textContent = `“营业时间 10:00-22:00，已为您查到 ${selected.name} 的预约电话 xxx，是否需要为您电话预约？”`;
   elements.resultPrimary.textContent = `✓预订餐厅：${selected.name}，时间：周六 18:30`;
+}
+
+function setRunningTickerStep(stepIndex, immediate = false) {
+  if (!elements.runningTickerTrack) return;
+  const previousTransition = elements.runningTickerTrack.style.transition;
+  if (immediate) {
+    elements.runningTickerTrack.style.transition = "none";
+  }
+  elements.runningTickerTrack.style.transform = `translateY(-${stepIndex * 24}px)`;
+  if (immediate) {
+    void elements.runningTickerTrack.offsetWidth;
+    elements.runningTickerTrack.style.transition = previousTransition || "";
+  }
+}
+
+function startRunningTicker() {
+  clearRunningTickerTimers();
+  setRunningTickerStep(0, true);
+
+  state.runningTickerTimers.push(
+    window.setTimeout(() => {
+      setRunningTickerStep(1);
+    }, 1500),
+  );
+
+  state.runningTickerTimers.push(
+    window.setTimeout(() => {
+      setRunningTickerStep(2);
+    }, 3000),
+  );
+}
+
+function resetRunningTicker() {
+  clearRunningTickerTimers();
+  setRunningTickerStep(0, true);
 }
 
 function dismissResultCard() {
@@ -326,6 +368,7 @@ function syncPanels(step) {
   const isCompanion = ["select", "info", "running"].includes(step.id);
 
   hideAllPanels();
+  resetRunningTicker();
   syncCompanion(isCompanion);
   elements.blankZoneBtn.hidden = step.id !== "running";
 
@@ -343,6 +386,7 @@ function syncPanels(step) {
 
   if (step.id === "running") {
     showElement(elements.runningToast, "panel-enter--toast");
+    startRunningTicker();
   }
 
   if (step.id === "chip") {
