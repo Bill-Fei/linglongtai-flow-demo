@@ -166,7 +166,14 @@
                   />
                   <span>天禧AI-正在执行</span>
                 </div>
-                <p id="runningCopy">正在为您完成餐厅预订...</p>
+                <div class="running-ticker" id="runningTicker" aria-label="执行中文案滚动">
+                  <div class="running-ticker__track">
+                    <p class="running-ticker__item">正在为您完成餐厅预订...</p>
+                    <p class="running-ticker__item">正在查询您的餐厅信息</p>
+                    <p class="running-ticker__item">正在为您预订合适的餐厅</p>
+                    <p class="running-ticker__item" aria-hidden="true">正在为您完成餐厅预订...</p>
+                  </div>
+                </div>
               </article>
 
               <button class="blank-surface" id="blankZoneBtn" type="button" hidden aria-label="点击空白处退出伴随态"></button>

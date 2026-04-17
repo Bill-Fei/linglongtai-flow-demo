@@ -109,7 +109,6 @@ const elements = {
   restartBtn: document.getElementById("restartBtn"),
   infoQuote: document.getElementById("infoQuote"),
   resultPrimary: document.getElementById("resultPrimary"),
-  runningCopy: document.getElementById("runningCopy"),
 };
 
 const state = {
@@ -188,7 +187,6 @@ function updateDynamicCopy() {
   const selected = getRestaurantById(state.selectedRestaurantId);
   elements.infoQuote.textContent = `“营业时间 10:00-22:00，已为您查到 ${selected.name} 的预约电话 xxx，是否需要为您电话预约？”`;
   elements.resultPrimary.textContent = `✓预订餐厅：${selected.name}，时间：周六 18:30`;
-  elements.runningCopy.textContent = "正在为您完成餐厅预订...";
 }
 
 function dismissResultCard() {
