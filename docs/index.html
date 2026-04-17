@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>玲珑台 · 手机单页状态 Demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="showcase">
+        <section class="phone-column" aria-labelledby="phoneDemoTitle">
+          <div class="section-head">
+            <p class="section-head__eyebrow">Phone Page</p>
+            <h2 class="section-head__title" id="phoneDemoTitle">手机页面</h2>
+          </div>
+
+          <div class="phone-stage">
+            <section class="phone-frame" id="phoneFrame" data-state="proactive" data-companion="false" aria-label="玲珑台手机状态原型">
+              <div class="phone-scene" aria-hidden="true">
+                <img
+                  class="phone-scene__wallpaper"
+                  src="https://www.figma.com/api/mcp/asset/6f708386-4f5e-4f0f-9b4f-8b4cb93e9d28"
+                  alt=""
+                />
+                <div class="phone-scene__veil"></div>
+              </div>
+
+              <div class="status-bar">
+                <div class="status-bar__left">
+                  <span>11:35</span>
+                  <span class="status-bar__icon-dot"></span>
+                  <span class="status-bar__icon-dot"></span>
+                </div>
+                <div class="status-bar__camera"></div>
+                <div class="status-bar__right">
+                  <span class="signal signal--short"></span>
+                  <span class="signal signal--mid"></span>
+                  <span class="battery"></span>
+                </div>
+              </div>
+
+              <div class="chip-runner" id="chipRunner" hidden>
+                <img
+                  class="chip-runner__orb"
+                  src="https://www.figma.com/api/mcp/asset/0bcaefc9-18db-4b13-9043-79a9024e879a"
+                  alt=""
+                />
+                <span class="chip-runner__eye"></span>
+                <span class="chip-runner__label">执行中</span>
+              </div>
+
+              <div class="home-clock">
+                <p class="home-clock__time">11:35</p>
+                <p class="home-clock__meta">Mon, Aug 03 · 76°F</p>
+              </div>
+
+              <div class="search-bar">
+                <span class="search-bar__logo">G</span>
+              </div>
+
+              <div class="app-grid" aria-hidden="true">
+                <div class="app-icon">
+                  <span class="app-icon__glyph app-icon__glyph--gem"></span>
+                  <span class="app-icon__label">Gemini</span>
+                </div>
+                <div class="app-icon">
+                  <span class="app-icon__glyph app-icon__glyph--one"></span>
+                  <span class="app-icon__label">Google One</span>
+                </div>
+                <div class="app-icon">
+                  <span class="app-icon__glyph app-icon__glyph--meet"></span>
+                  <span class="app-icon__label">Meet</span>
+                </div>
+                <div class="app-icon">
+                  <span class="app-icon__glyph app-icon__glyph--play"></span>
+                  <span class="app-icon__label">Play Store</span>
+                </div>
+              </div>
+
+              <div class="dock-row" aria-hidden="true">
+                <div class="dock-icon dock-icon--phone"></div>
+                <div class="dock-icon dock-icon--message"></div>
+                <div class="dock-icon dock-icon--chrome"></div>
+                <div class="dock-icon dock-icon--camera"></div>
+              </div>
+
+              <div class="companion-bottom-effect" id="companionBottomEffect" hidden aria-hidden="true"></div>
+              <div class="glow-shell" id="glowShell" hidden></div>
+
+              <div class="companion-dock" id="companionDock" hidden>
+                <button class="companion-dock__action" type="button" tabindex="-1" aria-hidden="true">
+                  <img
+                    class="companion-dock__icon"
+                    src="https://www.figma.com/api/mcp/asset/87b3742c-a028-407c-aced-9075e47ef347"
+                    alt=""
+                  />
+                </button>
+                <button class="companion-dock__action" type="button" tabindex="-1" aria-hidden="true">
+                  <img
+                    class="companion-dock__icon"
+                    src="https://www.figma.com/api/mcp/asset/89a46f69-00f6-45d0-a961-5c5a5871bcb5"
+                    alt=""
+                  />
+                </button>
+                <button class="companion-dock__action" type="button" tabindex="-1" aria-hidden="true">
+                  <img
+                    class="companion-dock__icon companion-dock__icon--wide"
+                    src="https://www.figma.com/api/mcp/asset/6d7c1234-5e90-4bb0-819e-bd3ad5ebcbb4"
+                    alt=""
+                  />
+                </button>
+              </div>
+
+              <p class="tap-hint" id="tapHint" hidden>点击说话</p>
+
+              <article class="overlay-card overlay-card--service" id="serviceCard" aria-live="polite">
+                <div class="overlay-card__row">
+                  <img
+                    class="voice-logo"
+                    src="https://www.figma.com/api/mcp/asset/0bcaefc9-18db-4b13-9043-79a9024e879a"
+                    alt=""
+                  />
+                  <div class="overlay-card__copy">
+                    <h3>识别到您周六有聚餐</h3>
+                    <p>安静可聊天、预算适中、适合清淡饮食、五道口附近，是否需要帮您找合适的餐厅？</p>
+                  </div>
+                </div>
+                <div class="overlay-card__actions">
+                  <button class="ghost-btn" type="button" id="ignoreStartBtn">忽略（8s）</button>
+                  <button class="solid-btn" type="button" id="startFlowBtn">确定</button>
+                </div>
+              </article>
+
+              <article class="overlay-card overlay-card--selection" id="selectionCard" hidden aria-live="polite">
+                <div class="overlay-card__head">
+                  <h3>已为您找到 3 家符合条件的餐厅</h3>
+                </div>
+                <div class="restaurant-list" id="restaurantList"></div>
+                <div class="overlay-card__actions">
+                  <button class="ghost-btn" type="button" id="ignoreSelectBtn">忽略</button>
+                  <button class="solid-btn" type="button" id="selectConfirmBtn">确认</button>
+                </div>
+              </article>
+
+              <article class="overlay-card overlay-card--info" id="infoCard" hidden aria-live="polite">
+                <div class="overlay-card__head">
+                  <h3>已查到门店信息</h3>
+                </div>
+                <p class="overlay-card__quote" id="infoQuote">
+                  “营业时间 10:00-22:00，已为您查到预约电话 xxx，是否需要为您电话预约？”
+                </p>
+                <div class="overlay-card__actions">
+                  <button class="ghost-btn" type="button" id="ignoreInfoBtn">忽略</button>
+                  <button class="solid-btn" type="button" id="confirmInfoBtn">确定</button>
+                </div>
+              </article>
+
+              <article class="overlay-card overlay-card--toast" id="runningToast" hidden aria-live="polite">
+                <div class="overlay-card__toast-meta">
+                  <img
+                    class="voice-logo voice-logo--small"
+                    src="https://www.figma.com/api/mcp/asset/0bcaefc9-18db-4b13-9043-79a9024e879a"
+                    alt=""
+                  />
+                  <span>天禧AI-正在执行</span>
+                </div>
+                <p id="runningCopy">正在为您完成餐厅预订...</p>
+              </article>
+
+              <button class="blank-surface" id="blankZoneBtn" type="button" hidden aria-label="点击空白处退出伴随态"></button>
+
+              <article class="overlay-card overlay-card--result" id="resultCard" hidden aria-live="polite">
+                <div class="overlay-card__row overlay-card__row--start">
+                  <img
+                    class="voice-logo"
+                    src="https://www.figma.com/api/mcp/asset/0bcaefc9-18db-4b13-9043-79a9024e879a"
+                    alt=""
+                  />
+                  <div class="overlay-card__copy">
+                    <h3>已为您完成餐厅预订</h3>
+                    <p class="overlay-card__result-line" id="resultPrimary">✓预订餐厅：金谷园饺子馆·五道口店，时间：周六 18:30</p>
+                    <p class="overlay-card__result-line">✓添加日程：已添加周日聚餐日程</p>
+                  </div>
+                </div>
+                <div class="overlay-card__actions overlay-card__actions--single">
+                  <button class="ghost-btn ghost-btn--wide" type="button" id="finishBtn">我知道了</button>
+                </div>
+              </article>
+
+              <div class="gesture-bar" aria-hidden="true"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="states-column" aria-labelledby="statesTitle">
+          <div class="section-head section-head--tight">
+            <p class="section-head__eyebrow">All States</p>
+            <h2 class="section-head__title" id="statesTitle">同页状态总览</h2>
+          </div>
+
+          <div class="flow-notes">
+            <div class="flow-notes__item">
+              <span class="flow-notes__label">退出规则</span>
+              <p>执行中点空白区域，只是退出伴随态回到中岛，任务不会被打断。</p>
+            </div>
+            <div class="flow-notes__item">
+              <span class="flow-notes__label">自动流转</span>
+              <p>缩回中岛后继续执行 3 秒，再自动回推完成态结果卡。</p>
+            </div>
+          </div>
+
+          <div class="state-grid" id="stateGrid" aria-label="状态节点列表"></div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
