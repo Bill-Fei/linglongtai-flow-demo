@@ -218,12 +218,6 @@ function startRunningTicker() {
       setRunningTickerStep(1);
     }, 1500),
   );
-
-  state.runningTickerTimers.push(
-    window.setTimeout(() => {
-      setRunningTickerStep(2);
-    }, 3000),
-  );
 }
 
 function resetRunningTicker() {
