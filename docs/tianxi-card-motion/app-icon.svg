@@ -1,0 +1,25 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="112" fill="white"/>
+  <g filter="url(#shadow)">
+    <path d="M379.3 129.2C347.3 88.4 282.8 27.9 159.3 76.3C35.9 124.7 22.1 302.4 72.2 366.5C122.3 430.5 210 464.9 271.1 455.8C332.3 446.8 349.4 424.1 364.3 407.5C379.3 390.9 406.8 357.6 406.8 312C406.8 266.4 414.5 234.3 414.5 219.8C414.5 205.3 411.4 170 379.3 129.2Z" fill="url(#g0)" fill-opacity="0.95"/>
+    <path d="M159.3 76.3C35.9 124.7 22.1 302.4 72.2 366.5C122.3 430.5 210 464.9 271.1 455.8C332.3 446.8 349.4 424.1 364.3 407.5C379.3 390.9 406.8 357.6 406.8 312C406.8 266.4 414.5 234.3 414.5 219.8C414.5 205.3 411.4 170 379.3 129.2C347.3 88.4 282.8 27.9 159.3 76.3Z" stroke="url(#stroke)" stroke-width="2"/>
+  </g>
+  <defs>
+    <filter id="shadow" x="44" y="44" width="424" height="432" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="6" stdDeviation="7" flood-color="#FF7A00" flood-opacity="0.18"/>
+      <feDropShadow dx="-5" dy="-5" stdDeviation="8" flood-color="#6978FF" flood-opacity="0.22"/>
+    </filter>
+    <radialGradient id="g0" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(160 142) rotate(46) scale(310 320)">
+      <stop offset="0" stop-color="#B9BBFF"/>
+      <stop offset="0.34" stop-color="#F7F3FF"/>
+      <stop offset="0.62" stop-color="#DCEBFF"/>
+      <stop offset="0.82" stop-color="#9DAAFF"/>
+      <stop offset="1" stop-color="#FFAA28"/>
+    </radialGradient>
+    <linearGradient id="stroke" x1="62" y1="342" x2="386" y2="146" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF8E37"/>
+      <stop offset="0.5" stop-color="white"/>
+      <stop offset="1" stop-color="#78CCFF"/>
+    </linearGradient>
+  </defs>
+</svg>
