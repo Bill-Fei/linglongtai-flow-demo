@@ -229,6 +229,7 @@ const messageInput = document.getElementById("messageInput");
 const phone = document.querySelector(".phone");
 const addButton = document.querySelector(".composer__icon--add");
 const micButton = document.querySelector(".composer__icon--mic");
+const sendButton = document.querySelector(".composer__icon--send");
 const voiceCapture = document.getElementById("voiceCapture");
 const voiceBars = Array.from(document.querySelectorAll(".voice-wave__bar"));
 const resultView = document.getElementById("resultView");

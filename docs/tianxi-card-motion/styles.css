@@ -1014,6 +1014,25 @@ input:focus-visible {
   height: 21.867px;
 }
 
+.composer__icon--send {
+  display: none;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: url("./assets/icon-input-send-bg.svg") center / 24px 24px no-repeat;
+}
+
+.composer__icon--send span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9.367px;
+  height: 8.898px;
+  background: url("./assets/icon-input-send-arrow.svg") center / 9.367px 8.898px no-repeat;
+  transform: translate(-50%, -50%);
+}
+
 .composer__model svg,
 .composer__icon svg {
   width: 24px;
@@ -1113,10 +1132,14 @@ input:focus-visible {
 }
 
 .phone.is-typing .composer.has-text .composer__icon--mic {
-  right: 51px;
+  right: 89px;
 }
 
 .phone.is-typing .composer.has-text .composer__icon--add {
+  right: 51px;
+}
+
+.phone.is-typing .composer.has-text .composer__icon--send {
   right: 13px;
 }
 
@@ -1162,27 +1185,18 @@ input:focus-visible {
 }
 
 .composer.has-text .composer__icon--add {
-  position: relative;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: url("./assets/icon-input-send-bg.svg") center / 24px 24px no-repeat;
+  display: grid;
 }
 
 .composer.has-text .composer__icon--add img {
-  display: none;
+  content: url("./assets/icon-input-add.svg");
+  width: 21.867px;
+  height: 21.867px;
+  object-fit: fill;
 }
 
-.composer.has-text .composer__icon--add::before {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 9.367px;
-  height: 8.898px;
-  border: 0;
-  background: url("./assets/icon-input-send-arrow.svg") center / 9.367px 8.898px no-repeat;
-  transform: translate(-50%, -50%);
+.composer.has-text .composer__icon--send {
+  display: grid;
 }
 
 .voice-capture {
