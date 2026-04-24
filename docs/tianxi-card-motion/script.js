@@ -252,6 +252,7 @@ let activeVoicePointerId = null;
 let activeTouchId = null;
 let pressStartedOnInput = false;
 let shouldFocusInputOnTap = false;
+let suppressNativeInputFocus = false;
 
 const VOICE_CANCEL_DISTANCE = 150;
 
@@ -285,6 +286,16 @@ function isInputPressTarget(target) {
 function getTrackedTouch(event) {
   if (activeTouchId === null) return null;
   return Array.from(event.changedTouches || []).find((touch) => touch.identifier === activeTouchId) || null;
+}
+
+function beginInputFocusGuard() {
+  suppressNativeInputFocus = true;
+  messageInput.setAttribute("readonly", "readonly");
+}
+
+function endInputFocusGuard() {
+  suppressNativeInputFocus = false;
+  messageInput.removeAttribute("readonly");
 }
 
 function scalePhone() {
@@ -435,6 +446,7 @@ function startRecording() {
   if (isRecording || phone.classList.contains("has-result")) return;
   isRecording = true;
   shouldFocusInputOnTap = false;
+  endInputFocusGuard();
   window.clearTimeout(pressTimer);
   window.clearTimeout(voiceWaveTimer);
   window.clearTimeout(recordingFallbackTimer);
@@ -666,9 +678,24 @@ composer.addEventListener("submit", (event) => {
   if (value) showResultPage(value);
 });
 
-messageInput.addEventListener("focus", enterTypingMode);
+messageInput.addEventListener("focus", () => {
+  if (suppressNativeInputFocus) {
+    messageInput.blur();
+    return;
+  }
+  enterTypingMode();
+});
 messageInput.addEventListener("blur", exitTypingMode);
 messageInput.addEventListener("input", updateComposerTextState);
+messageInput.addEventListener("touchstart", (event) => {
+  if (!isMobilePreview()) return;
+  beginInputFocusGuard();
+  event.preventDefault();
+}, { passive: false });
+messageInput.addEventListener("click", (event) => {
+  if (!isMobilePreview() || !suppressNativeInputFocus) return;
+  event.preventDefault();
+});
 
 composer.addEventListener("pointerdown", (event) => {
   if (phone.classList.contains("has-result")) return;
@@ -678,6 +705,7 @@ composer.addEventListener("pointerdown", (event) => {
   pressStartedOnInput = isInputPressTarget(event.target);
   shouldFocusInputOnTap = pressStartedOnInput && isMobilePreview();
   if (shouldFocusInputOnTap) {
+    beginInputFocusGuard();
     event.preventDefault();
   }
 
@@ -709,8 +737,12 @@ window.addEventListener("pointerup", (event) => {
   finishRecording(event);
   if (shouldFocusInput) {
     window.requestAnimationFrame(() => {
+      endInputFocusGuard();
       messageInput.focus({ preventScroll: true });
     });
+  }
+  if (!shouldFocusInput) {
+    endInputFocusGuard();
   }
   pressStartedOnInput = false;
   shouldFocusInputOnTap = false;
@@ -725,6 +757,7 @@ window.addEventListener("pointercancel", () => {
   window.clearTimeout(pressTimer);
   pressStartedOnInput = false;
   shouldFocusInputOnTap = false;
+  endInputFocusGuard();
   activeVoicePointerId = null;
   releaseComposerPointer();
 });
@@ -746,6 +779,7 @@ window.addEventListener("touchend", (event) => {
   finishRecording(touch);
   pressStartedOnInput = false;
   shouldFocusInputOnTap = false;
+  endInputFocusGuard();
   activeVoicePointerId = null;
   activeTouchId = null;
   releaseComposerPointer();
@@ -763,6 +797,7 @@ window.addEventListener("touchcancel", (event) => {
   window.clearTimeout(pressTimer);
   pressStartedOnInput = false;
   shouldFocusInputOnTap = false;
+  endInputFocusGuard();
   activeVoicePointerId = null;
   activeTouchId = null;
   releaseComposerPointer();

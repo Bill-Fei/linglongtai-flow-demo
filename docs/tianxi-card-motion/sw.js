@@ -1,9 +1,9 @@
-const CACHE_NAME = "tianxi-card-motion-v36";
+const CACHE_NAME = "tianxi-card-motion-v37";
 const APP_ASSETS = [
   "./",
   "./index.html",
-  "./styles.css?v=36",
-  "./script.js?v=36",
+  "./styles.css?v=37",
+  "./script.js?v=37",
   "./manifest.webmanifest",
   "./app-icon.svg",
   "./tianxi-logo.svg",
