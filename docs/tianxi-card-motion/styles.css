@@ -1009,11 +1009,6 @@ input:focus-visible {
   height: 21.199px;
 }
 
-.composer__icon--camera img {
-  width: 21.867px;
-  height: 19.087px;
-}
-
 .composer__icon--add img {
   width: 21.867px;
   height: 21.867px;
@@ -1118,10 +1113,6 @@ input:focus-visible {
 }
 
 .phone.is-typing .composer.has-text .composer__icon--mic {
-  right: 89px;
-}
-
-.phone.is-typing .composer.has-text .composer__icon--camera {
   right: 51px;
 }
 
@@ -1167,17 +1158,6 @@ input:focus-visible {
   content: url("./assets/icon-input-voice.svg");
   width: 17.132px;
   height: 21.199px;
-  object-fit: fill;
-}
-
-.composer.has-text .composer__icon--camera {
-  display: grid;
-}
-
-.composer.has-text .composer__icon--camera img {
-  content: url("./assets/icon-input-add.svg");
-  width: 21.867px;
-  height: 21.867px;
   object-fit: fill;
 }
 
