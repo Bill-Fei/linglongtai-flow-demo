@@ -250,6 +250,8 @@ let recordingFallbackTimer = 0;
 let capturedPointerId = null;
 let activeVoicePointerId = null;
 let activeTouchId = null;
+let pressStartedOnInput = false;
+let shouldFocusInputOnTap = false;
 
 const VOICE_CANCEL_DISTANCE = 150;
 
@@ -276,6 +278,10 @@ function isVoiceStartTarget(target) {
   return target === messageInput || target === composer || Boolean(target.closest(".composer__icon--mic"));
 }
 
+function isInputPressTarget(target) {
+  return target === messageInput;
+}
+
 function getTrackedTouch(event) {
   if (activeTouchId === null) return null;
   return Array.from(event.changedTouches || []).find((touch) => touch.identifier === activeTouchId) || null;
@@ -294,6 +300,10 @@ function scalePhone() {
 
 function isDesktopPreview() {
   return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+}
+
+function isMobilePreview() {
+  return window.matchMedia("(max-width: 720px), (pointer: coarse)").matches;
 }
 
 function setKeyboardOffset() {
@@ -424,6 +434,7 @@ function animateVoiceWave() {
 function startRecording() {
   if (isRecording || phone.classList.contains("has-result")) return;
   isRecording = true;
+  shouldFocusInputOnTap = false;
   window.clearTimeout(pressTimer);
   window.clearTimeout(voiceWaveTimer);
   window.clearTimeout(recordingFallbackTimer);
@@ -664,6 +675,11 @@ composer.addEventListener("pointerdown", (event) => {
   if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) return;
   const canStartVoice = isVoiceStartTarget(event.target);
   if (!canStartVoice) return;
+  pressStartedOnInput = isInputPressTarget(event.target);
+  shouldFocusInputOnTap = pressStartedOnInput && isMobilePreview();
+  if (shouldFocusInputOnTap) {
+    event.preventDefault();
+  }
 
   pressStartY = event.clientY;
   pressStartX = event.clientX;
@@ -675,6 +691,11 @@ composer.addEventListener("pointerdown", (event) => {
 
 window.addEventListener("pointermove", (event) => {
   if (activeVoicePointerId !== event.pointerId) return;
+  const movedX = Math.abs(event.clientX - pressStartX);
+  const movedY = Math.abs(event.clientY - pressStartY);
+  if (!isRecording && (movedX > 10 || movedY > 10)) {
+    shouldFocusInputOnTap = false;
+  }
   const movedUp = pressStartY - event.clientY;
   if (!isRecording && movedUp > VOICE_CANCEL_DISTANCE) {
     window.clearTimeout(pressTimer);
@@ -684,7 +705,15 @@ window.addEventListener("pointermove", (event) => {
 window.addEventListener("pointerup", (event) => {
   if (activeVoicePointerId !== null && activeVoicePointerId !== event.pointerId) return;
   window.clearTimeout(pressTimer);
+  const shouldFocusInput = !isRecording && pressStartedOnInput && shouldFocusInputOnTap && !phone.classList.contains("has-result");
   finishRecording(event);
+  if (shouldFocusInput) {
+    window.requestAnimationFrame(() => {
+      messageInput.focus({ preventScroll: true });
+    });
+  }
+  pressStartedOnInput = false;
+  shouldFocusInputOnTap = false;
   activeVoicePointerId = null;
   activeTouchId = null;
   releaseComposerPointer();
@@ -694,6 +723,8 @@ window.addEventListener("pointercancel", () => {
   if (activeTouchId !== null) return;
   if (isRecording) return;
   window.clearTimeout(pressTimer);
+  pressStartedOnInput = false;
+  shouldFocusInputOnTap = false;
   activeVoicePointerId = null;
   releaseComposerPointer();
 });
@@ -713,6 +744,8 @@ window.addEventListener("touchend", (event) => {
   if (!touch) return;
   window.clearTimeout(pressTimer);
   finishRecording(touch);
+  pressStartedOnInput = false;
+  shouldFocusInputOnTap = false;
   activeVoicePointerId = null;
   activeTouchId = null;
   releaseComposerPointer();
@@ -728,6 +761,8 @@ window.addEventListener("touchcancel", (event) => {
     return;
   }
   window.clearTimeout(pressTimer);
+  pressStartedOnInput = false;
+  shouldFocusInputOnTap = false;
   activeVoicePointerId = null;
   activeTouchId = null;
   releaseComposerPointer();
