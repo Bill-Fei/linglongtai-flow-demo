@@ -275,6 +275,17 @@ input:focus-visible {
   z-index: 1;
   height: 392px;
   margin-top: 58px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  -webkit-overflow-scrolling: touch;
+}
+
+.card-stage::-webkit-scrollbar {
+  display: none;
 }
 
 .phone.is-typing .greeting {
@@ -318,8 +329,9 @@ input:focus-visible {
 }
 
 .card-layer {
-  position: absolute;
-  inset: 0;
+  position: relative;
+  width: 1036px;
+  height: 100%;
 }
 
 .gen-card {
@@ -329,17 +341,17 @@ input:focus-visible {
   --scale: 1;
   --delay: 0ms;
   position: absolute;
-  left: 50%;
+  left: 180px;
   top: 0;
   z-index: var(--z, 1);
   width: var(--w, 130px);
-  min-height: var(--h, 126px);
+  height: var(--h, 126px);
   border: 0.5px solid var(--line);
   border-radius: var(--radius, 16px);
-  padding: var(--pad, 14px);
+  padding: var(--pad, 18px);
   color: #1b2227;
   background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 12px 28px rgba(17, 0, 147, 0.11);
+  box-shadow: 0 0 10px rgba(17, 0, 147, 0.06);
   transform: translate(calc(-50% + var(--x)), var(--y)) rotate(var(--rot)) scale(var(--scale));
   transform-origin: 50% 55%;
   opacity: 1;
@@ -348,13 +360,17 @@ input:focus-visible {
   animation-delay: var(--delay);
 }
 
+.gen-card[aria-hidden="true"] {
+  pointer-events: none;
+}
+
 .gen-card.is-leaving {
   animation: cardOut 220ms ease-in forwards;
   animation-delay: 0ms;
 }
 
 .gen-card::before {
-  content: "";
+  content: none;
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -364,9 +380,9 @@ input:focus-visible {
 
 .gen-card__quote {
   display: block;
-  width: 12px;
-  height: 12px;
-  margin-bottom: 10px;
+  width: 14px;
+  height: 14px;
+  margin-bottom: 18px;
   color: rgba(65, 72, 77, 0.35);
 }
 
@@ -389,20 +405,21 @@ input:focus-visible {
 
 .query-card .gen-card__text {
   -webkit-line-clamp: 4;
-  font-size: 10px;
-  line-height: 17.5px;
+  font-size: 14px;
+  line-height: 24px;
+  color: #41484d;
 }
 
 .weather-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 14px;
+  padding: 18px;
 }
 
 .weather-card__date {
   margin: 0;
-  font-size: 10.4px;
+  font-size: 12px;
   color: #41484d;
 }
 
@@ -415,7 +432,7 @@ input:focus-visible {
 
 .weather-card__temp {
   margin: 0;
-  font-size: 29px;
+  font-size: 32px;
   font-weight: 700;
   line-height: 1.12;
 }
@@ -423,7 +440,7 @@ input:focus-visible {
 .weather-card__desc {
   margin: 4px 0 0;
   width: 62px;
-  font-size: 10.4px;
+  font-size: 12px;
   line-height: 1.2;
 }
 
@@ -480,30 +497,33 @@ input:focus-visible {
 .weather-card__meta {
   display: flex;
   justify-content: space-between;
-  gap: 8px;
+  gap: 12px;
   margin: 0;
   color: var(--text-soft);
-  font-size: 10.2px;
+  font-size: 12px;
   white-space: nowrap;
 }
 
 .article-card {
-  padding: 10px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .article-card__title {
   -webkit-line-clamp: 2;
-  margin-bottom: 7px;
-  font-size: 11px;
+  margin-bottom: 12px;
+  font-size: 16px;
   font-weight: 700;
-  line-height: 14.5px;
+  line-height: 24px;
 }
 
 .article-card__media {
   position: relative;
-  height: 106px;
+  height: 192px;
   overflow: hidden;
-  border-radius: 5px;
+  border-radius: 10px;
   background:
     linear-gradient(135deg, rgba(108, 255, 190, 0.32), transparent 32%),
     linear-gradient(315deg, rgba(97, 137, 255, 0.4), transparent 36%),
@@ -606,9 +626,152 @@ input:focus-visible {
 }
 
 .article-card__source {
-  margin: 7px 0 0;
+  margin: 10px 0 0;
   color: var(--text-soft);
-  font-size: 6.4px;
+  font-size: 12px;
+}
+
+.podcast-card {
+  overflow: hidden;
+}
+
+.podcast-card__main {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) 36px;
+  align-items: center;
+  gap: 12px;
+}
+
+.podcast-card__cover {
+  width: 62px;
+  height: 62px;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.podcast-card__cover img {
+  width: 62px;
+  height: 62px;
+  display: block;
+}
+
+.podcast-card__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.podcast-card__play {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #f9f9fa;
+}
+
+.podcast-card__play span {
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 12px solid #1b2227;
+  transform: translateX(2px);
+}
+
+.podcast-card__summary {
+  position: relative;
+  z-index: 1;
+  margin: 18px 0 0;
+  width: 100%;
+  overflow: hidden;
+  color: rgba(65, 72, 77, 0.5);
+  font-size: 12px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.podcast-card__wave {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: -7px;
+  height: 36px;
+  display: flex;
+  align-items: end;
+  gap: 4px;
+  opacity: 0.34;
+}
+
+.podcast-card__wave span {
+  flex: 1;
+  min-width: 2px;
+  height: calc(5px + (var(--i) % 7) * 3px);
+  border-radius: 999px 999px 0 0;
+  background: rgba(226, 229, 235, 0.74);
+}
+
+.query-list-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.query-list-card__item {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-radius: 10px;
+  padding: 0 14px;
+  background: #f9f9fa;
+}
+
+.query-list-card__item span {
+  overflow: hidden;
+  color: #1b2227;
+  font-size: 16px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.query-list-card__item svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  fill: none;
+  stroke: rgba(27, 34, 39, 0.4);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.card-scroll-hint {
+  position: absolute;
+  left: 50%;
+  top: 570px;
+  z-index: 5;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0;
+  transform: translateX(-50%);
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    transform 180ms var(--ease-out);
 }
 
 .mini-card {
@@ -755,55 +918,6 @@ input:focus-visible {
   color: #53606a;
   background: rgba(244, 247, 250, 0.95);
   font-size: 7.5px;
-}
-
-.shuffle-button {
-  position: absolute;
-  left: 50%;
-  top: 592px;
-  z-index: 5;
-  min-width: 92px;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border-radius: 999px;
-  color: rgba(0, 0, 0, 0.7);
-  transform: translateX(-50%);
-  transition:
-    transform 180ms var(--ease-out),
-    color 180ms ease,
-    background 180ms ease;
-}
-
-.shuffle-button:hover {
-  color: #18181b;
-  background: rgba(255, 255, 255, 0.7);
-}
-
-.shuffle-button:active {
-  transform: translateX(-50%) scale(0.96);
-}
-
-.shuffle-button svg {
-  width: 16px;
-  height: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform 320ms var(--ease-out);
-}
-
-.shuffle-button.is-spinning svg {
-  transform: rotate(180deg);
-}
-
-.shuffle-button span {
-  font-size: 12px;
-  line-height: 1;
 }
 
 .quick-actions {
@@ -1169,12 +1283,9 @@ input:focus-visible {
   bottom: calc(150px + var(--keyboard-offset, 0px));
 }
 
-.phone.is-typing .shuffle-button {
-  top: 518px;
-  z-index: 3;
+.phone.is-typing .card-scroll-hint {
   opacity: 0;
-  pointer-events: none;
-  transform: translateX(-50%);
+  transform: translate(-50%, 10px);
 }
 
 .composer.has-text .composer__icon--mic img {
@@ -1327,8 +1438,8 @@ input:focus-visible {
   transition: transform 260ms var(--ease-out);
 }
 
-.phone.is-recording .shuffle-button {
-  top: 583px;
+.phone.is-recording .card-scroll-hint {
+  opacity: 0;
 }
 
 .phone.is-recording .home-indicator {
@@ -1526,7 +1637,7 @@ input:focus-visible {
 .phone.has-result .top-nav,
 .phone.has-result .greeting,
 .phone.has-result .card-stage,
-.phone.has-result .shuffle-button {
+.phone.has-result .card-scroll-hint {
   opacity: 0;
   pointer-events: none;
 }
@@ -1639,7 +1750,7 @@ input:focus-visible {
   }
 
   .phone {
-    width: min(100vw, 430px);
+    width: min(100vw, var(--phone-width));
     height: 100dvh;
     border-radius: 0;
     box-shadow: none;

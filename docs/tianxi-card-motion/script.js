@@ -2,25 +2,25 @@ const VISUAL_VARIANTS = ["aurora", "interface", "city", "document", "sound", "im
 
 const LAYOUTS = [
   [
-    { x: -105, y: 22, rot: -11.8, scale: 1, w: 146, h: 142, z: 1 },
-    { x: 103, y: 26, rot: 21.3, scale: 1, w: 146, h: 142, z: 1 },
-    { x: 0, y: 6, rot: 0, scale: 1, w: 142, h: 138, z: 3 },
-    { x: -72, y: 144, rot: -15.8, scale: 1, w: 176, h: 162, z: 2 },
-    { x: 78, y: 146, rot: 7.8, scale: 1, w: 176, h: 168, z: 2 },
+    { x: -85, y: 0, rot: 0, scale: 1, w: 158, h: 154, z: 1 },
+    { x: 85, y: 0, rot: 0, scale: 1, w: 158, h: 154, z: 1 },
+    { x: 0, y: 166, rot: 0, scale: 1, w: 328, h: 154, z: 1 },
+    { x: 338, y: 0, rot: 0, scale: 1, w: 328, h: 320, z: 1 },
+    { x: 676, y: 0, rot: 0, scale: 1, w: 328, h: 154, z: 1 },
   ],
   [
-    { x: -108, y: 32, rot: -18, scale: 1, w: 148, h: 146, z: 1 },
-    { x: 108, y: 34, rot: 15, scale: 1, w: 148, h: 146, z: 1 },
-    { x: -2, y: 6, rot: -2, scale: 1.02, w: 146, h: 140, z: 4 },
-    { x: -76, y: 150, rot: 8, scale: 1, w: 174, h: 166, z: 2 },
-    { x: 76, y: 148, rot: -9, scale: 1, w: 174, h: 162, z: 2 },
+    { x: -85, y: 0, rot: 0, scale: 1, w: 158, h: 154, z: 1 },
+    { x: 85, y: 0, rot: 0, scale: 1, w: 158, h: 154, z: 1 },
+    { x: 0, y: 166, rot: 0, scale: 1, w: 328, h: 154, z: 1 },
+    { x: 338, y: 0, rot: 0, scale: 1, w: 328, h: 320, z: 1 },
+    { x: 676, y: 0, rot: 0, scale: 1, w: 328, h: 154, z: 1 },
   ],
   [
-    { x: -108, y: 28, rot: -6, scale: 1, w: 146, h: 144, z: 1 },
-    { x: 108, y: 30, rot: 18, scale: 1, w: 146, h: 144, z: 1 },
-    { x: -3, y: 7, rot: 2, scale: 1.02, w: 144, h: 140, z: 4 },
-    { x: -78, y: 150, rot: -13, scale: 1, w: 176, h: 164, z: 2 },
-    { x: 78, y: 148, rot: 11, scale: 1, w: 176, h: 166, z: 2 },
+    { x: -85, y: 0, rot: 0, scale: 1, w: 158, h: 154, z: 1 },
+    { x: 85, y: 0, rot: 0, scale: 1, w: 158, h: 154, z: 1 },
+    { x: 0, y: 166, rot: 0, scale: 1, w: 328, h: 154, z: 1 },
+    { x: 338, y: 0, rot: 0, scale: 1, w: 328, h: 320, z: 1 },
+    { x: 676, y: 0, rot: 0, scale: 1, w: 328, h: 154, z: 1 },
   ],
 ];
 
@@ -31,10 +31,6 @@ const CARD_BATCHES = [
       text: ".tdb文件属于什么类型？需要使用哪些软件才能正常打开？",
     },
     {
-      type: "query",
-      text: "当AI开始预测你的需求时，它到底懂你多少，如何让 Gemini 做出有高级质感的 UI？",
-    },
-    {
       type: "weather",
       date: "2016-01-21",
       temp: "29°",
@@ -43,11 +39,9 @@ const CARD_BATCHES = [
       range: "36°～13°",
     },
     {
-      type: "article",
-      title: "使用AI插件提升排版效率？",
-      source: "来自于：UI中国",
-      visual: "interface",
-      visualText: "LAYOUT",
+      type: "podcast",
+      title: "设计职场商务英语汇报技巧二三事",
+      summary: "“用简洁专业的表达传递关键价值、逻辑清晰贴合职场",
     },
     {
       type: "article",
@@ -56,15 +50,15 @@ const CARD_BATCHES = [
       visual: "aurora",
       visualText: "AUI",
     },
+    {
+      type: "query-list",
+      items: ["使用AI插件提升排版效率？", "联想电脑怎么选"],
+    },
   ],
   [
     {
       type: "query",
       text: "帮我把今晚会议纪要整理成三条行动项，并标注负责人。",
-    },
-    {
-      type: "query",
-      text: "我想做一个手机端 AI 首页，卡片动效怎样更有“生成感”？",
     },
     {
       type: "weather",
@@ -75,6 +69,11 @@ const CARD_BATCHES = [
       range: "26°～14°",
     },
     {
+      type: "podcast",
+      title: "从灵感到界面：让 AI 推荐卡片更自然浮现",
+      summary: "“把信息整理成可行动的提示，让每一次打开都有下一步",
+    },
+    {
       type: "article",
       title: "从灵感到界面：让 AI 推荐卡片更像自然浮现",
       source: "来自于：天禧精选",
@@ -82,23 +81,14 @@ const CARD_BATCHES = [
       visualText: "IDEA",
     },
     {
-      type: "schedule",
-      time: "15:30",
-      title: "15:30 产品动效评审",
-      meta: "会议室 A · 30 分钟",
-      status: "待确认",
+      type: "query-list",
+      items: ["AI 首页动效怎样更有生成感？", "15:30 产品动效评审"],
     },
   ],
   [
     {
       type: "query",
       text: "把这段英文产品说明翻译成更自然的中文，不要太营销。",
-    },
-    {
-      type: "mini",
-      label: "知识库",
-      title: "最近收藏了 6 篇 AUI 交互资料",
-      tags: ["空间交互", "端侧AI"],
     },
     {
       type: "weather",
@@ -109,6 +99,11 @@ const CARD_BATCHES = [
       range: "21°～12°",
     },
     {
+      type: "podcast",
+      title: "如何让卡片不只是列表，而是一次可感知的生成",
+      summary: "“用清晰的层级和节奏，让推荐内容像被整理好一样出现",
+    },
+    {
       type: "article",
       title: "如何让卡片不只是列表，而是一次可感知的内容生成",
       source: "来自于：设计笔记",
@@ -116,19 +111,11 @@ const CARD_BATCHES = [
       visualText: "CARD",
     },
     {
-      type: "translate",
-      label: "AI翻译",
-      from: "Make it feel alive, not busy.",
-      to: "让它有生命感，而不是显得繁杂。",
+      type: "query-list",
+      items: ["最近收藏了 6 篇 AUI 资料", "翻译：Make it feel alive"],
     },
   ],
   [
-    {
-      type: "mini",
-      label: "AI操控",
-      title: "可以直接帮你打开最近的项目文件",
-      tags: ["快捷指令", "本机"],
-    },
     {
       type: "query",
       text: "这张截图里有哪些信息可以自动提取成待办？",
@@ -142,6 +129,11 @@ const CARD_BATCHES = [
       range: "28°～17°",
     },
     {
+      type: "podcast",
+      title: "端侧智能的下一步：让推荐在上下文里自然发生",
+      summary: "“从用户正在做的事里推断下一步，少打扰但更有用",
+    },
+    {
       type: "article",
       title: "端侧智能的下一步：让推荐在上下文里自然发生",
       source: "来自于：科技前沿",
@@ -149,22 +141,14 @@ const CARD_BATCHES = [
       visualText: "EDGE AI",
     },
     {
-      type: "file",
-      name: "v4.0需求设计进度.pdf",
-      summary: "已识别 4 个风险点，建议优先确认首页推荐机制。",
-      chips: ["PDF", "设计进度", "风险"],
+      type: "query-list",
+      items: ["打开最近编辑的项目文件", "v4.0 需求设计进度.pdf"],
     },
   ],
   [
     {
       type: "query",
       text: "把这张长图里的关键信息整理成发布会讲稿提纲。",
-    },
-    {
-      type: "translate",
-      label: "同声传译",
-      from: "We can switch scenarios instantly.",
-      to: "我们可以即时切换不同使用场景。",
     },
     {
       type: "weather",
@@ -175,6 +159,11 @@ const CARD_BATCHES = [
       range: "24°～15°",
     },
     {
+      type: "podcast",
+      title: "多模态首页：从输入框到主动建议的微交互演进",
+      summary: "“语音、图像和文本都能成为首页推荐的自然入口",
+    },
+    {
       type: "article",
       title: "多模态首页：从输入框到主动建议的微交互演进",
       source: "来自于：交互观察",
@@ -182,29 +171,27 @@ const CARD_BATCHES = [
       visualText: "VOICE",
     },
     {
-      type: "file",
-      name: "0423 设计团队周会",
-      summary: "已生成纪要：3 个结论、6 个待办、2 个需要同步的问题。",
-      chips: ["会议", "纪要", "待办"],
+      type: "query-list",
+      items: ["同声传译：即时切换场景", "0423 设计团队周会纪要"],
     },
   ],
   [
-    {
-      type: "mini",
-      label: "AI操控",
-      title: "已准备好打开最近编辑的 3 个页面",
-      tags: ["Figma", "本机文件", "浏览器"],
-    },
     {
       type: "query",
       text: "根据我的浏览记录，推荐几个适合做产品灵感库的内容。",
     },
     {
-      type: "schedule",
-      time: "明天",
-      title: "整理天禧首页动效录屏",
-      meta: "建议时长 20 秒 · 竖屏",
-      status: "可自动生成脚本",
+      type: "weather",
+      date: "2026-04-24",
+      temp: "24°",
+      desc: "晴间多云",
+      city: "中关村",
+      range: "27°～16°",
+    },
+    {
+      type: "podcast",
+      title: "让 AI 首页更像一个会呼吸的工作台",
+      summary: "“把入口、内容和任务组织成一组稳定的每日建议",
     },
     {
       type: "article",
@@ -214,16 +201,14 @@ const CARD_BATCHES = [
       visualText: "WORK",
     },
     {
-      type: "translate",
-      label: "AI写作",
-      from: "一句话介绍这个功能",
-      to: "天禧会把你的上下文变成下一步可直接行动的建议。",
+      type: "query-list",
+      items: ["整理天禧首页动效录屏", "AI写作：一句话介绍功能"],
     },
   ],
 ];
 
 const cardLayer = document.getElementById("cardLayer");
-const shuffleButton = document.getElementById("shuffleButton");
+const cardStage = document.querySelector(".card-stage");
 const composer = document.getElementById("composer");
 const messageInput = document.getElementById("messageInput");
 const phone = document.querySelector(".phone");
@@ -237,10 +222,17 @@ const resultBack = document.getElementById("resultBack");
 const resultQuestion = document.getElementById("resultQuestion");
 const resultAnswer = document.getElementById("resultAnswer");
 const voiceBaseHeights = [2.6, 5.7, 4.1, 7.4, 5.7, 10.2, 7.4, 4.1, 8.8, 11.6, 6.6, 3.4, 3.4, 6.6, 11.6, 8.8, 4.1, 7.4, 10.2, 5.7, 7.4, 4.1, 5.7, 2.6];
+const CARD_GROUP_VISIBLE_COUNT = 4;
+const CARD_GROUP_OFFSET = 676;
+const CARD_TRACK_TAIL_WIDTH = 682;
+const CARD_PREVIEW_SCROLL = 148;
+const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let hasUsedCardStage = false;
+let cardPreviewTimers = [];
+let cardPreviewFrame = 0;
 
 let batchIndex = 0;
 let layoutIndex = 0;
-let isAnimating = false;
 let pressTimer = 0;
 let isRecording = false;
 let pressStartY = 0;
@@ -501,9 +493,9 @@ function quoteIcon() {
   `;
 }
 
-function cardStyle(layout, index) {
+function cardStyle(layout, index, pageOffset = 0) {
   return [
-    `--x:${layout.x}px`,
+    `--x:${layout.x + pageOffset}px`,
     `--y:${layout.y}px`,
     `--rot:${layout.rot}deg`,
     `--scale:${layout.scale}`,
@@ -514,10 +506,10 @@ function cardStyle(layout, index) {
   ].join(";");
 }
 
-function createCard(card, layout, index) {
+function createCard(card, layout, index, pageOffset = 0) {
   const element = document.createElement("article");
   element.className = `gen-card ${card.type}-card`;
-  element.style.cssText = cardStyle(layout, index);
+  element.style.cssText = cardStyle(layout, index, pageOffset);
 
   if (card.type === "query") {
     element.innerHTML = `${quoteIcon()}<p class="gen-card__text">${card.text}</p>`;
@@ -539,6 +531,39 @@ function createCard(card, layout, index) {
       </div>
       <p class="weather-card__meta"><span>${card.city}</span><span>${card.range}</span></p>
     `;
+    return element;
+  }
+
+  if (card.type === "podcast") {
+    element.innerHTML = `
+      <div class="podcast-card__main">
+        <div class="podcast-card__cover" aria-hidden="true">
+          <img src="./assets/icon-ai-podcast.svg" alt="" />
+        </div>
+        <p class="podcast-card__title">${card.title}</p>
+        <button class="podcast-card__play" type="button" aria-label="播放播客" tabindex="-1">
+          <span></span>
+        </button>
+      </div>
+      <p class="podcast-card__summary">${card.summary}</p>
+      <div class="podcast-card__wave" aria-hidden="true">
+        ${Array.from({ length: 36 }, (_, itemIndex) => `<span style="--i:${itemIndex}"></span>`).join("")}
+      </div>
+    `;
+    return element;
+  }
+
+  if (card.type === "query-list") {
+    element.innerHTML = card.items
+      .map((item) => `
+        <div class="query-list-card__item">
+          <span>${item}</span>
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M6 3.5L10.5 8L6 12.5" />
+          </svg>
+        </div>
+      `)
+      .join("");
     return element;
   }
 
@@ -598,36 +623,75 @@ function createCard(card, layout, index) {
 }
 
 function renderBatch(nextBatchIndex = batchIndex) {
-  const batch = CARD_BATCHES[nextBatchIndex];
-  const layout = LAYOUTS[layoutIndex % LAYOUTS.length];
   const fragment = document.createDocumentFragment();
+  cardLayer.style.width = `${CARD_GROUP_OFFSET * (CARD_BATCHES.length - 1) + CARD_TRACK_TAIL_WIDTH}px`;
 
-  batch.forEach((card, index) => {
-    fragment.append(createCard(card, layout[index], index));
+  CARD_BATCHES.forEach((batch, groupIndex) => {
+    const layout = LAYOUTS[(layoutIndex + groupIndex) % LAYOUTS.length];
+    const groupOffset = groupIndex * CARD_GROUP_OFFSET;
+
+    batch.slice(0, CARD_GROUP_VISIBLE_COUNT).forEach((card, index) => {
+      fragment.append(createCard(card, layout[index], index + groupIndex * layout.length, groupOffset));
+    });
   });
 
   cardLayer.replaceChildren(fragment);
+  cardStage.scrollLeft = 0;
   batchIndex = nextBatchIndex;
 }
 
-function shuffleCards() {
-  if (isAnimating) return;
-  isAnimating = true;
-  shuffleButton.classList.add("is-spinning");
+function clearCardPreviewTimers() {
+  cardPreviewTimers.forEach((timer) => window.clearTimeout(timer));
+  cardPreviewTimers = [];
+  window.clearTimeout(cardPreviewFrame);
+  cardPreviewFrame = 0;
+  cardStage.style.scrollBehavior = "";
+}
 
-  const currentCards = Array.from(cardLayer.children);
-  currentCards.forEach((card, index) => {
-    card.style.animationDelay = `${index * 24}ms`;
-    card.classList.add("is-leaving");
-  });
+function markCardStageUsed() {
+  hasUsedCardStage = true;
+  clearCardPreviewTimers();
+}
 
-  window.setTimeout(() => {
-    batchIndex = (batchIndex + 1) % CARD_BATCHES.length;
-    layoutIndex += 1;
-    renderBatch(batchIndex);
-    isAnimating = false;
-    window.setTimeout(() => shuffleButton.classList.remove("is-spinning"), 180);
-  }, 260);
+function previewCardScroll() {
+  if (REDUCED_MOTION || hasUsedCardStage || phone.classList.contains("is-typing")) return;
+  if (!cardStage || cardStage.scrollWidth <= cardStage.clientWidth) return;
+
+  const easeInOut = (progress) => 0.5 - Math.cos(Math.PI * progress) / 2;
+  const easeOutSoft = (progress) => 1 - Math.pow(1 - progress, 3);
+  const animate = (from, to, duration, easing, done) => {
+    const startedAt = performance.now();
+    cardStage.style.scrollBehavior = "auto";
+
+    const tick = () => {
+      if (hasUsedCardStage) return;
+      const now = performance.now();
+      const progress = Math.min((now - startedAt) / duration, 1);
+      cardStage.scrollLeft = from + (to - from) * easing(progress);
+
+      if (progress < 1) {
+        cardPreviewFrame = window.setTimeout(tick, 16);
+        return;
+      }
+
+      cardPreviewFrame = 0;
+      cardStage.scrollLeft = to;
+      cardStage.style.scrollBehavior = "";
+      done?.();
+    };
+
+    tick();
+  };
+
+  cardPreviewTimers.push(window.setTimeout(() => {
+    if (hasUsedCardStage) return;
+    animate(cardStage.scrollLeft, CARD_PREVIEW_SCROLL, 920, easeInOut, () => {
+      cardPreviewTimers.push(window.setTimeout(() => {
+        if (hasUsedCardStage) return;
+        animate(cardStage.scrollLeft, 0, 1040, easeOutSoft);
+      }, 360));
+    });
+  }, 720));
 }
 
 function flashGeneratedPrompt(text) {
@@ -667,10 +731,9 @@ function flashGeneratedPrompt(text) {
   ]);
 
   batchIndex = -1;
-  shuffleCards();
+  renderBatch(0);
+  previewCardScroll();
 }
-
-shuffleButton.addEventListener("click", shuffleCards);
 
 composer.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -830,6 +893,10 @@ document.querySelectorAll(".quick-pill").forEach((button) => {
   });
 });
 
+cardStage.addEventListener("pointerdown", markCardStageUsed, { passive: true });
+cardStage.addEventListener("wheel", markCardStageUsed, { passive: true });
+cardStage.addEventListener("touchstart", markCardStageUsed, { passive: true });
+
 window.addEventListener("resize", scalePhone);
 window.visualViewport?.addEventListener("resize", setKeyboardOffset);
 window.visualViewport?.addEventListener("scroll", setKeyboardOffset);
@@ -837,6 +904,7 @@ scalePhone();
 updateComposerTextState();
 setVoiceWaveIdle();
 renderBatch(0);
+previewCardScroll();
 
 if ("serviceWorker" in navigator && window.isSecureContext) {
   window.addEventListener("load", () => {
