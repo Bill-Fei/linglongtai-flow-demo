@@ -13,6 +13,8 @@ const modalClose = document.querySelector("#modalClose");
 const modalImage = document.querySelector("#modalImage");
 const modalCaption = document.querySelector("#modalCaption");
 const modalSource = document.querySelector("#modalSource");
+const modalFrame = document.querySelector("#modalFrame");
+const modalNote = document.querySelector("#modalNote");
 const summaryPanel = document.querySelector("#summaryPanel");
 const summaryTitle = document.querySelector("#summaryTitle");
 const summaryPoints = document.querySelector("#summaryPoints");
@@ -21,10 +23,13 @@ const outputDock = document.querySelector("#outputDock");
 const outputList = document.querySelector("#outputList");
 const clearOutput = document.querySelector("#clearOutput");
 const taskResult = document.querySelector("#taskResult");
+const bottomBackButton = document.querySelector("#bottomBackButton");
 
 let currentDetailId = null;
 let latestItems = [];
 let outputTasks = [];
+let lastListScrollY = 0;
+let lastOpenedCardId = null;
 
 const topicMeta = {
   all: {
@@ -183,10 +188,26 @@ function formatUpdatedAt(value) {
 
 function openImagePreview(image) {
   if (!imageModal || !modalImage || !modalCaption || !modalSource || !image) return;
+  const sourceUrl = image.href || image.src;
+  const canPreview = Boolean(image.href && image.href !== "#");
   modalImage.src = image.src;
   modalImage.alt = image.alt || "设计参考图";
   modalCaption.textContent = image.alt || "设计参考图";
-  modalSource.href = image.href || image.src;
+  modalSource.href = sourceUrl;
+  modalSource.hidden = !canPreview;
+  if (modalNote) {
+    modalNote.textContent = canPreview
+      ? "这里优先在平台内嵌原始来源页面。少数来源站点会限制内嵌，如果右侧无法显示，再打开原始链接。"
+      : "这张图来自已保存的缩略图流，当前没有可确认的原始详情页，所以只保留为视觉参考。";
+  }
+  if (modalFrame) {
+    modalFrame.hidden = !canPreview;
+    if (canPreview) {
+      modalFrame.src = sourceUrl;
+    } else {
+      modalFrame.removeAttribute("src");
+    }
+  }
   imageModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
 }
@@ -195,6 +216,9 @@ function closeImagePreview() {
   if (!imageModal || !modalImage) return;
   imageModal.setAttribute("aria-hidden", "true");
   modalImage.removeAttribute("src");
+  if (modalFrame) {
+    modalFrame.removeAttribute("src");
+  }
   document.body.classList.remove("modal-open");
 }
 
@@ -389,13 +413,23 @@ function showList(topic = "all") {
   detailView.classList.remove("is-active");
   listView.classList.add("is-active");
   setTopic(topic);
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: lastListScrollY, behavior: "auto" });
+  requestAnimationFrame(() => {
+    const anchorCard = lastOpenedCardId ? document.querySelector(`[data-id="${CSS.escape(lastOpenedCardId)}"]`) : null;
+    if (anchorCard && !anchorCard.classList.contains("is-hidden")) {
+      anchorCard.scrollIntoView({ block: "center", behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: lastListScrollY, behavior: "smooth" });
+    }
+  });
 }
 
 function openDetail(id) {
   const data = detailData[id];
   if (!data) return;
   currentDetailId = id;
+  lastOpenedCardId = id;
+  lastListScrollY = window.scrollY;
   taskResult.hidden = true;
   taskResult.innerHTML = "";
 
@@ -415,13 +449,16 @@ function openDetail(id) {
           <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy" referrerpolicy="no-referrer" />
           <span>${escapeHtml(image.alt)}</span>
           </button>
-          <a href="${escapeHtml(image.href || image.src)}" target="_blank" rel="noreferrer">来源</a>
+          <button class="source-link" type="button" data-source-index="${index}">${image.href ? "站内预览" : "查看参考"}</button>
         </div>
       `)
     .join("");
   gallery.classList.toggle("is-empty", !(data.images || []).length);
   gallery.querySelectorAll("[data-image-index]").forEach((button) => {
     button.addEventListener("click", () => openImagePreview(data.images[Number(button.dataset.imageIndex)]));
+  });
+  gallery.querySelectorAll("[data-source-index]").forEach((button) => {
+    button.addEventListener("click", () => openImagePreview(data.images[Number(button.dataset.sourceIndex)]));
   });
 
   listView.classList.remove("is-active");
@@ -436,6 +473,11 @@ cards.forEach((card) => {
 });
 
 document.querySelector("#backButton").addEventListener("click", () => {
+  const activeTopic = document.querySelector(".topic.is-active")?.dataset.topic || "all";
+  showList(activeTopic);
+});
+
+bottomBackButton?.addEventListener("click", () => {
   const activeTopic = document.querySelector(".topic.is-active")?.dataset.topic || "all";
   showList(activeTopic);
 });
