@@ -8,12 +8,23 @@ const pageTitle = document.querySelector("#pageTitle");
 const pageKicker = document.querySelector("#pageKicker");
 const pageNote = document.querySelector("#pageNote");
 const syncStatus = document.querySelector("#syncStatus");
-const todayMeta = document.querySelector("#todayMeta");
 const imageModal = document.querySelector("#imageModal");
 const modalClose = document.querySelector("#modalClose");
 const modalImage = document.querySelector("#modalImage");
 const modalCaption = document.querySelector("#modalCaption");
 const modalSource = document.querySelector("#modalSource");
+const summaryPanel = document.querySelector("#summaryPanel");
+const summaryTitle = document.querySelector("#summaryTitle");
+const summaryPoints = document.querySelector("#summaryPoints");
+const clearSummary = document.querySelector("#clearSummary");
+const outputDock = document.querySelector("#outputDock");
+const outputList = document.querySelector("#outputList");
+const clearOutput = document.querySelector("#clearOutput");
+const taskResult = document.querySelector("#taskResult");
+
+let currentDetailId = null;
+let latestItems = [];
+let outputTasks = [];
 
 const topicMeta = {
   all: {
@@ -233,9 +244,8 @@ function renderFeed(items) {
 
 function applyContentData(data) {
   if (!data || !Array.isArray(data.items)) return;
+  latestItems = data.items;
   if (data.todayFocus) {
-    document.querySelector(".today-focus h2").textContent = data.todayFocus.title || "从真实信号里提炼 AI Native 观点";
-    todayMeta.textContent = data.todayFocus.meta || `${data.items.length} 条待审阅`;
     topicMeta.all.note = data.todayFocus.summary || topicMeta.all.note;
   }
 
@@ -258,6 +268,96 @@ function applyContentData(data) {
   renderFeed(data.items);
   setTopic(document.querySelector(".topic.is-active")?.dataset.topic || "all");
   setSyncStatus(formatUpdatedAt(data.updatedAt), "ready");
+}
+
+function getReadableTopic(topic) {
+  return topicMeta[topic]?.title || "今日信息";
+}
+
+function buildSummary() {
+  const items = latestItems.length
+    ? latestItems
+    : Object.entries(detailData).map(([id, item]) => ({ id, topic: "brief", title: item.title, detail: item }));
+  const briefCount = items.filter((item) => item.topic === "brief").length;
+  const designCount = items.filter((item) => item.topic === "design").length;
+  const workCount = items.filter((item) => item.topic === "work").length;
+  const focus = items.find((item) => item.topic === "brief") || items[0];
+  const design = items.find((item) => item.topic === "design");
+
+  return {
+    title: "今天的主线：从信息浏览转成可执行产出",
+    points: [
+      `今天共读取 ${items.length} 条信息，其中 AI 产品晨报 ${briefCount} 条，设计风格源 ${designCount} 条，未来工作模块 ${workCount} 条。`,
+      focus ? `最值得沉淀的观点：${focus.title}。它适合转成一篇 Agent UI / AI Presence 方向的短文或作品集案例卡。` : "今天还没有足够的信息形成主观点。",
+      design ? `设计侧可以直接推进：从「${design.title}」里提炼视觉规则，不再只保存灵感图。` : "设计源今天没有可用条目，需要等下一次采集。",
+      "下一步建议：先选 1 条晨报做观点文章，再选 1 条设计源补视觉规则，最后把二者合成 Bill AI Presence 的作品集证据。",
+    ],
+  };
+}
+
+function showSummary() {
+  const summary = buildSummary();
+  summaryTitle.textContent = summary.title;
+  summaryPoints.innerHTML = summary.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("");
+  summaryPanel.hidden = false;
+  summaryPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function buildTask(data, id) {
+  const title = data.output?.replace(/^创作任务：/, "") || data.title;
+  const purpose = data.reason || data.impact || data.why;
+  return {
+    id,
+    type: data.type,
+    title,
+    purpose,
+    next: data.next || "下一步：把这条信息整理成一页可复用的作品集素材。",
+  };
+}
+
+function renderOutputDock() {
+  outputDock.hidden = outputTasks.length === 0;
+  outputList.innerHTML = outputTasks
+    .map(
+      (task, index) => `
+        <article class="output-item">
+          <span>${String(index + 1).padStart(2, "0")}</span>
+          <div>
+            <p>${escapeHtml(task.type)}</p>
+            <h3>${escapeHtml(task.title)}</h3>
+            <small>${escapeHtml(task.next)}</small>
+          </div>
+        </article>
+      `,
+    )
+    .join("");
+}
+
+function showTaskResult(task) {
+  taskResult.hidden = false;
+  taskResult.innerHTML = `
+    <p>已加入产出队列</p>
+    <h2>${escapeHtml(task.title)}</h2>
+    <ul>
+      <li><strong>用途</strong>${escapeHtml(task.purpose)}</li>
+      <li><strong>下一步</strong>${escapeHtml(task.next)}</li>
+    </ul>
+  `;
+}
+
+function addCurrentDetailToOutput() {
+  const data = detailData[currentDetailId];
+  if (!data) return;
+  const task = buildTask(data, currentDetailId);
+  const existingIndex = outputTasks.findIndex((item) => item.id === task.id);
+  if (existingIndex >= 0) {
+    outputTasks[existingIndex] = task;
+  } else {
+    outputTasks.unshift(task);
+  }
+  renderOutputDock();
+  showTaskResult(task);
+  showToast("已加入产出队列，返回列表后可以继续查看。");
 }
 
 async function loadDailyContent({ silent = false } = {}) {
@@ -295,6 +395,9 @@ function showList(topic = "all") {
 function openDetail(id) {
   const data = detailData[id];
   if (!data) return;
+  currentDetailId = id;
+  taskResult.hidden = true;
+  taskResult.innerHTML = "";
 
   document.querySelector("#detailType").textContent = data.type;
   document.querySelector("#detailTitle").textContent = data.title;
@@ -338,15 +441,20 @@ document.querySelector("#backButton").addEventListener("click", () => {
 });
 
 document.querySelector("#addToOutput").addEventListener("click", () => {
-  showToast("已生成创作任务：下一版会在首页显示任务标题、用途、结构和草稿入口。");
+  addCurrentDetailToOutput();
 });
 
 document.querySelector("#makeSummary").addEventListener("click", () => {
-  showToast("今日总结建议：先写 Codex 工程代理观察，再整理 AI 工作台的创作任务流。");
+  showSummary();
 });
 
-document.querySelector("#connectSources").addEventListener("click", () => {
-  showToast("AI 晨报 09:00，设计源 09:15。页面会读取 data/daily-content.json；打开或刷新即可看到最新数据。");
+clearSummary?.addEventListener("click", () => {
+  summaryPanel.hidden = true;
+});
+
+clearOutput?.addEventListener("click", () => {
+  outputTasks = [];
+  renderOutputDock();
 });
 
 modalClose?.addEventListener("click", closeImagePreview);
