@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-02 设计风格源巡检已更新",
+  "updatedAt": "2026-07-02 Chrome 登录态设计源已更新",
   "todayFocus": {
     "title": "从 Agent 执行转向 AI 工作组织设计",
     "summary": "今天重点看 Codex、Qwen-AgentWorld、NotebookLM 与 Anthropic 治理信号：AI 产品正在从生成结果走向持续执行、环境理解、多模态表达和权限透明。",
@@ -124,87 +124,128 @@
       "id": "pinterest",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "Pinterest / 当前不可访问",
+      "badge": "Pinterest / 登录态可见",
       "title": "Pinterest：风格板方向保留，今日登录态需浏览器确认",
-      "summary": "当前运行环境无法直接读取 Pinterest 页面，保留已保存的 HMI、Apple design、Website-data、可视化数据、UI dynamic、2.5D 图源作为风格板参考。",
+      "summary": "已从 Chrome 登录态首页读取 17 条可见 pin，覆盖 AI interface、空间层级、移动 dashboard、Figma 光效和信息产品视觉。",
       "bullets": [
-        "设计信号：Bill 的平台视觉应从图板关键词收敛为 4 套规则，而不是继续堆图。",
-        "图片来源：昨日页面可见 Pinterest 缩略图与图板/首页推荐链接。",
-        "产出方向：视觉规则、组件模式、平台交互改进。"
+        "设计信号：Pinterest 现在不只是入口，已经进入真实图源采集；每天应从图片里提炼可复用视觉规则。",
+        "图片来源：Chrome 登录态首页可见 pin，当前保留 17 张缩略图与对应 pin 链接。",
+        "产出方向：AI Workspace、Agent UI、Spatial Glass、Calm Productivity 四组 moodboard。",
+        "使用方式：点击图片在平台内预览 pin 原始链接，不再只放大封面。",
+        "今日重点：AI interface、空间光感、移动 dashboard、Figma 光效、信息产品视觉密度。",
+        "风险：Pinterest 图源混杂，需要每天过滤与平台无关的纯壁纸/纯装饰图。"
       ],
       "detail": {
-        "why": "Pinterest 今天不能实时访问，不做绕过登录。已保存的可见图源仍然有价值：HMI、Apple design、Website-data、可视化数据、UI dynamic、2.5D 正好对应 Bill 平台需要的空间感、轻容器、可视化密度和动态存在感。",
+        "why": "已从 Chrome 登录态的 Pinterest 首页读取到真实可见 pin。它的价值不在于复制图片，而是把 AI interface、空间层级、移动 dashboard、Figma 光效等视觉信号转成 Bill 平台的设计规则。",
         "points": [
-          "HMI 图板可转成 AI Presence 的“环境层”：状态、空间、仪表、接管。",
-          "Apple design 与 Spatial 方向可转成半透明层次、柔和光感和跨端连续规则。",
-          "Website-data 与可视化数据可转成工作台的信息密度规则：少卡片、强层级、清楚的来源路径。",
-          "UI dynamic 与 2.5D 可转成 Agent 状态变化：待命、思考、执行、等待确认、完成。"
+          "AI interfaces pushed beyond ordinary light/dark mode：适合转成平台的空间层级和 AI 存在感规则。",
+          "Health & Nutrition Dashboard Mobile App UI：可参考移动端 dashboard 如何控制密度与层级。",
+          "Figma 光效教程：可提炼柔和发光边缘，谨慎用于 AI 状态和来源预览，不做廉价渐变。",
+          "HMI 与状态信息图：可转成 Agent 状态面板：待命、执行、等待确认、完成。",
+          "深色界面与光感结构：适合作为关键操作区，而不是整页套暗色风。",
+          "轻拟态信息容器：可用于来源预览、任务结果和总结面板。",
+          "Apple 风格空间布局：转成大圆角、浅层阴影、低饱和背景和清晰留白。",
+          "UI 元素与圆角节奏：当前页面圆角已提升，但按钮、弹窗、图片容器还要保持同一语气。",
+          "信息看板参考：优先做层级，不堆装饰图形。",
+          "未来感界面结构：只抽象为空间关系，不直接复制视觉皮肤。",
+          "移动端壁纸光感与材质：可辅助建立品牌情绪，但不能进入核心工作流。",
+          "数据产品视觉语言：用于 AI 产品晨报里的引用、证据和判断结构。",
+          "界面色块与层级：可用在 topic 选中态和来源类别，不扩大成彩虹色系统。",
+          "空间视觉与产品构图：适合后续作品集封面和项目讲述页。",
+          "清晰度与语境表达：提醒当前平台不要只展示图，要把图翻译成规则。",
+          "落地动作：每张图补一条“可复用规则”，并能加入产出队列。",
+          "下一步：把 Pinterest 的图片流变成“每日视觉规则卡”，而不是瀑布流相册。"
         ],
-        "impact": "Pinterest 负责视觉气质层。今天的重点是把图板关键词转成设计规则，避免平台变成普通灵感瀑布流。",
-        "reason": "Bill 的审美目标是 AI Presence + Apple Spatial + 伴随式交互。Pinterest 的图源应服务这种系统语言，而不是只保存漂亮图片。",
-        "output": "视觉规则：建立 4 个 moodboard 规则集：AI Workspace、Agent UI、Spatial Glass、Calm Productivity，每组定义布局、光感、组件密度、动效节奏和 AI 状态表达。",
-        "next": "下次在可见浏览器登录态下优先打开 Apple design、UI dynamic、Website-data、HMI 四个图板，每个图板只采 3-6 张可解释缩略图。"
+        "impact": "Pinterest 负责视觉气质层和跨端情绪层。它的作用不是堆图，而是把 HMI、Apple Spatial、UI dynamic、2.5D 等图源翻译成 Bill AI Presence 的界面规则：空间层级、状态表达、轻容器、动效节奏和陪伴感。",
+        "reason": "Bill 的目标不是做设计灵感站，而是建立 AI Native 体验设计系统。Pinterest 图源只有在被转成规则、组件和作品集证据时才有价值。",
+        "output": "视觉规则产出：从 17 张 pin 中筛选 5 张，分别提炼布局、材质、状态表达、动效节奏、适用组件，并反向应用到当前平台。",
+        "next": "下一步：把 Pinterest 模块升级为每日视觉规则卡，每张图都能写出“可复用规则”和“可应用到的平台模块”。"
       },
       "images": [
         {
-          "src": "https://i.pinimg.com/474x/4c/cb/94/4ccb94ac82f3243a0a8397f3cc4077ba.jpg",
-          "alt": "Pinterest 视觉参考",
-          "href": "https://www.pinterest.com/pin/69876231729080377/"
+          "src": "https://i.pinimg.com/474x/c3/43/0e/c3430e5edfc183b878ccc1fd174e9b5b.jpg",
+          "alt": "Pinterest 登录态可见参考：空间界面与柔和层级",
+          "href": "https://www.pinterest.com/pin/695735842480691463/"
         },
         {
-          "src": "https://i.pinimg.com/474x/b3/2e/21/b32e2162cde0ea04a9168eec7ebab40e.jpg",
-          "alt": "Figma 渐变背景与 UI 层级参考",
-          "href": "https://www.pinterest.com/pin/605241637466061342/"
+          "src": "https://i.pinimg.com/474x/65/10/01/651001b8152fa346f42cd4ebdb9cf8a4.jpg",
+          "alt": "Pinterest 登录态可见参考：深色界面与光感结构",
+          "href": "https://www.pinterest.com/pin/636626097370048750/"
         },
         {
-          "src": "https://i.pinimg.com/474x/20/72/e6/2072e62d24349fbec9615c5c972358af.jpg",
-          "alt": "Revamp Your Online Presence 视觉参考",
-          "href": "https://www.pinterest.com/pin/1028861477377791629/"
+          "src": "https://i.pinimg.com/474x/01/b0/bb/01b0bbba93f99f49a270afed8adc434f.jpg",
+          "alt": "Pinterest 登录态可见参考：轻拟态信息容器",
+          "href": "https://www.pinterest.com/pin/80994493295041536/"
         },
         {
-          "src": "https://i.pinimg.com/videos/thumbnails/originals/6f/b4/09/6fb40950cceff951822df0364c6bccd7.0000000.jpg",
-          "alt": "Typeflow 动态字体工具视觉参考",
-          "href": "https://www.pinterest.com/pin/211174979200237/"
+          "src": "https://i.pinimg.com/474x/c8/de/81/c8de8171ad14262b448468e079bc5037.jpg",
+          "alt": "Pinterest 登录态可见参考：Apple 风格空间布局",
+          "href": "https://www.pinterest.com/pin/569846159122451357/"
         },
         {
-          "src": "https://i.pinimg.com/videos/thumbnails/originals/12/8b/d5/128bd55768032450160e4642842fa3a3.0000000.jpg",
-          "alt": "Typeflow 动态字体场景参考",
-          "href": "https://www.pinterest.com/pin/211174979200237/"
+          "src": "https://i.pinimg.com/474x/38/76/f0/3876f0534844ef2f33b5697b99a9cf6c.jpg",
+          "alt": "Pinterest 登录态可见参考：HMI 与状态信息表达",
+          "href": "https://www.pinterest.com/pin/1131248000181500525/"
         },
         {
-          "src": "https://i.pinimg.com/474x/e3/8b/4e/e38b4ec56637b2688fc20b789741e12e.jpg",
-          "alt": "Pinterest moodboard 视觉参考",
-          "href": "https://www.pinterest.com/pin/872361390340731731/"
+          "src": "https://i.pinimg.com/474x/f8/81/96/f8819622e43e2308533f3308beb3166e.jpg",
+          "alt": "Pinterest 登录态可见参考：移动端壁纸光感与材质",
+          "href": "https://www.pinterest.com/pin/896708975823500183/"
         },
         {
-          "src": "https://i.pinimg.com/474x/2b/98/4c/2b984cc9e7fccfb68622de14c75b24b6.jpg",
-          "alt": "Pinterest UI 视觉参考",
-          "href": "https://www.pinterest.com/pin/587227238955500645/"
+          "src": "https://i.pinimg.com/474x/df/45/72/df457202351fb60621e1eb4682199eec.jpg",
+          "alt": "Pinterest 登录态可见参考：UI 元素与圆角节奏",
+          "href": "https://www.pinterest.com/pin/242912973646450654/"
         },
         {
-          "src": "https://i.pinimg.com/474x/ce/c6/3c/cec63c399757a341d74d1593ee81dd51.jpg",
-          "alt": "Pinterest 空间与材质参考",
-          "href": "https://www.pinterest.com/pin/893190538751594400/"
+          "src": "https://i.pinimg.com/474x/8c/09/a7/8c09a7f7b115e59c94d21471317bd75a.jpg",
+          "alt": "AI interfaces pushed beyond ordinary light and dark mode",
+          "href": "https://www.pinterest.com/pin/1152428992169871667/"
         },
         {
-          "src": "https://i.pinimg.com/474x/31/b2/18/31b2185d8e607ec01e33e78481c84ce8.jpg",
-          "alt": "Pinterest 界面氛围参考",
-          "href": "https://www.pinterest.com/pin/1118229782499793354/"
+          "src": "https://i.pinimg.com/474x/0f/a4/9a/0fa49a25a871292dffdb98d6f5ece776.jpg",
+          "alt": "Pinterest 登录态可见参考：AI 产品界面氛围",
+          "href": "https://www.pinterest.com/pin/859835753919401936/"
         },
         {
-          "src": "https://i.pinimg.com/474x/0d/32/5b/0d325b6c0d23971a02e3346126d79f1e.jpg",
-          "alt": "暗蓝渐变纹理背景参考",
-          "href": "https://www.pinterest.com/pin/904027325216608691/"
+          "src": "https://i.pinimg.com/474x/9f/b2/01/9fb201fa9d860c55b1b9c2096cbf8814.jpg",
+          "alt": "Pinterest 登录态可见参考：信息看板与视觉密度",
+          "href": "https://www.pinterest.com/pin/519110294569871257/"
         },
         {
-          "src": "https://i.pinimg.com/474x/e5/1f/98/e51f98eda13b7ab416f22573917b39c5.jpg",
-          "alt": "品牌视觉设计参考",
-          "href": "https://www.pinterest.com/pin/459578336997854264/"
+          "src": "https://i.pinimg.com/474x/ee/a0/0d/eea00d90a6a1b46b8fe2ac8ea7b4f612.jpg",
+          "alt": "Pinterest 登录态可见参考：未来感界面结构",
+          "href": "https://www.pinterest.com/pin/722616702757497215/"
         },
         {
-          "src": "https://i.pinimg.com/474x/db/37/c0/db37c076821afcdd1965d5631ecaa617.jpg",
-          "alt": "MindBloom AI Meditation 视觉参考",
-          "href": "https://www.pinterest.com/pin/773422936056971942/"
+          "src": "https://i.pinimg.com/474x/34/c9/9b/34c99bf5c277ec7fab6ec691b267ea33.jpg",
+          "alt": "Pinterest 登录态可见参考：数据产品视觉语言",
+          "href": "https://www.pinterest.com/pin/412360909653820781/"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/40/39/22/403922a439776cc60bbc7378ba0e091a.jpg",
+          "alt": "Figma 光效教程与柔和发光层级",
+          "href": "https://www.pinterest.com/pin/939352434793703227/"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/46/4d/fe/464dfe9ee1b2c30a63790024a874ca1d.jpg",
+          "alt": "Pinterest 登录态可见参考：界面色块与层级",
+          "href": "https://www.pinterest.com/pin/587227238955500624/"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/5e/14/d5/5e14d5b45fd79885aa781768b4f69401.jpg",
+          "alt": "Pinterest 登录态可见参考：空间视觉与产品构图",
+          "href": "https://www.pinterest.com/pin/751890100328894456/"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/68/ff/db/68ffdb1987c826d921c0a592e9b25d75.jpg",
+          "alt": "Health & Nutrition Dashboard Mobile App UI",
+          "href": "https://www.pinterest.com/pin/1109855901953449133/"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/33/21/0e/33210ea63016759d4a4fd4b767a6ad02.jpg",
+          "alt": "Pinterest 登录态可见参考：清晰度与语境表达",
+          "href": "https://www.pinterest.com/pin/1126674031815416605/"
         }
       ]
     },
@@ -212,77 +253,122 @@
       "id": "dribbble",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "Dribbble / 组件信号",
+      "badge": "Dribbble / 登录态可见",
       "title": "Dribbble：AI 工作台组件和微交互参考",
-      "summary": "当前本地实时访问受限，沿用已保存的 AI dashboard、AI research workspace、B2B SaaS、移动应用和企业 UI 缩略图，重点转成可落地组件模式。",
+      "summary": "已从 Dribbble popular 登录态页面读取 16 条真实 shot，覆盖企业 UI、AI OS、AI 营养、CRM、社媒管理、医疗监测和 Web3 工作台。",
       "bullets": [
-        "设计信号：AI dashboard 不应只是数据面板，而要表达 Agent 正在如何理解、执行和等待人接管。",
-        "图片来源：Dribbble 页面可见作品缩略图，覆盖 AI 营销分析、AI 研究工作空间、企业 UI、移动应用。",
-        "产出方向：组件模式、平台交互改进、作品集结构。"
+        "设计信号：Dribbble 现在有真实 shot 链接，可直接进入站内来源预览。",
+        "图片来源：Chrome 登录态 Dribbble popular 页面可见卡片，当前保留 16 张缩略图与对应 shot 链接。",
+        "产出方向：AI 工作台组件、状态反馈、来源预览、任务生成、跨端继续。",
+        "今日重点：Enterprise UI、AI OS、AI Nutrition、CRM、Social Dashboard、Patient Monitoring。",
+        "使用方式：点击图片在平台内预览 shot 原始链接，站点限制时再打开原始链接。",
+        "风险：Dribbble 视觉噪音高，只保留能转成工作流组件的参考。"
       ],
       "detail": {
-        "why": "Dribbble 今天最适合被当作组件雷达：从 AI dashboard、AI research workspace、B2B SaaS 和移动应用缩略图里提炼具体模块，而不是复刻视觉样式。",
+        "why": "已从 Dribbble popular 登录态页面读取到真实可见 shot。它适合做组件雷达：从企业 UI、AI OS、AI 营养、CRM、社媒管理、医疗监测等作品里提炼 AI 工作台可用的结构，而不是复刻视觉皮肤。",
         "points": [
-          "AI research workspace 的聊天 + 画布结构，可转成 Bill 平台的“左侧来源、中心判断、右侧产出”布局。",
-          "AI 营销分析仪表盘可转成多 Agent 工作台的状态摘要、指标解释和下一步建议。",
-          "企业 UI/UX 作品适合观察复杂信息如何保持清爽层级，避免普通后台感。",
-          "移动应用探索可补跨端连续：Phone 端只保留状态、提醒、继续任务，不搬完整工作台。"
+          "Quantexa 企业级 UI/UX：适合参考复杂企业系统如何控制层级与信息密度。",
+          "Epoch Protocol Web3 基础设施：可观察深色系统如何表达平台级结构，但不能直接套暗黑风。",
+          "Marketplace 移动购物应用：可提炼移动端卡片节奏和跨端继续任务。",
+          "Veggy AI 营养与食谱网站：适合观察 AI 消费产品如何把智能建议包装成可信内容。",
+          "Axiom AI 应用 UI Kit：可转成 Bill 平台的组件规范输入。",
+          "患者监护移动 iOS：可借鉴高风险信息的状态、提醒和人工确认。",
+          "Kaspa DeFi 与 AI Agent：可观察 Agent/加密产品如何处理复杂状态和解释。",
+          "高端灯具电商：只取产品展示层次，不引入无关商业视觉。",
+          "AI OS：与 Bill 的系统级 AI 入口方向直接相关，可拆成状态栏、时钟、代码、仪表盘等系统组件。",
+          "Amanah CRM 捐赠者列表：适合学习 CRM 列表如何保持清晰、可筛选、可追踪。",
+          "Drift 社媒管理仪表盘：可转成内容生产工作台的日程、任务、分析三层结构。",
+          "Soma 血糖监测桌面应用：适合参考健康数据的趋势解释和风险提示。",
+          "Burger Island 与 Instinct 标志：不进主界面，可作为作品集品牌识别辅助。",
+          "Nemuta 品牌视觉：适合作为项目包装和封面风格参考。",
+          "Blockchain Finance Landing Page：只抽取模块节奏和信任感，不做营销页。",
+          "落地到当前页面：来源预览弹窗、底部返回、产出队列都应按组件系统继续精修。"
         ],
-        "impact": "Dribbble 负责具体组件层：AI 输入框、Agent 状态、来源卡、引用证据、生成任务、授权确认、完成反馈、错误恢复和跨端继续。",
-        "reason": "Bill 的平台要从设计雷达走向作品集证据，必须把风格参考转成可展示的组件系统和交互逻辑。",
-        "output": "组件模式：整理 8 个 AI Presence 工作台组件：来源卡、AI 判断条、Agent 状态胶囊、证据抽屉、任务生成器、人工确认点、跨端继续卡、完成归档。",
-        "next": "下一轮搜索优先级：Agent UI、AI dashboard、productivity workflow、task manager、assistant UI、micro interaction。"
+        "impact": "Dribbble 负责具体组件层和微交互层。它应该帮助 Bill 把 AI 工作台做成可操作系统：来源卡、状态反馈、任务生成、证据预览、人工确认、跨端继续，而不是只追求单张界面好看。",
+        "reason": "Bill 的平台要从设计雷达走向作品集证据，必须把 Dribbble 的风格参考转成组件系统、交互逻辑和可解释的 AI 行为。",
+        "output": "组件模式产出：基于 16 条 Dribbble shot，整理 12 个 AI Presence 工作台组件：来源卡、状态条、证据预览、任务生成、人工确认、完成归档、跨端继续、风险提示、列表筛选、状态密度、品牌封面、系统入口。",
+        "next": "下一步：按 Agent UI / AI dashboard / productivity workflow 三组关键词继续采集，给每个 shot 标注“可转成哪个组件”。"
       },
       "images": [
         {
-          "src": "https://cdn.dribbble.com/userupload/46593501/file/still-c92e7f64f22f44c5a3f3eb09f3a24baa.png?resize=840x&vertical=center",
+          "src": "https://cdn.dribbble.com/userupload/46593501/file/still-c92e7f64f22f44c5a3f3eb09f3a24baa.png?format=webp&resize=1200x900&vertical=center",
           "alt": "Quantexa 企业级 UI/UX 设计",
-          "href": "https://dribbble.com/"
+          "href": "https://dribbble.com/shots/27044530-Enterprise-UI-UX-Design-for-Quantexa"
         },
         {
-          "src": "https://cdn.dribbble.com/userupload/48229478/file/f470f50995f540d465130c07337c8b14.png?resize=738x554&vertical=center",
-          "alt": "加密货币移动应用探索",
-          "href": "https://dribbble.com/"
+          "src": "https://cdn.dribbble.com/userupload/48211487/file/b0b4cfb9d94e525ea29f43415f75ed0d.png?crop=0x2-2400x1802&format=webp&resize=1200x900&vertical=center",
+          "alt": "Epoch Protocol Web3 基础设施平台",
+          "href": "https://dribbble.com/shots/27511694-Epoch-Protocol-Web3-Infrastructure-Platform"
         },
         {
-          "src": "https://cdn.dribbble.com/userupload/48220452/file/3b8fcaf967d7646735681f503d72c42d.png?resize=738x554&vertical=center",
-          "alt": "AI 营销分析 B2B 增长 SaaS 仪表盘",
-          "href": "https://dribbble.com/"
+          "src": "https://cdn.dribbble.com/userupload/48113505/file/ca21f2dec1dd12cecf5eef4905291799.png?format=webp&resize=800x600&vertical=center",
+          "alt": "Marketplace 移动购物应用",
+          "href": "https://dribbble.com/shots/27485397-Marketplace-Mobile-Shopping-App"
         },
         {
-          "src": "https://cdn.dribbble.com/userupload/48213961/file/c9e23a1e0651a379e06c6e12b15c5edb.jpg?resize=738x554&vertical=center",
-          "alt": "AI 研究工作空间：聊天与智能体画布",
-          "href": "https://dribbble.com/"
+          "src": "https://cdn.dribbble.com/userupload/48234052/file/still-d3eb2477fba4ce56a102a97d3f76ee4d.png?format=webp&resize=800x600&vertical=center",
+          "alt": "Veggy AI 营养与食谱网站",
+          "href": "https://dribbble.com/shots/27517635-Veggy-AI-Nutrition-Recipe-Website"
         },
         {
-          "src": "https://cdn.dribbble.com/userupload/48210269/file/still-c7cbe99eddba49b665422630d881c059.png?resize=738x554&vertical=center",
-          "alt": "AI 驱动医疗科技网站设计",
-          "href": "https://dribbble.com/"
+          "src": "https://cdn.dribbble.com/userupload/48234613/file/fc0f1c0f01b89e7b8d8a33a21cfd2123.png?format=webp&resize=800x600&vertical=center",
+          "alt": "Axiom AI 应用 UI Kit",
+          "href": "https://dribbble.com/shots/27517797-Axiom-ui-kit"
         },
         {
-          "src": "https://cdn.dribbble.com/userupload/48235016/file/eb11ca2515f6470ac68d17f5529b5042.png?resize=738x554&vertical=center",
-          "alt": "BestOdds 文章设计",
-          "href": "https://dribbble.com/"
+          "src": "https://cdn.dribbble.com/userupload/48236029/file/still-4ad984a6e3674a00a9a32e4a59b704e7.png?format=webp&resize=800x600&vertical=center",
+          "alt": "患者监护移动 iOS 应用设计",
+          "href": "https://dribbble.com/shots/27518240-Patient-Monitoring-Mobile-iOS-App-Design"
         },
         {
-          "src": "https://cdn.dribbble.com/userupload/48215790/file/7fe099f0bf27de1036dd93c8e0bfd948.png?resize=738x554&vertical=center",
-          "alt": "日历组件设计",
-          "href": "https://dribbble.com/"
+          "src": "https://cdn.dribbble.com/userupload/48230528/file/still-16b60d4aa584c58a235ad560040632fc.png?format=webp&resize=800x600&vertical=center",
+          "alt": "Kaspa DeFi 生态系统与 AI Agent 信号",
+          "href": "https://dribbble.com/shots/27516817-Kaspa-com-DeFi-Ecosystem"
         },
         {
-          "src": "https://cdn.dribbble.com/userupload/48224542/file/still-56829d70d929e485163c27b6aae90100.gif?resize=738x554&vertical=center",
-          "alt": "NotBear 动效视觉",
-          "href": "https://dribbble.com/"
+          "src": "https://cdn.dribbble.com/userupload/48237255/file/b515288b9d0c57dc36a065a932ba20e3.png?format=webp&resize=800x600&vertical=center",
+          "alt": "高端灯具电商网站 UI 设计",
+          "href": "https://dribbble.com/shots/27518582-Premium-Lamp-Ecommerce-Website-UI-Design"
         },
         {
-          "src": "https://cdn.dribbble.com/userupload/48236018/file/81ad803eb69c20487572e31148d76b06.png?resize=840x&vertical=center",
-          "alt": "杜宾犬吉祥物标志",
-          "href": "https://dribbble.com/"
+          "src": "https://cdn.dribbble.com/userupload/48230732/file/bcc5657d72267abe02a30bb118d66721.png?crop=0x0-1600x1200&format=webp&resize=800x600&vertical=center",
+          "alt": "AI OS 系统界面概念",
+          "href": "https://dribbble.com/shots/27516863-AI-OS"
         },
         {
-          "src": "https://cdn.dribbble.com/userupload/48231440/file/f1dbd725ebcf92a4f1dce9f548e5b36b.png?resize=738x554&vertical=center",
-          "alt": "汉堡岛外卖平台标志",
-          "href": "https://dribbble.com/"
+          "src": "https://cdn.dribbble.com/userupload/48234626/file/f021783bece79393f9cffb7f487dd2de.png?format=webp&resize=800x600&vertical=center",
+          "alt": "Amanah CRM 捐赠者列表",
+          "href": "https://dribbble.com/shots/27517801-Amanah-CRM-Donors-Listing"
+        },
+        {
+          "src": "https://cdn.dribbble.com/userupload/48232668/file/18f7c027f430dc7c85a5183cd1ddf0bc.png?format=webp&resize=800x600&vertical=center",
+          "alt": "Drift 社交媒体管理仪表盘",
+          "href": "https://dribbble.com/shots/27517258-Drift-Social-Media-Management-Dashboard"
+        },
+        {
+          "src": "https://cdn.dribbble.com/userupload/48188744/file/bbd826fcb7dd3f5e3eee17d734139990.jpg?crop=0x0-3200x2400&format=webp&resize=800x600&vertical=center",
+          "alt": "Soma 血糖监测桌面应用",
+          "href": "https://dribbble.com/shots/27506011-Soma-Glucose-Monitoring-Desktop-App"
+        },
+        {
+          "src": "https://cdn.dribbble.com/userupload/48231440/file/4f05dae3c706ee31e1767340552fa0e2.png?crop=0x0-1600x1200&format=webp&resize=800x600&vertical=center",
+          "alt": "Burger Island 外卖平台品牌标志",
+          "href": "https://dribbble.com/shots/27517039-Burger-Island-nautical-flags-for-burger-delivery-platform-logo"
+        },
+        {
+          "src": "https://cdn.dribbble.com/userupload/48233936/file/6f9d1faf2846f08cf979ec5f6bcb4c92.png?format=webp&resize=800x600&vertical=center",
+          "alt": "Instinct 六边形与 AI 星形标志概念",
+          "href": "https://dribbble.com/shots/27517595-Instinct-logo-Hexagon-and-Ai-star-concept"
+        },
+        {
+          "src": "https://cdn.dribbble.com/userupload/48233015/file/41938e11721536cf135fb0aa432150b1.jpg?format=webp&resize=800x600&vertical=center",
+          "alt": "Nemuta 高端眼镜品牌视觉",
+          "href": "https://dribbble.com/shots/27517336-Nemuta-Premium-Eyewear-Branding"
+        },
+        {
+          "src": "https://cdn.dribbble.com/userupload/48234388/file/29cd26cadff7fd3afb0d85f3b1d35a02.jpg?format=webp&resize=800x600&vertical=center",
+          "alt": "Blockchain Finance Landing Page Design",
+          "href": "https://dribbble.com/shots/27517729-Blockchain-Finance-Landing-Page-Design"
         }
       ]
     },
