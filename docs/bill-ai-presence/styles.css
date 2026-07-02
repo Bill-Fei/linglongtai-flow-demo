@@ -23,6 +23,13 @@
   --shadow: 0 24px 70px rgba(34, 34, 30, 0.08);
   --shadow-soft: 0 12px 34px rgba(34, 34, 30, 0.055);
   --font: "SF Pro Text", "SF Pro Display", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 15px;
+  --text-body: 16px;
+  --title-card: 21px;
+  --title-section: 24px;
+  --title-page: 40px;
 }
 
 * {
@@ -154,8 +161,8 @@ h3 {
 
 .today-focus h2 {
   margin-bottom: 12px;
-  font-size: 24px;
-  line-height: 1.2;
+  font-size: var(--title-card);
+  line-height: 1.28;
 }
 
 .topic-list {
@@ -282,8 +289,15 @@ h3 {
 
 .page-head h1,
 .detail-head h1 {
-  font-size: clamp(30px, 4.2vw, 54px);
-  line-height: 1.08;
+  font-size: var(--title-page);
+  line-height: 1.12;
+  font-weight: 760;
+}
+
+.detail-head h1 {
+  max-width: 760px;
+  font-size: 34px;
+  line-height: 1.18;
 }
 
 .sync-status {
@@ -345,7 +359,7 @@ h3 {
 .daily-note {
   width: 100%;
   margin-bottom: 20px;
-  padding: 24px;
+  padding: 22px 24px;
   border-radius: var(--radius-lg);
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(244, 247, 255, 0.86));
@@ -355,8 +369,10 @@ h3 {
 
 .daily-note h2 {
   max-width: 1060px;
-  font-size: clamp(22px, 2.5vw, 34px);
-  line-height: 1.22;
+  color: #33332f;
+  font-size: var(--title-section);
+  line-height: 1.42;
+  font-weight: 680;
 }
 
 .feed {
@@ -521,13 +537,16 @@ h3 {
 
 .feed-card h3 {
   max-width: 780px;
-  margin-bottom: 14px;
-  font-size: 24px;
-  line-height: 1.25;
+  margin-bottom: 12px;
+  font-size: var(--title-card);
+  line-height: 1.35;
+  font-weight: 720;
 }
 
 .feed-card.primary h3 {
-  font-size: clamp(28px, 3vw, 42px);
+  max-width: 840px;
+  font-size: var(--title-section);
+  line-height: 1.32;
 }
 
 .feed-card p {
@@ -596,9 +615,10 @@ h3 {
 
 .reader h2 {
   margin: 0 0 12px;
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.35;
   color: #242421;
+  font-weight: 720;
 }
 
 .reader p,
@@ -881,12 +901,13 @@ h3 {
   }
 
   .daily-note h2 {
-    font-size: 22px;
+    font-size: 20px;
+    line-height: 1.45;
   }
 
   .feed-card h3,
   .feed-card.primary h3 {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   .card-images {
