@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bill AI Presence</title>
-    <link rel="stylesheet" href="styles.css?v=20260702-type-scale" />
+    <link rel="stylesheet" href="styles.css?v=20260702-actions" />
   </head>
   <body>
     <main class="app">
@@ -16,12 +16,6 @@
             <p>每日审阅与产出</p>
           </div>
         </header>
-
-        <section class="today-focus">
-          <p>今日主题</p>
-          <h2>从真实信号里提炼 AI Native 观点</h2>
-          <span id="todayMeta">10 条待审阅 · 3 个创作任务</span>
-        </section>
 
         <nav class="topic-list" aria-label="信息主题">
           <button class="topic is-active" data-topic="all">
@@ -57,7 +51,6 @@
       <section class="workspace">
         <section class="view view-list is-active" id="listView" aria-labelledby="pageTitle">
           <header class="page-head">
-            <button class="ghost-button" id="connectSources">接入来源</button>
             <div>
               <p>2026.07.01 / Today</p>
               <h1 id="pageTitle">今天先读真实信号</h1>
@@ -69,6 +62,17 @@
           <section class="daily-note">
             <p id="pageKicker">AI 建议</p>
             <h2 id="pageNote">今天重点不是“看新闻”，而是把 Claude Tag、Codex 和 AgentWorld 三条信号转成 AI Presence / Agent UI 的设计判断。</h2>
+          </section>
+
+          <section class="generated-panel" id="summaryPanel" hidden aria-live="polite">
+            <div class="panel-head">
+              <div>
+                <p>今日总结</p>
+                <h2 id="summaryTitle">今天可以沉淀成一条 AI Native 观点</h2>
+              </div>
+              <button class="text-button" id="clearSummary" type="button">收起</button>
+            </div>
+            <ul id="summaryPoints"></ul>
           </section>
 
           <section class="feed" id="feed" aria-label="今日信息流">
@@ -195,15 +199,26 @@
               <li>“生成创作任务”不是收藏夹，它的作用是把读到的信息转成你后续能写文章、做作品集、准备面试的任务。</li>
             </ul>
           </section>
+
+          <section class="output-dock" id="outputDock" hidden aria-label="产出队列">
+            <div class="dock-head">
+              <div>
+                <p>产出队列</p>
+                <h2>已经从阅读转成可执行任务</h2>
+              </div>
+              <button class="text-button" id="clearOutput" type="button">清空</button>
+            </div>
+            <div class="output-list" id="outputList"></div>
+          </section>
         </section>
 
         <section class="view detail-view" id="detailView" aria-labelledby="detailTitle">
           <header class="detail-head">
-            <button class="back-button" id="backButton">返回</button>
-            <div>
-              <p id="detailType">AI 产品晨报</p>
-              <h1 id="detailTitle">Agent 从工具走向工作流成员</h1>
+            <div class="detail-nav">
+              <button class="back-button" id="backButton">返回列表</button>
+              <span id="detailType">AI 产品晨报</span>
             </div>
+            <h1 id="detailTitle">Agent 从工具走向工作流成员</h1>
           </header>
 
           <article class="reader">
@@ -241,8 +256,9 @@
                   <h2>下一步</h2>
                   <p id="detailNext">生成一个明确的创作任务，包含标题、用途、结构和下一步动作。</p>
                 </div>
-                <button class="primary-button" id="addToOutput">生成创作任务</button>
+                <button class="primary-button" id="addToOutput">加入产出队列</button>
               </div>
+              <section class="task-result" id="taskResult" hidden aria-live="polite"></section>
             </section>
           </article>
         </section>
@@ -260,6 +276,6 @@
         </figcaption>
       </figure>
     </div>
-    <script src="script.js?v=20260701-internal-gallery"></script>
+    <script src="script.js?v=20260702-actions"></script>
   </body>
 </html>
