@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bill AI Presence</title>
-    <link rel="stylesheet" href="styles.css?v=20260703-source-action" />
+    <link rel="stylesheet" href="styles.css?v=20260703-source-action-stable" />
   </head>
   <body>
     <main class="app">
@@ -297,7 +297,6 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
     <div class="image-modal" id="imageModal" aria-hidden="true">
       <div class="modal-toolbar" aria-label="来源预览操作">
-        <a id="modalSource" href="#" target="_blank" rel="noreferrer">打开原始链接</a>
         <button class="modal-close" id="modalClose" aria-label="关闭来源预览">关闭</button>
       </div>
       <section class="source-preview" role="dialog" aria-modal="true" aria-label="来源预览">
@@ -306,6 +305,9 @@
           <p class="modal-platform" id="modalPlatform">设计源</p>
           <h2 id="modalCaption"></h2>
           <p id="modalNote">左侧是平台沉淀，右侧是原始链接页面。</p>
+          <div class="source-action-row" id="sourceActionRow">
+            <a id="modalSource" href="#" target="_blank" rel="noreferrer">打开原始链接</a>
+          </div>
           <div class="side-insight" id="modalSideInsight"></div>
         </aside>
         <div class="source-insight" id="sourceInsight">
@@ -319,6 +321,6 @@
         </div>
       </section>
     </div>
-    <script src="script.js?v=20260703-source-action"></script>
+    <script src="script.js?v=20260703-source-action-stable"></script>
   </body>
 </html>
