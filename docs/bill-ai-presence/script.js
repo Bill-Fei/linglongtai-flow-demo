@@ -39,7 +39,7 @@ const MESSAGE_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
 const FULL_PAGE_REFRESH_INTERVAL_MS = 12 * 60 * 60 * 1000;
 const LOCAL_CALENDAR_FILE = "data/feishu-calendar.local.json";
 const LOCAL_MESSAGES_FILE = "data/feishu-messages.local.json";
-const APP_VERSION = "20260703-launch-ready";
+const APP_VERSION = "20260703-task-summary";
 
 function readStoredOutputTasks() {
   try {
@@ -67,9 +67,9 @@ let sourceState = {
 
 const topicMeta = {
   all: {
-    title: "今天先读真实信号",
-    kicker: "AI 建议",
-    note: "今天重点不是“看新闻”，而是把 Claude Tag、Codex 和 AgentWorld 三条信号转成 AI Presence / Agent UI 的设计判断。",
+    title: "今日任务总览",
+    kicker: "今日任务总结",
+    note: "量化今天需要处理的待办、行业目标和设计素材；下面的信息流只作为原始材料入口。",
   },
   calendar: {
     title: "日程与纪要",
@@ -343,26 +343,31 @@ function renderSourceHealth(items = latestItems) {
   const messageLocal = getLocalStatus(items, "message").length;
   const calendarSynced = calendarItems.some((item) => !["待授权", "待接入"].includes(item.badge) && !item.id?.includes("auth-needed"));
   const messageSynced = messageItems.some((item) => !["待授权", "待接入"].includes(item.badge) && !item.id?.includes("permission-needed"));
+  const syncRiskCount = Number(!calendarSynced && !calendarLocal) + Number(!messageSynced && !messageLocal);
   const rows = [
     {
       state: calendarLocal ? "local" : calendarSynced ? "ready" : "waiting",
-      title: calendarLocal ? `日程：私有覆盖 ${calendarLocal} 条` : calendarSynced ? `日程：已同步 ${calendarItems.length} 条` : "日程：正式授权未完成",
-      note: calendarLocal ? "已用私有文件覆盖；飞书用户授权仍需继续打通。" : "如果实际有会但这里为空，说明飞书个人日历授权还没覆盖到。",
+      value: calendarLocal || (calendarSynced ? calendarItems.length : 0),
+      label: "日程待办",
+      note: calendarLocal ? "私有覆盖" : calendarSynced ? "已同步" : "待授权",
     },
     {
       state: messageLocal ? "local" : messageSynced ? "ready" : "waiting",
-      title: messageLocal ? `消息：私有覆盖 ${messageLocal} 条` : "消息：正式事件订阅未完成",
-      note: `消息每 10 分钟重读私有覆盖或已发布结果；上次检查 ${sourceState.lastMessageRefreshLabel}。`,
+      value: messageLocal || (messageSynced ? messageItems.length : 0),
+      label: "消息待办",
+      note: messageLocal ? "私有覆盖" : messageSynced ? "已同步" : "待接入",
     },
     {
       state: "ready",
-      title: `AI 晨报：${briefCount} 条`,
-      note: "当前为已整理内容；页面每 12 小时重读已发布数据，后台自动化负责生成和发布新晨报。",
+      value: briefCount,
+      label: "行业目标",
+      note: "12 小时重读",
     },
     {
       state: "local",
-      title: `设计源：${designCount} 组已采集来源`,
-      note: "图片和灵感来自已采集结果；后台自动化需要在 9 点前完成刷新和发布。",
+      value: designCount,
+      label: "设计素材",
+      note: syncRiskCount ? `${syncRiskCount} 个同步风险` : "采集正常",
     },
   ];
 
@@ -370,11 +375,9 @@ function renderSourceHealth(items = latestItems) {
     .map(
       (row) => `
         <article>
-          <span class="status ${escapeHtml(row.state)}"></span>
-          <div>
-            <strong>${escapeHtml(row.title)}</strong>
-            <p>${escapeHtml(row.note)}</p>
-          </div>
+          <strong>${escapeHtml(String(row.value))}</strong>
+          <span>${escapeHtml(row.label)}</span>
+          <p><i class="status ${escapeHtml(row.state)}"></i>${escapeHtml(row.note)}</p>
         </article>
       `,
     )
@@ -682,6 +685,7 @@ function applyContentData(data) {
   sourceState.contentLoaded = true;
   sourceState.lastContentLabel = `${formatClock()} 已读取`;
   renderSourceHealth(data.items);
+  showSummary();
   setTopic(document.querySelector(".topic.is-active")?.dataset.topic || "all");
   setSyncStatus(`${formatUpdatedAt(data.updatedAt)} / ${sourceState.lastContentLabel}`, "ready");
 }
@@ -728,6 +732,7 @@ function applyMessageContentData(data) {
   updateFeishuMessageStatus(latestItems);
   sourceState.lastMessageRefreshLabel = formatClock();
   renderSourceHealth(latestItems);
+  showSummary();
   setTopic(document.querySelector(".topic.is-active")?.dataset.topic || "all");
   setSyncStatus(`飞书消息本地检查：${sourceState.lastMessageRefreshLabel}`, "ready");
 }
@@ -802,18 +807,29 @@ function buildSummary() {
   const workCount = items.filter((item) => item.topic === "work").length;
   const focus = items.find((item) => item.topic === "brief") || items[0];
   const design = items.find((item) => item.topic === "design");
-  const localNote = sourceState.localCalendarLoaded || sourceState.localMessagesLoaded
-    ? `日程/消息中有本地私有兜底：日程 ${sourceState.localCalendarCount} 条，消息 ${sourceState.localMessagesCount} 条；正式飞书授权还不能视为完成。`
-    : "日程/消息当前没有本地私有兜底，若飞书实际有内容，需要先补同步。";
+  const syncRiskCount = Number(!sourceState.localCalendarLoaded && calendarCount > 0) + Number(!sourceState.localMessagesLoaded && messageCount > 0);
+  const syncRisk = syncRiskCount
+    ? `飞书仍有 ${syncRiskCount} 个授权风险，今天不能把日程/消息视为完整数据。`
+    : "日程和消息已有可用兜底，可以进入正常审阅。";
 
   return {
-    title: "今天的主线：从信息浏览转成可执行产出",
+    title: "今天只盯 3 件事：观点产出、视觉规则、飞书同步",
     points: [
-      `今天共读取 ${items.length} 条信息，其中日程 ${calendarCount} 条、消息 ${messageCount} 条、AI 产品晨报 ${briefCount} 条、设计风格源 ${designCount} 条、未来工作模块 ${workCount} 条。`,
-      localNote,
-      focus ? `最值得沉淀的观点：${focus.title}。它适合转成一篇 Agent UI / AI Presence 方向的短文或作品集案例卡。` : "今天还没有足够的信息形成主观点。",
-      design ? `设计侧可以直接推进：从「${design.title}」里提炼视觉规则，不再只保存灵感图。` : "设计源今天没有可用条目，需要等下一次采集。",
-      "下一步建议：先选 1 条晨报做观点文章，再选 1 条设计源补视觉规则，最后把二者合成 Bill AI Presence 的作品集证据。",
+      {
+        label: "行业目标",
+        title: focus ? `把「${focus.title}」转成一条 Agent UI 观点` : "先补一条可沉淀的行业信号",
+        note: `从 ${briefCount} 条 AI 晨报里选 1 条，产出短文、案例卡或状态模型。`,
+      },
+      {
+        label: "设计任务",
+        title: design ? `从「${design.title}」提炼 3 条视觉规则` : "等待设计源刷新后再提炼规则",
+        note: `今天有 ${designCount} 组设计源，不再只看图，优先沉淀可复用的界面规则。`,
+      },
+      {
+        label: "同步风险",
+        title: syncRisk,
+        note: `当前读取 ${items.length} 条信息：日程 ${calendarCount}、消息 ${messageCount}、晨报 ${briefCount}、设计源 ${designCount}、工作占位 ${workCount}。`,
+      },
     ],
   };
 }
@@ -821,9 +837,21 @@ function buildSummary() {
 function showSummary() {
   const summary = buildSummary();
   summaryTitle.textContent = summary.title;
-  summaryPoints.innerHTML = summary.points.map((point) => `<li>${escapeHtml(point)}</li>`).join("");
+  summaryPoints.innerHTML = summary.points
+    .map(
+      (point, index) => `
+        <article>
+          <span>${String(index + 1).padStart(2, "0")}</span>
+          <div>
+            <em>${escapeHtml(point.label)}</em>
+            <strong>${escapeHtml(point.title)}</strong>
+            <p>${escapeHtml(point.note)}</p>
+          </div>
+        </article>
+      `,
+    )
+    .join("");
   summaryPanel.hidden = false;
-  summaryPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function buildTask(data, id) {
@@ -1046,10 +1074,11 @@ addToOutputButton?.addEventListener("click", () => {
 
 document.querySelector("#makeSummary").addEventListener("click", () => {
   showSummary();
+  summaryPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
 });
 
 clearSummary?.addEventListener("click", () => {
-  summaryPanel.hidden = true;
+  document.querySelector("#feed")?.scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 clearOutput?.addEventListener("click", () => {
