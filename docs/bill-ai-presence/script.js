@@ -40,7 +40,7 @@ const MESSAGE_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
 const FULL_PAGE_REFRESH_INTERVAL_MS = 12 * 60 * 60 * 1000;
 const LOCAL_CALENDAR_FILE = "data/feishu-calendar.local.json";
 const LOCAL_MESSAGES_FILE = "data/feishu-messages.local.json";
-const APP_VERSION = "20260703-source-action-stable";
+const APP_VERSION = "20260703-sidebar-sticky";
 
 function readStoredOutputTasks() {
   try {
