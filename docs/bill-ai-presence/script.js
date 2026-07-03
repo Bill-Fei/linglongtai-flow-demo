@@ -14,6 +14,7 @@ const modalImage = document.querySelector("#modalImage");
 const modalHeroImage = document.querySelector("#modalHeroImage");
 const modalCaption = document.querySelector("#modalCaption");
 const modalSource = document.querySelector("#modalSource");
+const sourceActionRow = document.querySelector("#sourceActionRow");
 const modalNote = document.querySelector("#modalNote");
 const modalPlatform = document.querySelector("#modalPlatform");
 const modalRule = document.querySelector("#modalRule");
@@ -39,7 +40,7 @@ const MESSAGE_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
 const FULL_PAGE_REFRESH_INTERVAL_MS = 12 * 60 * 60 * 1000;
 const LOCAL_CALENDAR_FILE = "data/feishu-calendar.local.json";
 const LOCAL_MESSAGES_FILE = "data/feishu-messages.local.json";
-const APP_VERSION = "20260703-task-summary";
+const APP_VERSION = "20260703-source-action-stable";
 
 function readStoredOutputTasks() {
   try {
@@ -397,6 +398,7 @@ function openImagePreview(image) {
   modalCaption.textContent = image.alt || "设计参考图";
   modalSource.href = sourceUrl;
   modalSource.hidden = !canPreview;
+  if (sourceActionRow) sourceActionRow.hidden = !canPreview;
   if (modalNote) {
     modalNote.textContent = canPreview
       ? "左侧保留平台沉淀信息；右侧直接打开这条来源的原始链接。"
