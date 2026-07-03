@@ -11,10 +11,16 @@ const syncStatus = document.querySelector("#syncStatus");
 const imageModal = document.querySelector("#imageModal");
 const modalClose = document.querySelector("#modalClose");
 const modalImage = document.querySelector("#modalImage");
+const modalHeroImage = document.querySelector("#modalHeroImage");
 const modalCaption = document.querySelector("#modalCaption");
 const modalSource = document.querySelector("#modalSource");
-const modalFrame = document.querySelector("#modalFrame");
 const modalNote = document.querySelector("#modalNote");
+const modalPlatform = document.querySelector("#modalPlatform");
+const modalRule = document.querySelector("#modalRule");
+const modalApply = document.querySelector("#modalApply");
+const modalSideInsight = document.querySelector("#modalSideInsight");
+const modalFrame = document.querySelector("#modalFrame");
+const sourceFrameTip = document.querySelector("#sourceFrameTip");
 const summaryPanel = document.querySelector("#summaryPanel");
 const summaryTitle = document.querySelector("#summaryTitle");
 const summaryPoints = document.querySelector("#summaryPoints");
@@ -24,12 +30,40 @@ const outputList = document.querySelector("#outputList");
 const clearOutput = document.querySelector("#clearOutput");
 const taskResult = document.querySelector("#taskResult");
 const bottomBackButton = document.querySelector("#bottomBackButton");
+const feishuStatus = document.querySelector("#feishuStatus");
+const feishuMessageStatus = document.querySelector("#feishuMessageStatus");
+const addToOutputButton = document.querySelector("#addToOutput");
+const sourceHealthList = document.querySelector("#sourceHealthList");
+const runtimeStatus = document.querySelector("#runtimeStatus");
+const MESSAGE_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
+const FULL_PAGE_REFRESH_INTERVAL_MS = 12 * 60 * 60 * 1000;
+const LOCAL_CALENDAR_FILE = "data/feishu-calendar.local.json";
+const LOCAL_MESSAGES_FILE = "data/feishu-messages.local.json";
+const APP_VERSION = "20260703-launch-ready";
+
+function readStoredOutputTasks() {
+  try {
+    const stored = JSON.parse(window.localStorage?.getItem("bill-ai-output-tasks") || "[]");
+    return Array.isArray(stored) ? stored : [];
+  } catch (error) {
+    return [];
+  }
+}
 
 let currentDetailId = null;
 let latestItems = [];
-let outputTasks = [];
+let outputTasks = readStoredOutputTasks();
 let lastListScrollY = 0;
 let lastOpenedCardId = null;
+let sourceState = {
+  contentLoaded: false,
+  localCalendarLoaded: false,
+  localMessagesLoaded: false,
+  localCalendarCount: 0,
+  localMessagesCount: 0,
+  lastContentLabel: "未读取",
+  lastMessageRefreshLabel: "未刷新",
+};
 
 const topicMeta = {
   all: {
@@ -41,6 +75,11 @@ const topicMeta = {
     title: "日程与纪要",
     kicker: "会议上下文",
     note: "这一组用于承接飞书日历和妙记。现在先保留结构，之后每场会议都要能沉淀目标、结论、行动项和设计风险。",
+  },
+  message: {
+    title: "飞书消息",
+    kicker: "消息收件箱",
+    note: "这里用于汇总今天谁给你发了什么、来自哪个会话、是否需要回复或转成任务。消息读取需要飞书消息权限或本地导入。",
   },
   brief: {
     title: "AI 产品晨报",
@@ -166,6 +205,106 @@ function escapeHtml(value) {
     .replace(/"/g, "&quot;");
 }
 
+function getImageFallbackTarget(image) {
+  if (!image) return null;
+  if (image.id === "modalImage") return image.closest(".source-preview aside");
+  return image.closest(".source-image-stage, .gallery-item, .card-images figure");
+}
+
+function clearImageFallback(image) {
+  const target = getImageFallbackTarget(image);
+  if (!target) return;
+  target.classList.remove("is-image-failed");
+  target.removeAttribute("data-fallback-title");
+}
+
+function markImageFailed(image) {
+  if (image.dataset.fallbackSrc && image.dataset.fallbackTried !== "true") {
+    image.dataset.fallbackTried = "true";
+    image.src = image.dataset.fallbackSrc;
+    return;
+  }
+  const target = getImageFallbackTarget(image);
+  if (!target) return;
+  target.classList.add("is-image-failed");
+  target.dataset.fallbackTitle = image.alt || "封面暂不可用";
+  image.hidden = true;
+}
+
+function watchImages(root) {
+  root.querySelectorAll("img").forEach((image) => {
+    if (image.dataset.fallbackReady === "true") return;
+    image.dataset.fallbackReady = "true";
+    image.addEventListener("load", () => {
+      image.hidden = false;
+      clearImageFallback(image);
+    });
+    image.addEventListener("error", () => markImageFailed(image));
+    if (image.complete && image.naturalWidth === 0) {
+      markImageFailed(image);
+    }
+  });
+}
+
+function setPreviewImage(target, image) {
+  if (!target) return;
+  target.hidden = false;
+  clearImageFallback(target);
+  target.alt = image.alt || "设计参考图";
+  if (image.originalSrc) target.dataset.fallbackSrc = image.originalSrc;
+  target.dataset.fallbackTried = "false";
+  target.src = image.src;
+  if (target.complete && target.naturalWidth === 0) {
+    markImageFailed(target);
+  }
+}
+
+function getArticleInsightMarkup(image) {
+  const article = image?.article;
+  if (!article) {
+    return `
+      <section>
+        <p>站内沉淀</p>
+        <h3>${escapeHtml(image?.href ? "当前只保存了封面、原始链接和可转译规则。" : "当前只保存了视觉参考。")}</h3>
+      </section>
+    `;
+  }
+  const tags = (article.tags || []).map((tag) => `<span>${escapeHtml(tag)}</span>`).join("");
+  const takeaways = (article.takeaways || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  return `
+    <section class="article-insight">
+      <p>二级页面信息</p>
+      <h3>${escapeHtml(article.articleTitle || image.alt)}</h3>
+      <small>${escapeHtml(article.meta || "优设文章")}</small>
+      ${tags ? `<div class="article-tags">${tags}</div>` : ""}
+      <p class="article-excerpt">${escapeHtml(article.excerpt || "")}</p>
+    </section>
+    <section class="article-takeaways">
+      <p>关键判断</p>
+      <ul>${takeaways}</ul>
+    </section>
+    <section>
+      <p>对 Bill 平台的价值</p>
+      <h3>${escapeHtml(article.value || "把二级页内容转成平台可复用的设计判断。")}</h3>
+    </section>
+  `;
+}
+
+function getSideInsightMarkup(image) {
+  const articleMarkup = getArticleInsightMarkup(image);
+  return `
+    ${articleMarkup}
+    <section>
+      <p>可转译规则</p>
+      <h3>${escapeHtml(image?.rule || "把这条来源转成平台可复用的视觉和交互规则。")}</h3>
+    </section>
+    <section>
+      <p>适合应用到</p>
+      <h3>${escapeHtml(image?.apply || "来源卡、详情阅读、任务生成、AI 状态反馈。")}</h3>
+    </section>
+  `;
+}
+
 let toastTimer;
 
 function showToast(message) {
@@ -186,27 +325,102 @@ function formatUpdatedAt(value) {
   return `数据更新：${value}`;
 }
 
+function formatClock(date = new Date()) {
+  return date.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" });
+}
+
+function getLocalStatus(items, topic) {
+  return items.filter((item) => item.topic === topic && item.id?.includes("-local-"));
+}
+
+function renderSourceHealth(items = latestItems) {
+  if (!sourceHealthList) return;
+  const calendarItems = items.filter((item) => item.topic === "calendar");
+  const messageItems = items.filter((item) => item.topic === "message");
+  const briefCount = items.filter((item) => item.topic === "brief").length;
+  const designCount = items.filter((item) => item.topic === "design").length;
+  const calendarLocal = getLocalStatus(items, "calendar").length;
+  const messageLocal = getLocalStatus(items, "message").length;
+  const calendarSynced = calendarItems.some((item) => !["待授权", "待接入"].includes(item.badge) && !item.id?.includes("auth-needed"));
+  const messageSynced = messageItems.some((item) => !["待授权", "待接入"].includes(item.badge) && !item.id?.includes("permission-needed"));
+  const rows = [
+    {
+      state: calendarLocal ? "local" : calendarSynced ? "ready" : "waiting",
+      title: calendarLocal ? `日程：私有覆盖 ${calendarLocal} 条` : calendarSynced ? `日程：已同步 ${calendarItems.length} 条` : "日程：正式授权未完成",
+      note: calendarLocal ? "已用私有文件覆盖；飞书用户授权仍需继续打通。" : "如果实际有会但这里为空，说明飞书个人日历授权还没覆盖到。",
+    },
+    {
+      state: messageLocal ? "local" : messageSynced ? "ready" : "waiting",
+      title: messageLocal ? `消息：私有覆盖 ${messageLocal} 条` : "消息：正式事件订阅未完成",
+      note: `消息每 10 分钟重读私有覆盖或已发布结果；上次检查 ${sourceState.lastMessageRefreshLabel}。`,
+    },
+    {
+      state: "ready",
+      title: `AI 晨报：${briefCount} 条`,
+      note: "当前为已整理内容；页面每 12 小时重读已发布数据，后台自动化负责生成和发布新晨报。",
+    },
+    {
+      state: "local",
+      title: `设计源：${designCount} 组已采集来源`,
+      note: "图片和灵感来自已采集结果；后台自动化需要在 9 点前完成刷新和发布。",
+    },
+  ];
+
+  sourceHealthList.innerHTML = rows
+    .map(
+      (row) => `
+        <article>
+          <span class="status ${escapeHtml(row.state)}"></span>
+          <div>
+            <strong>${escapeHtml(row.title)}</strong>
+            <p>${escapeHtml(row.note)}</p>
+          </div>
+        </article>
+      `,
+    )
+    .join("");
+  if (runtimeStatus) {
+    runtimeStatus.textContent = `v${APP_VERSION} / ${sourceState.lastContentLabel}`;
+  }
+}
+
 function openImagePreview(image) {
   if (!imageModal || !modalImage || !modalCaption || !modalSource || !image) return;
   const sourceUrl = image.href || image.src;
   const canPreview = Boolean(image.href && image.href !== "#");
-  modalImage.src = image.src;
-  modalImage.alt = image.alt || "设计参考图";
+  watchImages(imageModal);
+  setPreviewImage(modalImage, image);
+  setPreviewImage(modalHeroImage, image);
   modalCaption.textContent = image.alt || "设计参考图";
   modalSource.href = sourceUrl;
   modalSource.hidden = !canPreview;
   if (modalNote) {
     modalNote.textContent = canPreview
-      ? "这里优先在平台内嵌原始来源页面。少数来源站点会限制内嵌，如果右侧无法显示，再打开原始链接。"
+      ? "左侧保留平台沉淀信息；右侧直接打开这条来源的原始链接。"
       : "这张图来自已保存的缩略图流，当前没有可确认的原始详情页，所以只保留为视觉参考。";
   }
+  if (modalPlatform) {
+    modalPlatform.textContent = image.platform || (sourceUrl.includes("uisdc") ? "优设文章" : sourceUrl.includes("pinterest") ? "Pinterest 灵感" : sourceUrl.includes("dribbble") ? "Dribbble 组件参考" : "设计来源");
+  }
+  if (modalRule) {
+    modalRule.textContent = image.rule || "把这张参考图转成平台可复用的视觉和交互规则。";
+  }
+  if (modalApply) {
+    modalApply.textContent = image.apply || "来源卡、详情阅读、任务生成、AI 状态反馈。";
+  }
+  if (modalSideInsight) {
+    modalSideInsight.innerHTML = getSideInsightMarkup(image);
+  }
   if (modalFrame) {
+    modalFrame.removeAttribute("src");
     modalFrame.hidden = !canPreview;
     if (canPreview) {
       modalFrame.src = sourceUrl;
-    } else {
-      modalFrame.removeAttribute("src");
     }
+  }
+  if (sourceFrameTip) {
+    sourceFrameTip.hidden = canPreview;
+    sourceFrameTip.querySelector("span").textContent = "这条来源没有可确认的原始详情页，右侧暂不加载页面。";
   }
   imageModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
@@ -215,9 +429,18 @@ function openImagePreview(image) {
 function closeImagePreview() {
   if (!imageModal || !modalImage) return;
   imageModal.setAttribute("aria-hidden", "true");
+  if (modalSideInsight) modalSideInsight.innerHTML = "";
   modalImage.removeAttribute("src");
+  if (modalHeroImage) {
+    modalHeroImage.hidden = false;
+    clearImageFallback(modalHeroImage);
+    modalHeroImage.removeAttribute("src");
+  }
+  modalImage.hidden = false;
+  clearImageFallback(modalImage);
   if (modalFrame) {
     modalFrame.removeAttribute("src");
+    modalFrame.hidden = false;
   }
   document.body.classList.remove("modal-open");
 }
@@ -235,7 +458,7 @@ function renderFeed(items) {
               .map(
                 (image) => `
                   <figure>
-                    <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy" referrerpolicy="no-referrer" />
+                    <img src="${escapeHtml(image.src)}" ${image.originalSrc ? `data-fallback-src="${escapeHtml(image.originalSrc)}"` : ""} alt="${escapeHtml(image.alt)}" loading="lazy" referrerpolicy="no-referrer" />
                   </figure>
                 `,
               )
@@ -264,6 +487,180 @@ function renderFeed(items) {
   cards.forEach((card) => {
     card.querySelector(".open-detail").addEventListener("click", () => openDetail(card.dataset.id));
   });
+  watchImages(feed);
+}
+
+function buildDetailRecord(item) {
+  const detail = item.detail || {};
+  return {
+    type: item.source,
+    title: item.title,
+    why: detail.why || item.summary,
+    points: detail.points || item.bullets || [],
+    images: item.images || [],
+    impact: detail.impact,
+    reason: detail.reason,
+    output: detail.output,
+    next: detail.next,
+  };
+}
+
+async function readOptionalJson(path) {
+  try {
+    const response = await fetch(`${path}?t=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) return null;
+    return response.json();
+  } catch (error) {
+    return null;
+  }
+}
+
+function normalizeLocalText(value, fallback = "") {
+  return String(value || fallback).replace(/\s+/g, " ").trim();
+}
+
+function safeLocalId(value, fallback) {
+  return normalizeLocalText(value, fallback)
+    .toLowerCase()
+    .replace(/[^a-z0-9\u4e00-\u9fa5]+/gi, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 48);
+}
+
+function buildLocalCalendarItem(event, index) {
+  const title = normalizeLocalText(event.title || event.summary, "未命名日程");
+  const time = normalizeLocalText(event.time || [event.start, event.end].filter(Boolean).join("-"), "时间待确认");
+  const source = normalizeLocalText(event.source, "飞书日历");
+  const location = normalizeLocalText(event.location, "未填写");
+  const attendees = normalizeLocalText(event.attendees || event.attendeeText, "待同步");
+  const minutes = normalizeLocalText(event.minutes || event.summaryText || event.note, "");
+  const needMinutes = event.needMinutes !== false;
+
+  return {
+    id: `meeting-local-${safeLocalId(event.id || `${title}-${time}`, index)}`,
+    topic: "calendar",
+    source: "日程与纪要",
+    badge: minutes ? "已补充" : "待纪要",
+    title,
+    summary: `${time} · ${minutes || "来自本地私有日程，等待飞书用户授权后自动同步。"}`,
+    bullets: [
+      `时间：${time}`,
+      `来源：${source}`,
+      location ? `地点：${location}` : "地点未填写",
+    ],
+    detail: {
+      why: `${title} 已从本地私有日程进入平台。当前飞书开放平台应用级授权没有读到这条个人日历，所以先用本地覆盖保证今天的看板准确。`,
+      points: [
+        `时间：${time}`,
+        `来源：${source}`,
+        `地点：${location}`,
+        `参与者：${attendees}`,
+        minutes ? `纪要/备注：${minutes}` : "会议纪要：暂未关联飞书妙记，等待会后补充。",
+        "同步状态：来自本地私有日程文件，未写入公开发布数据。",
+      ],
+      impact: "日程模块必须优先保证今天的工作事实准确。正式授权没打通前，本地私有日程是兜底层，避免看板误判为空。",
+      reason: "你早上打开平台时，需要直接知道今天 14:00 有会，而不是看到一个错误的“暂无日程”。",
+      output: needMinutes ? `会后补充《${title}》的纪要、结论和下一步动作。` : `确认《${title}》是否需要跟进。`,
+      next: "下一步：补飞书用户身份授权，让平台自动读取个人日历，而不是依赖本地兜底。",
+    },
+  };
+}
+
+function buildLocalMessageItem(message, index) {
+  const sender = normalizeLocalText(message.senderName || message.sender, "未知发送人");
+  const chat = normalizeLocalText(message.chatName || message.chat, "未知会话");
+  const time = normalizeLocalText(message.time, "时间未知");
+  const text = normalizeLocalText(message.text || message.content || message.summary, "当前消息没有可展示文本内容。");
+  const needReply = Boolean(message.needReply || message.requiresReply);
+
+  return {
+    id: `message-local-${safeLocalId(message.id || `${sender}-${time}`, index)}`,
+    topic: "message",
+    source: "飞书消息",
+    badge: needReply ? "需回复" : "消息",
+    title: `${sender}：${text.slice(0, 32)}${text.length > 32 ? "..." : ""}`,
+    summary: `${time} · 来自 ${chat} · ${text}`,
+    bullets: [
+      `发送人：${sender}`,
+      `会话：${chat}`,
+      `时间：${time}`,
+      needReply ? "状态：建议回复或跟进" : "状态：先归档审阅",
+    ],
+    detail: {
+      why: `${sender} 在 ${chat} 发来消息：${text}`,
+      points: [
+        `发送人：${sender}`,
+        `会话：${chat}`,
+        `时间：${time}`,
+        `消息内容：${text}`,
+        needReply ? "判断：需要回复或转成跟进任务。" : "判断：暂时不需要立即回复，可作为信息审阅。",
+        "同步状态：来自本地私有消息文件，未写入公开发布数据。",
+      ],
+      impact: "消息模块负责把飞书里的沟通信号变成可审阅、可跟进、可产出的结构，而不是只显示未读数量。",
+      reason: "谁发来的、说了什么、是否需要回复，直接影响今天的任务优先级。",
+      output: needReply ? `回复 ${sender}，并把这条消息转成后续跟进任务。` : `把 ${sender} 的这条消息归档到今日审阅。`,
+      next: needReply ? "先回复关键问题，再决定是否加入今日产出。" : "阅读后标记为已审阅。",
+    },
+  };
+}
+
+function replaceTopicItems(items, topic, replacements) {
+  if (!replacements.length) return items;
+  const nextItems = [];
+  let inserted = false;
+
+  items.forEach((item) => {
+    if (item.topic === topic) {
+      if (!inserted) {
+        nextItems.push(...replacements);
+        inserted = true;
+      }
+      return;
+    }
+    nextItems.push(item);
+  });
+
+  if (!inserted) {
+    const insertAfterTopic = topic === "message" ? "calendar" : null;
+    const insertIndex = insertAfterTopic ? nextItems.map((item) => item.topic).lastIndexOf(insertAfterTopic) + 1 : 0;
+    nextItems.splice(Math.max(insertIndex, 0), 0, ...replacements);
+  }
+
+  return nextItems;
+}
+
+async function mergeLocalPrivateData(data, { includeCalendar = true, includeMessages = true } = {}) {
+  const nextData = {
+    ...data,
+    items: Array.isArray(data?.items) ? [...data.items] : [],
+  };
+
+  if (includeCalendar) {
+    const localCalendar = await readOptionalJson(LOCAL_CALENDAR_FILE);
+    const calendarItems = Array.isArray(localCalendar)
+      ? localCalendar.map(buildLocalCalendarItem)
+      : Array.isArray(localCalendar?.events)
+        ? localCalendar.events.map(buildLocalCalendarItem)
+        : [];
+    sourceState.localCalendarLoaded = Boolean(calendarItems.length);
+    sourceState.localCalendarCount = calendarItems.length;
+    nextData.items = replaceTopicItems(nextData.items, "calendar", calendarItems);
+  }
+
+  if (includeMessages) {
+    const localMessages = await readOptionalJson(LOCAL_MESSAGES_FILE);
+    const messageItems = Array.isArray(localMessages)
+      ? localMessages.map(buildLocalMessageItem)
+      : Array.isArray(localMessages?.messages)
+        ? localMessages.messages.map(buildLocalMessageItem)
+        : [];
+    sourceState.localMessagesLoaded = Boolean(messageItems.length);
+    sourceState.localMessagesCount = messageItems.length;
+    nextData.items = replaceTopicItems(nextData.items, "message", messageItems);
+  }
+
+  nextData.topicCounts = getTopicCounts(nextData.items);
+  return nextData;
 }
 
 function applyContentData(data) {
@@ -274,24 +671,120 @@ function applyContentData(data) {
   }
 
   detailData = data.items.reduce((acc, item) => {
-    const detail = item.detail || {};
-    acc[item.id] = {
-      type: item.source,
-      title: item.title,
-      why: detail.why || item.summary,
-      points: detail.points || item.bullets || [],
-      images: item.images || [],
-      impact: detail.impact,
-      reason: detail.reason,
-      output: detail.output,
-      next: detail.next,
-    };
+    acc[item.id] = buildDetailRecord(item);
     return acc;
   }, {});
 
   renderFeed(data.items);
+  updateTopicCounts(data.topicCounts || getTopicCounts(data.items));
+  updateFeishuStatus(data.items);
+  updateFeishuMessageStatus(data.items);
+  sourceState.contentLoaded = true;
+  sourceState.lastContentLabel = `${formatClock()} 已读取`;
+  renderSourceHealth(data.items);
   setTopic(document.querySelector(".topic.is-active")?.dataset.topic || "all");
-  setSyncStatus(formatUpdatedAt(data.updatedAt), "ready");
+  setSyncStatus(`${formatUpdatedAt(data.updatedAt)} / ${sourceState.lastContentLabel}`, "ready");
+}
+
+function applyMessageContentData(data) {
+  if (!data || !Array.isArray(data.items)) return;
+  if (!latestItems.length) {
+    applyContentData(data);
+    return;
+  }
+
+  const messageItems = data.items.filter((item) => item.topic === "message");
+  const nextItems = [];
+  let insertedMessages = false;
+
+  latestItems.forEach((item) => {
+    if (item.topic === "message") {
+      if (!insertedMessages) {
+        nextItems.push(...messageItems);
+        insertedMessages = true;
+      }
+      return;
+    }
+    nextItems.push(item);
+  });
+
+  if (!insertedMessages && messageItems.length) {
+    const lastCalendarIndex = nextItems.map((item) => item.topic).lastIndexOf("calendar");
+    nextItems.splice(lastCalendarIndex + 1, 0, ...messageItems);
+  }
+
+  Object.keys(detailData).forEach((id) => {
+    if (latestItems.some((item) => item.id === id && item.topic === "message")) {
+      delete detailData[id];
+    }
+  });
+  messageItems.forEach((item) => {
+    detailData[item.id] = buildDetailRecord(item);
+  });
+
+  latestItems = nextItems;
+  renderFeed(latestItems);
+  updateTopicCounts(getTopicCounts(latestItems));
+  updateFeishuMessageStatus(latestItems);
+  sourceState.lastMessageRefreshLabel = formatClock();
+  renderSourceHealth(latestItems);
+  setTopic(document.querySelector(".topic.is-active")?.dataset.topic || "all");
+  setSyncStatus(`飞书消息本地检查：${sourceState.lastMessageRefreshLabel}`, "ready");
+}
+
+function getTopicCounts(items) {
+  return {
+    all: items.length,
+    calendar: items.filter((item) => item.topic === "calendar").length,
+    message: items.filter((item) => item.topic === "message").length,
+    brief: items.filter((item) => item.topic === "brief").length,
+    design: items.filter((item) => item.topic === "design").length,
+    work: items.filter((item) => item.topic === "work").length,
+  };
+}
+
+function updateTopicCounts(counts) {
+  document.querySelectorAll("[data-count-topic]").forEach((item) => {
+    const topic = item.dataset.countTopic;
+    item.textContent = counts?.[topic] ?? 0;
+  });
+}
+
+function updateFeishuStatus(items) {
+  if (!feishuStatus) return;
+  const calendarItems = items.filter((item) => item.topic === "calendar");
+  const localItems = getLocalStatus(items, "calendar");
+  const synced = calendarItems.some((item) => !["待授权", "待接入"].includes(item.badge) && !item.id?.includes("auth-needed"));
+  const hasMinutes = calendarItems.some((item) => item.badge?.includes("已关联"));
+  if (localItems.length) {
+    feishuStatus.innerHTML = `<span class="status local"></span>日程：本地私有 ${localItems.length} 条 / 正式授权待完成`;
+    return;
+  }
+  if (!synced) {
+    feishuStatus.innerHTML = '<span class="status waiting"></span>飞书日历 / 妙记待接入';
+    return;
+  }
+  feishuStatus.innerHTML = hasMinutes
+    ? '<span class="status ready"></span>飞书日历已同步 / 妙记已关联'
+    : '<span class="status ready"></span>飞书日历已同步 / 妙记待关联';
+}
+
+function updateFeishuMessageStatus(items) {
+  if (!feishuMessageStatus) return;
+  const messageItems = items.filter((item) => item.topic === "message");
+  const localItems = getLocalStatus(items, "message");
+  const synced = messageItems.some((item) => item.id?.startsWith("message-") && !["待授权", "待接入"].includes(item.badge));
+  if (localItems.length) {
+    feishuMessageStatus.innerHTML = `<span class="status local"></span>消息：本地私有 ${localItems.length} 条 / 10 分钟检查`;
+    return;
+  }
+  if (!messageItems.length) {
+    feishuMessageStatus.innerHTML = '<span class="status waiting"></span>飞书消息：待接入';
+    return;
+  }
+  feishuMessageStatus.innerHTML = synced
+    ? `<span class="status ready"></span>飞书消息：${messageItems.length} 条`
+    : '<span class="status waiting"></span>飞书消息：待接入';
 }
 
 function getReadableTopic(topic) {
@@ -304,14 +797,20 @@ function buildSummary() {
     : Object.entries(detailData).map(([id, item]) => ({ id, topic: "brief", title: item.title, detail: item }));
   const briefCount = items.filter((item) => item.topic === "brief").length;
   const designCount = items.filter((item) => item.topic === "design").length;
+  const calendarCount = items.filter((item) => item.topic === "calendar").length;
+  const messageCount = items.filter((item) => item.topic === "message").length;
   const workCount = items.filter((item) => item.topic === "work").length;
   const focus = items.find((item) => item.topic === "brief") || items[0];
   const design = items.find((item) => item.topic === "design");
+  const localNote = sourceState.localCalendarLoaded || sourceState.localMessagesLoaded
+    ? `日程/消息中有本地私有兜底：日程 ${sourceState.localCalendarCount} 条，消息 ${sourceState.localMessagesCount} 条；正式飞书授权还不能视为完成。`
+    : "日程/消息当前没有本地私有兜底，若飞书实际有内容，需要先补同步。";
 
   return {
     title: "今天的主线：从信息浏览转成可执行产出",
     points: [
-      `今天共读取 ${items.length} 条信息，其中 AI 产品晨报 ${briefCount} 条，设计风格源 ${designCount} 条，未来工作模块 ${workCount} 条。`,
+      `今天共读取 ${items.length} 条信息，其中日程 ${calendarCount} 条、消息 ${messageCount} 条、AI 产品晨报 ${briefCount} 条、设计风格源 ${designCount} 条、未来工作模块 ${workCount} 条。`,
+      localNote,
       focus ? `最值得沉淀的观点：${focus.title}。它适合转成一篇 Agent UI / AI Presence 方向的短文或作品集案例卡。` : "今天还没有足够的信息形成主观点。",
       design ? `设计侧可以直接推进：从「${design.title}」里提炼视觉规则，不再只保存灵感图。` : "设计源今天没有可用条目，需要等下一次采集。",
       "下一步建议：先选 1 条晨报做观点文章，再选 1 条设计源补视觉规则，最后把二者合成 Bill AI Presence 的作品集证据。",
@@ -357,16 +856,45 @@ function renderOutputDock() {
     .join("");
 }
 
+function saveOutputTasks() {
+  try {
+    window.localStorage?.setItem("bill-ai-output-tasks", JSON.stringify(outputTasks));
+  } catch (error) {
+    // Some embedded/browser contexts block localStorage; the in-page queue still works.
+  }
+}
+
+function updateAddToOutputButton() {
+  if (!addToOutputButton) return;
+  const exists = outputTasks.some((item) => item.id === currentDetailId);
+  addToOutputButton.textContent = exists ? "已生成，查看今日产出" : "生成今日产出任务";
+  addToOutputButton.dataset.state = exists ? "added" : "idle";
+}
+
+function showOutputDock() {
+  const activeTopic = document.querySelector(".topic.is-active")?.dataset.topic || "all";
+  showList(activeTopic, { scrollTarget: outputDock });
+}
+
 function showTaskResult(task) {
   taskResult.hidden = false;
   taskResult.innerHTML = `
-    <p>已加入产出队列</p>
+    <p>已生成今日产出</p>
     <h2>${escapeHtml(task.title)}</h2>
+    <p class="task-result-note">这条任务已经进入首页底部的「今日产出」。它用于承接你读完之后真正要写、要画、要整理的内容。</p>
     <ul>
       <li><strong>用途</strong>${escapeHtml(task.purpose)}</li>
       <li><strong>下一步</strong>${escapeHtml(task.next)}</li>
     </ul>
+    <div class="task-result-actions">
+      <button class="primary-button" type="button" data-action="view-output">查看今日产出</button>
+      <button class="text-button" type="button" data-action="keep-reading">继续阅读</button>
+    </div>
   `;
+  taskResult.querySelector('[data-action="view-output"]')?.addEventListener("click", showOutputDock);
+  taskResult.querySelector('[data-action="keep-reading"]')?.addEventListener("click", () => {
+    taskResult.hidden = true;
+  });
 }
 
 function addCurrentDetailToOutput() {
@@ -379,21 +907,39 @@ function addCurrentDetailToOutput() {
   } else {
     outputTasks.unshift(task);
   }
+  saveOutputTasks();
   renderOutputDock();
   showTaskResult(task);
-  showToast("已加入产出队列，返回列表后可以继续查看。");
+  updateAddToOutputButton();
+  showToast("已生成今日产出任务。");
 }
 
 async function loadDailyContent({ silent = false } = {}) {
   try {
+    setSyncStatus("正在读取已发布数据...", "loading");
     const response = await fetch(`data/daily-content.json?t=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const data = await response.json();
+    const data = await mergeLocalPrivateData(await response.json());
     applyContentData(data);
-    if (!silent) showToast("已读取最新本地数据。");
+    if (!silent) showToast("已读取最新发布数据。");
   } catch (error) {
+    renderSourceHealth([]);
     setSyncStatus("使用页面内置数据", "fallback");
-    if (!silent) showToast("没有读到本地数据，先使用页面内置内容。");
+    if (!silent) showToast("没有读到已发布数据，先使用页面内置内容。");
+  }
+}
+
+async function refreshFeishuMessages({ silent = true } = {}) {
+  try {
+    const response = await fetch(`data/daily-content.json?t=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data = await mergeLocalPrivateData(await response.json(), { includeCalendar: false, includeMessages: true });
+    applyMessageContentData(data);
+    if (!silent) showToast("飞书消息已更新。");
+  } catch (error) {
+    sourceState.lastMessageRefreshLabel = `${formatClock()} 失败`;
+    renderSourceHealth(latestItems);
+    if (!silent) showToast("飞书消息暂时没有更新。");
   }
 }
 
@@ -409,12 +955,17 @@ function setTopic(topic) {
   pageNote.textContent = meta.note;
 }
 
-function showList(topic = "all") {
+function showList(topic = "all", options = {}) {
   detailView.classList.remove("is-active");
   listView.classList.add("is-active");
   setTopic(topic);
   window.scrollTo({ top: lastListScrollY, behavior: "auto" });
   requestAnimationFrame(() => {
+    if (options.scrollTarget) {
+      options.scrollTarget.hidden = false;
+      options.scrollTarget.scrollIntoView({ block: "start", behavior: "smooth" });
+      return;
+    }
     const anchorCard = lastOpenedCardId ? document.querySelector(`[data-id="${CSS.escape(lastOpenedCardId)}"]`) : null;
     if (anchorCard && !anchorCard.classList.contains("is-hidden")) {
       anchorCard.scrollIntoView({ block: "center", behavior: "smooth" });
@@ -432,6 +983,7 @@ function openDetail(id) {
   lastListScrollY = window.scrollY;
   taskResult.hidden = true;
   taskResult.innerHTML = "";
+  updateAddToOutputButton();
 
   document.querySelector("#detailType").textContent = data.type;
   document.querySelector("#detailTitle").textContent = data.title;
@@ -446,14 +998,15 @@ function openDetail(id) {
     .map((image, index) => `
         <div class="gallery-item">
           <button type="button" data-image-index="${index}">
-          <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy" referrerpolicy="no-referrer" />
+          <img src="${escapeHtml(image.src)}" ${image.originalSrc ? `data-fallback-src="${escapeHtml(image.originalSrc)}"` : ""} alt="${escapeHtml(image.alt)}" loading="lazy" referrerpolicy="no-referrer" />
           <span>${escapeHtml(image.alt)}</span>
           </button>
-          <button class="source-link" type="button" data-source-index="${index}">${image.href ? "站内预览" : "查看参考"}</button>
+          <button class="source-link" type="button" data-source-index="${index}">${image.href ? "原始页面" : "查看参考"}</button>
         </div>
       `)
     .join("");
   gallery.classList.toggle("is-empty", !(data.images || []).length);
+  watchImages(gallery);
   gallery.querySelectorAll("[data-image-index]").forEach((button) => {
     button.addEventListener("click", () => openImagePreview(data.images[Number(button.dataset.imageIndex)]));
   });
@@ -482,7 +1035,12 @@ bottomBackButton?.addEventListener("click", () => {
   showList(activeTopic);
 });
 
-document.querySelector("#addToOutput").addEventListener("click", () => {
+addToOutputButton?.addEventListener("click", () => {
+  const exists = outputTasks.some((item) => item.id === currentDetailId);
+  if (exists) {
+    showOutputDock();
+    return;
+  }
   addCurrentDetailToOutput();
 });
 
@@ -496,7 +1054,9 @@ clearSummary?.addEventListener("click", () => {
 
 clearOutput?.addEventListener("click", () => {
   outputTasks = [];
+  saveOutputTasks();
   renderOutputDock();
+  updateAddToOutputButton();
 });
 
 modalClose?.addEventListener("click", closeImagePreview);
@@ -508,4 +1068,10 @@ document.addEventListener("keydown", (event) => {
 });
 
 loadDailyContent({ silent: true });
-setInterval(() => loadDailyContent({ silent: true }), 5 * 60 * 1000);
+renderOutputDock();
+setInterval(() => {
+  window.location.reload();
+}, FULL_PAGE_REFRESH_INTERVAL_MS);
+setInterval(() => {
+  refreshFeishuMessages({ silent: true });
+}, MESSAGE_REFRESH_INTERVAL_MS);
