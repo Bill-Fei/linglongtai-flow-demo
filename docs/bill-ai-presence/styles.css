@@ -78,10 +78,16 @@ button:focus-visible {
 }
 
 .sidebar {
+  position: sticky;
+  top: 0;
+  align-self: start;
   min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 18px;
   border-right: 1px solid var(--line);
   background: rgba(241, 241, 236, 0.78);
@@ -1521,7 +1527,11 @@ h3 {
   }
 
   .sidebar {
+    position: static;
     min-height: auto;
+    height: auto;
+    overflow: visible;
+    overscroll-behavior: auto;
     border-right: 0;
     border-bottom: 1px solid var(--line);
   }
