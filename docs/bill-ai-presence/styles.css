@@ -117,7 +117,6 @@ button:focus-visible {
 .source-box p,
 .source-box div,
 .page-head p,
-.daily-note p,
 .feed-card p,
 .feed-card li,
 .detail-head p,
@@ -131,7 +130,6 @@ button:focus-visible {
 
 .source-box p,
 .page-head p,
-.daily-note p,
 .detail-head p {
   margin-bottom: 8px;
   font-size: 12px;
@@ -378,104 +376,158 @@ h3 {
   box-shadow: 0 16px 34px rgba(35, 35, 30, 0.08);
 }
 
-.daily-note {
+.task-summary {
   width: 100%;
   margin-bottom: 20px;
-  padding: 22px 24px;
-  border-radius: var(--radius-lg);
+  padding: 24px;
+  border-radius: 30px;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(244, 247, 255, 0.86));
-  border: 1px solid rgba(73, 103, 216, 0.1);
-  box-shadow: var(--shadow-soft);
+    radial-gradient(circle at 8% 0%, rgba(228, 239, 232, 0.84), transparent 36%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 249, 246, 0.9));
+  border: 1px solid rgba(234, 232, 224, 0.86);
+  box-shadow: 0 24px 70px rgba(38, 42, 35, 0.08);
 }
 
-.daily-note h2 {
-  max-width: 1060px;
-  color: #33332f;
-  font-size: var(--title-section);
-  line-height: 1.42;
-  font-weight: 680;
-}
-
-.health-panel {
-  width: 100%;
+.task-summary-head {
+  max-width: 980px;
   margin-bottom: 20px;
-  padding: 18px;
-  border-radius: var(--radius-lg);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.86), rgba(246, 247, 243, 0.78));
-  border: 1px solid rgba(231, 229, 224, 0.8);
-  box-shadow: 0 12px 34px rgba(35, 35, 30, 0.04);
 }
 
-.health-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 14px;
-}
-
-.health-head p {
-  margin: 0 0 6px;
+.task-summary-head p:first-child {
+  margin: 0 0 8px;
   color: var(--muted);
   font-size: 12px;
-  font-weight: 720;
+  font-weight: 760;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
-.health-head h2 {
-  color: #242421;
-  font-size: 18px;
-  line-height: 1.35;
+.task-summary-head h2 {
+  margin: 0;
+  color: #33332f;
+  font-size: clamp(24px, 2.6vw, 34px);
+  line-height: 1.42;
+  font-weight: 680;
 }
 
-.health-head span {
-  flex: 0 0 auto;
-  padding: 7px 10px;
-  border-radius: 999px;
-  color: #60605a;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(231, 229, 224, 0.88);
-  font-size: 12px;
-  font-weight: 720;
+.task-summary-head p:last-child {
+  max-width: 760px;
+  margin: 10px 0 0;
+  color: #686862;
+  font-size: 15px;
+  line-height: 1.7;
 }
 
-.health-grid {
+.summary-metrics {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(130px, 1fr));
   gap: 10px;
+  margin-bottom: 18px;
 }
 
-.health-grid article {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 10px;
+.summary-metrics article {
   min-height: 104px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 14px;
-  border-radius: 20px;
+  border-radius: 22px;
   background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(255, 255, 255, 0.84);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  box-shadow: 0 12px 30px rgba(40, 48, 38, 0.045);
 }
 
-.health-grid .status {
-  margin-top: 6px;
+.summary-metrics strong {
+  color: #242421;
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 780;
 }
 
-.health-grid strong {
-  display: block;
-  margin-bottom: 6px;
-  color: #282824;
+.summary-metrics span {
+  color: #4a4a45;
   font-size: 14px;
+  font-weight: 760;
+}
+
+.summary-metrics p {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: #777771;
+  font-size: 12px;
   line-height: 1.4;
 }
 
-.health-grid p {
-  margin: 0;
-  color: #686862;
-  font-size: 13px;
-  line-height: 1.55;
+.summary-metrics i.status {
+  flex: 0 0 auto;
+}
+
+.summary-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.summary-actions article {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(234, 232, 224, 0.74);
+}
+
+.summary-actions article > span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  color: #243832;
+  background: rgba(226, 239, 234, 0.9);
+  font-size: 12px;
+  font-weight: 820;
+}
+
+.summary-actions em {
+  display: block;
+  margin-bottom: 6px;
+  color: #6c6c66;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 760;
+}
+
+.summary-actions strong {
+  display: block;
+  color: #282824;
+  font-size: 14px;
+  line-height: 1.45;
+  font-weight: 760;
+}
+
+.summary-actions p {
+  margin: 8px 0 0;
+  color: #5f5f59;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.summary-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.summary-footer > span {
+  color: #777771;
+  font-size: 12px;
+  font-weight: 720;
 }
 
 .feed {
@@ -748,7 +800,6 @@ h3 {
   line-height: 1.65;
 }
 
-.generated-panel,
 .output-dock {
   width: 100%;
   margin-bottom: 20px;
@@ -810,7 +861,6 @@ h3 {
   font-weight: 720;
 }
 
-.generated-panel ul,
 .task-result ul {
   display: grid;
   gap: 10px;
@@ -818,7 +868,6 @@ h3 {
   padding-left: 20px;
 }
 
-.generated-panel li,
 .task-result li {
   color: #4f4f49;
   font-size: 15px;
@@ -1454,8 +1503,12 @@ h3 {
     margin-top: 0;
   }
 
-  .health-grid {
+  .summary-metrics {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .summary-actions {
+    grid-template-columns: 1fr;
   }
 
   .workspace {
@@ -1491,8 +1544,7 @@ h3 {
   }
 
   .panel-head,
-  .dock-head,
-  .health-head {
+  .dock-head {
     flex-direction: column;
   }
 
@@ -1504,7 +1556,7 @@ h3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .health-grid {
+  .summary-metrics {
     grid-template-columns: 1fr;
   }
 
@@ -1547,7 +1599,7 @@ h3 {
 
   .brand,
   .source-box,
-  .daily-note,
+  .task-summary,
   .open-detail,
   .reader {
     border-radius: 22px;
@@ -1562,7 +1614,7 @@ h3 {
     font-size: 30px;
   }
 
-  .daily-note h2 {
+  .task-summary-head h2 {
     font-size: 20px;
     line-height: 1.45;
   }
