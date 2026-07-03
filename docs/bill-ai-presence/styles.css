@@ -1139,16 +1139,35 @@ h3 {
   line-height: 1.7;
 }
 
-.source-preview a {
-  width: fit-content;
-  flex: 0 0 auto;
-  padding: 10px 14px;
+.modal-toolbar {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  z-index: 51;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-toolbar a,
+.modal-toolbar button {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
   border-radius: 999px;
   color: #fff;
   background: #1f2538;
+  box-shadow: 0 12px 26px rgba(31, 37, 56, 0.16);
   font-size: 13px;
   font-weight: 760;
   text-decoration: none;
+}
+
+.modal-toolbar button {
+  color: #111;
+  background: rgba(255, 255, 255, 0.92);
 }
 
 .side-insight {
@@ -1371,8 +1390,7 @@ h3 {
   line-height: 1.5;
 }
 
-.image-modal figcaption a,
-.modal-close {
+.image-modal figcaption a {
   border-radius: 999px;
   color: #111;
   background: rgba(255, 255, 255, 0.86);
@@ -1384,15 +1402,6 @@ h3 {
 .image-modal figcaption a {
   flex: 0 0 auto;
   padding: 8px 12px;
-}
-
-.modal-close {
-  position: fixed;
-  top: 22px;
-  right: 22px;
-  z-index: 51;
-  min-height: 38px;
-  padding: 0 14px;
 }
 
 .reader hr {
@@ -1578,6 +1587,19 @@ h3 {
     max-height: 46vh;
     border-right: 0;
     border-bottom: 1px solid rgba(231, 229, 224, 0.9);
+  }
+
+  .modal-toolbar {
+    top: 14px;
+    right: 14px;
+    max-width: calc(100vw - 28px);
+    justify-content: flex-end;
+  }
+
+  .modal-toolbar a,
+  .modal-toolbar button {
+    min-height: 38px;
+    padding: 0 12px;
   }
 
   .source-insight {
