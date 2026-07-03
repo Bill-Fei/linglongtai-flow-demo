@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bill AI Presence</title>
-    <link rel="stylesheet" href="styles.css?v=20260703-launch-ready" />
+    <link rel="stylesheet" href="styles.css?v=20260703-task-summary" />
   </head>
   <body>
     <main class="app">
@@ -58,45 +58,49 @@
           <header class="page-head">
             <div>
               <p>2026.07.03 / Today</p>
-              <h1 id="pageTitle">今天先读真实信号</h1>
+              <h1 id="pageTitle">今日任务总览</h1>
               <span class="sync-status" id="syncStatus">读取已发布数据中</span>
             </div>
-            <button class="primary-button" id="makeSummary">生成今日总结</button>
+            <button class="primary-button" id="makeSummary">刷新任务总结</button>
           </header>
 
-          <section class="daily-note">
-            <p id="pageKicker">AI 建议</p>
-            <h2 id="pageNote">今天重点不是“看新闻”，而是把 Claude Tag、Codex 和 AgentWorld 三条信号转成 AI Presence / Agent UI 的设计判断。</h2>
-          </section>
-
-          <section class="health-panel" aria-label="数据健康状态">
-            <div class="health-head">
-              <div>
-                <p>数据健康</p>
-                <h2>当前页面读取状态</h2>
-              </div>
-              <span id="runtimeStatus">页面运行中</span>
+          <section class="task-summary" id="summaryPanel" aria-label="今日任务总结" aria-live="polite">
+            <div class="task-summary-head">
+              <p id="pageKicker">今日任务总结</p>
+              <h2 id="summaryTitle">读取信息后生成今天的执行重点</h2>
+              <p id="pageNote">用一个面板量化今天要处理的待办、行业目标和产出方向，下面的信息流只作为原始材料入口。</p>
             </div>
-            <div class="health-grid" id="sourceHealthList">
+            <div class="summary-metrics" id="sourceHealthList">
               <article>
-                <span class="status waiting"></span>
+                <strong>--</strong>
+                <span>待办项</span>
+              </article>
+              <article>
+                <strong>--</strong>
+                <span>行业目标</span>
+              </article>
+              <article>
+                <strong>--</strong>
+                <span>设计素材</span>
+              </article>
+              <article>
+                <strong>--</strong>
+                <span>同步风险</span>
+              </article>
+            </div>
+            <div class="summary-actions" id="summaryPoints">
+              <article>
+                <span>01</span>
                 <div>
-                  <strong>正在读取已发布数据</strong>
-                  <p>完成后会显示每个来源的可信度、私有覆盖状态和刷新边界。</p>
+                  <strong>正在读取今日任务</strong>
+                  <p>完成后会把晨报、设计源、日程和消息压缩成 3 个可执行动作。</p>
                 </div>
               </article>
             </div>
-          </section>
-
-          <section class="generated-panel" id="summaryPanel" hidden aria-live="polite">
-            <div class="panel-head">
-              <div>
-                <p>今日总结</p>
-                <h2 id="summaryTitle">今天可以沉淀成一条 AI Native 观点</h2>
-              </div>
-              <button class="text-button" id="clearSummary" type="button">收起</button>
+            <div class="summary-footer">
+              <span id="runtimeStatus">页面运行中</span>
+              <button class="text-button" id="clearSummary" type="button">只看信息流</button>
             </div>
-            <ul id="summaryPoints"></ul>
           </section>
 
           <section class="feed" id="feed" aria-label="今日信息流">
@@ -313,6 +317,6 @@
         </div>
       </section>
     </div>
-    <script src="script.js?v=20260703-launch-ready"></script>
+    <script src="script.js?v=20260703-task-summary"></script>
   </body>
 </html>
