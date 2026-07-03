@@ -1149,7 +1149,6 @@ h3 {
   gap: 10px;
 }
 
-.modal-toolbar a,
 .modal-toolbar button {
   min-height: 44px;
   display: inline-flex;
@@ -1160,6 +1159,30 @@ h3 {
   color: #fff;
   background: #1f2538;
   box-shadow: 0 12px 26px rgba(31, 37, 56, 0.16);
+  font-size: 13px;
+  font-weight: 760;
+  text-decoration: none;
+}
+
+.source-action-row {
+  display: flex;
+  margin: 2px 0 4px;
+}
+
+.source-action-row[hidden] {
+  display: none;
+}
+
+.source-action-row a {
+  width: 100%;
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  color: #fff;
+  background: #1f2538;
+  box-shadow: 0 12px 26px rgba(31, 37, 56, 0.12);
   font-size: 13px;
   font-weight: 760;
   text-decoration: none;
@@ -1596,7 +1619,6 @@ h3 {
     justify-content: flex-end;
   }
 
-  .modal-toolbar a,
   .modal-toolbar button {
     min-height: 38px;
     padding: 0 12px;
