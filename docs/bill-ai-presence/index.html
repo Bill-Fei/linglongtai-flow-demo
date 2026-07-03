@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bill AI Presence</title>
-    <link rel="stylesheet" href="styles.css?v=20260702-source-preview-final" />
+    <link rel="stylesheet" href="styles.css?v=20260703-launch-ready" />
   </head>
   <body>
     <main class="app">
@@ -20,31 +20,36 @@
         <nav class="topic-list" aria-label="信息主题">
           <button class="topic is-active" data-topic="all">
             <span>全部</span>
-            <em>10</em>
+            <em data-count-topic="all">10</em>
           </button>
           <button class="topic" data-topic="calendar">
             <span>日程与纪要</span>
-            <em>1</em>
+            <em data-count-topic="calendar">1</em>
+          </button>
+          <button class="topic" data-topic="message">
+            <span>飞书消息</span>
+            <em data-count-topic="message">1</em>
           </button>
           <button class="topic" data-topic="brief">
             <span>AI 产品晨报</span>
-            <em>5</em>
+            <em data-count-topic="brief">5</em>
           </button>
           <button class="topic" data-topic="design">
             <span>设计风格源</span>
-            <em>3</em>
+            <em data-count-topic="design">3</em>
           </button>
           <button class="topic" data-topic="work">
             <span>未来工作模块</span>
-            <em>1</em>
+            <em data-count-topic="work">1</em>
           </button>
         </nav>
 
         <section class="source-box">
           <p>接入状态</p>
-          <div><span class="status waiting"></span>飞书日历 / 妙记待接入</div>
+          <div id="feishuStatus"><span class="status waiting"></span>飞书日历 / 妙记待接入</div>
+          <div id="feishuMessageStatus"><span class="status waiting"></span>飞书消息：待接入</div>
           <div><span class="status ready"></span>AI 晨报：真实来源已录入</div>
-          <div><span class="status ready"></span>设计源：每日 09:15 巡检</div>
+          <div><span class="status local"></span>设计源：已采集图片源</div>
         </section>
       </aside>
 
@@ -52,9 +57,9 @@
         <section class="view view-list is-active" id="listView" aria-labelledby="pageTitle">
           <header class="page-head">
             <div>
-              <p>2026.07.01 / Today</p>
+              <p>2026.07.03 / Today</p>
               <h1 id="pageTitle">今天先读真实信号</h1>
-              <span class="sync-status" id="syncStatus">读取本地数据中</span>
+              <span class="sync-status" id="syncStatus">读取已发布数据中</span>
             </div>
             <button class="primary-button" id="makeSummary">生成今日总结</button>
           </header>
@@ -62,6 +67,25 @@
           <section class="daily-note">
             <p id="pageKicker">AI 建议</p>
             <h2 id="pageNote">今天重点不是“看新闻”，而是把 Claude Tag、Codex 和 AgentWorld 三条信号转成 AI Presence / Agent UI 的设计判断。</h2>
+          </section>
+
+          <section class="health-panel" aria-label="数据健康状态">
+            <div class="health-head">
+              <div>
+                <p>数据健康</p>
+                <h2>当前页面读取状态</h2>
+              </div>
+              <span id="runtimeStatus">页面运行中</span>
+            </div>
+            <div class="health-grid" id="sourceHealthList">
+              <article>
+                <span class="status waiting"></span>
+                <div>
+                  <strong>正在读取已发布数据</strong>
+                  <p>完成后会显示每个来源的可信度、私有覆盖状态和刷新边界。</p>
+                </div>
+              </article>
+            </div>
           </section>
 
           <section class="generated-panel" id="summaryPanel" hidden aria-live="polite">
@@ -195,16 +219,16 @@
             <p>来源说明</p>
             <ul>
               <li>AI 产品晨报条目基于 2026-07-01 工作日 AI 产品晨间简报整理：Claude Tag、Codex 使用研究、Qwen-AgentWorld，以及设计工具从生成稿件走向生成工作流的判断。</li>
-              <li>设计风格源当前保留三类：优设看中文趋势表达，Pinterest 做视觉聚类，Dribbble 看组件与动效。每天 09:15 轻量巡检。</li>
-              <li>“生成创作任务”不是收藏夹，它的作用是把读到的信息转成你后续能写文章、做作品集、准备面试的任务。</li>
+              <li>设计风格源当前保留三类：优设看中文趋势表达，Pinterest 做视觉聚类，Dribbble 看组件与动效。页面会每 12 小时重读已发布结果；真正后台采集和发布需要独立自动化任务。</li>
+              <li>“今日产出”不是收藏夹，它的作用是把读到的信息转成你接下来要写、要画、要整理的任务。</li>
             </ul>
           </section>
 
-          <section class="output-dock" id="outputDock" hidden aria-label="产出队列">
+          <section class="output-dock" id="outputDock" hidden aria-label="今日产出">
             <div class="dock-head">
               <div>
-                <p>产出队列</p>
-                <h2>已经从阅读转成可执行任务</h2>
+                <p>今日产出</p>
+                <h2>从阅读转成下一步动作</h2>
               </div>
               <button class="text-button" id="clearOutput" type="button">清空</button>
             </div>
@@ -256,7 +280,7 @@
                   <h2>下一步</h2>
                   <p id="detailNext">生成一个明确的创作任务，包含标题、用途、结构和下一步动作。</p>
                 </div>
-                <button class="primary-button" id="addToOutput">加入产出队列</button>
+                <button class="primary-button" id="addToOutput">生成今日产出任务</button>
               </div>
               <section class="task-result" id="taskResult" hidden aria-live="polite"></section>
               <button class="bottom-back" id="bottomBackButton" type="button">返回列表原位置</button>
@@ -272,13 +296,23 @@
       <section class="source-preview" role="dialog" aria-modal="true" aria-label="来源预览">
         <aside>
           <img id="modalImage" alt="" />
+          <p class="modal-platform" id="modalPlatform">设计源</p>
           <h2 id="modalCaption"></h2>
-          <p id="modalNote">这里直接在平台内预览来源页面；如果来源站点限制内嵌，可以用下方入口打开原页面。</p>
+          <p id="modalNote">左侧是平台沉淀，右侧是原始链接页面。</p>
+          <div class="side-insight" id="modalSideInsight"></div>
           <a id="modalSource" href="#" target="_blank" rel="noreferrer">打开原始链接</a>
         </aside>
-        <iframe id="modalFrame" title="来源页面预览" loading="lazy" referrerpolicy="no-referrer" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
+        <div class="source-insight" id="sourceInsight">
+          <div class="source-frame" id="sourceFrameShell">
+            <iframe id="modalFrame" title="原始页面预览" loading="lazy" referrerpolicy="no-referrer"></iframe>
+            <div class="source-frame-tip" id="sourceFrameTip">
+              <strong>原始链接区域</strong>
+              <span>如果这里空白，说明原站限制内嵌，可用左侧入口打开完整页面。</span>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
-    <script src="script.js?v=20260702-source-preview-final"></script>
+    <script src="script.js?v=20260703-launch-ready"></script>
   </body>
 </html>
