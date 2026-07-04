@@ -4,7 +4,51 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bill AI Presence</title>
-    <link rel="stylesheet" href="styles.css?v=20260704-data-freshness" />
+    <link rel="stylesheet" href="styles.css?v=20260704-guardrail" />
+    <style>
+      .freshness-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin: 0 0 18px;
+      }
+      .freshness-strip article {
+        min-height: 72px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 7px;
+        padding: 12px 14px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.62);
+        border: 1px solid rgba(234, 232, 224, 0.72);
+      }
+      .freshness-strip span {
+        color: #777771;
+        font-size: 12px;
+        font-weight: 760;
+      }
+      .freshness-strip strong {
+        color: #262622;
+        font-size: 14px;
+        line-height: 1.35;
+        font-weight: 780;
+      }
+      .freshness-strip[data-state="fresh"] article {
+        background: rgba(247, 252, 249, 0.74);
+      }
+      .freshness-strip[data-state="carry"] article {
+        background: rgba(255, 249, 237, 0.76);
+      }
+      .freshness-strip[data-state="stale"] article {
+        background: rgba(255, 244, 246, 0.76);
+      }
+      @media (max-width: 980px) {
+        .freshness-strip {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
     <main class="app">
@@ -69,6 +113,20 @@
               <p id="pageKicker">今日任务总结</p>
               <h2 id="summaryTitle">读取信息后生成今天的执行重点</h2>
               <p id="pageNote">用一个面板量化今天要处理的待办、行业目标和产出方向，下面的信息流只作为原始材料入口。</p>
+            </div>
+            <div class="freshness-strip" id="freshnessStrip" aria-label="数据守门状态">
+              <article>
+                <span>数据日期</span>
+                <strong id="freshnessDate">读取中</strong>
+              </article>
+              <article>
+                <span>今日状态</span>
+                <strong id="freshnessState">验证中</strong>
+              </article>
+              <article>
+                <span>发布守门</span>
+                <strong id="publishState">待验证</strong>
+              </article>
             </div>
             <div class="summary-metrics" id="sourceHealthList">
               <article>
@@ -321,6 +379,39 @@
         </div>
       </section>
     </div>
-    <script src="script.js?v=20260704-data-freshness"></script>
+    <script src="script.js?v=20260704-guardrail"></script>
+    <script>
+      (() => {
+        const getDataDate = (value) => String(value || "").match(/\d{4}-\d{2}-\d{2}/)?.[0] || "";
+        const today = new Date();
+        const todayText = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+        const isWeekend = [0, 6].includes(today.getDay());
+        const setText = (id, value) => {
+          const node = document.getElementById(id);
+          if (node) node.textContent = value;
+        };
+        fetch(`data/daily-content.json?t=${Date.now()}`, { cache: "no-store" })
+          .then((response) => response.json())
+          .then((data) => {
+            const dataDate = getDataDate(data.updatedAt || data.freshness?.date);
+            const textBlob = `${data.updatedAt || ""} ${data.todayFocus?.summary || ""} ${data.freshness?.reason || ""}`;
+            const carry = dataDate === todayText && isWeekend && /沿用|最近工作日|周末|周六|周日/.test(textBlob);
+            const state = dataDate === todayText ? (carry ? "carry" : "fresh") : "stale";
+            const strip = document.getElementById("freshnessStrip");
+            if (strip) strip.dataset.state = state;
+            setText("freshnessDate", dataDate || "未知");
+            setText("freshnessState", state === "fresh" ? "今日数据" : state === "carry" ? "周末沿用已标注" : "数据过期");
+            setText("publishState", dataDate === todayText ? "线上已读到当天 JSON" : "线上 JSON 未到当天");
+            if (dataDate) setText("pageDate", `${dataDate.replaceAll("-", ".")} / Data`);
+          })
+          .catch(() => {
+            const strip = document.getElementById("freshnessStrip");
+            if (strip) strip.dataset.state = "stale";
+            setText("freshnessDate", "读取失败");
+            setText("freshnessState", "无法验证");
+            setText("publishState", "线上 JSON 未确认");
+          });
+      })();
+    </script>
   </body>
 </html>
