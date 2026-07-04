@@ -370,7 +370,7 @@
         </aside>
         <div class="source-insight" id="sourceInsight">
           <div class="source-frame" id="sourceFrameShell">
-            <iframe id="modalFrame" title="原始页面预览" loading="lazy" referrerpolicy="no-referrer"></iframe>
+            <iframe id="modalFrame" title="原始页面预览" loading="lazy" referrerpolicy="no-referrer" hidden></iframe>
             <div class="source-frame-tip" id="sourceFrameTip">
               <strong>原始链接区域</strong>
               <span>如果这里空白，说明原站限制内嵌，可用左侧入口打开完整页面。</span>
@@ -379,7 +379,7 @@
         </div>
       </section>
     </div>
-    <script src="script.js?v=20260704-no-embed-preview"></script>
+    <script src="script.js?v=20260704-freeze-guard"></script>
     <script>
       (() => {
         const blockEmbeddedSourcePreview = () => {
@@ -406,13 +406,7 @@
           },
           true,
         );
-        const frame = document.getElementById("modalFrame");
-        if (frame) {
-          new MutationObserver(blockEmbeddedSourcePreview).observe(frame, {
-            attributes: true,
-            attributeFilter: ["src"],
-          });
-        }
+        window.addEventListener("pageshow", blockEmbeddedSourcePreview);
       })();
     </script>
     <script>
