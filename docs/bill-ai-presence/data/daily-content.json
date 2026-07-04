@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-07-03 Chrome 登录态优设已刷新 / 飞书正式授权未完成",
+  "updatedAt": "2026-07-04 设计风格源巡检已刷新 / 周六 AI 晨报沿用最近工作日 / 优设公开访问受限 / Pinterest 登录态未确认 / Behance 暂停",
   "todayFocus": {
     "title": "从 Agent 执行转向 AI 工作组织设计",
-    "summary": "今天重点看 Codex、Qwen-AgentWorld、NotebookLM 与 Anthropic 治理信号：AI 产品正在从生成结果走向持续执行、环境理解、多模态表达和权限透明。",
-    "meta": "5 条晨报条目 · 3 个设计产出建议"
+    "summary": "今天是周六，AI 产品晨报暂沿用最近工作日信号；7 月 4 日已刷新设计源状态，重点是把 AI 产品趋势、视觉规则和飞书同步风险拆成可执行任务。",
+    "meta": "5 条最近工作日晨报条目 · 3 个设计产出建议"
   },
   "items": [
     {
-      "id": "meeting-2026-07-03-auth-needed",
+      "id": "meeting-2026-07-04-auth-needed",
       "topic": "calendar",
       "source": "日程与纪要",
       "badge": "待授权",
@@ -34,7 +34,7 @@
       }
     },
     {
-      "id": "message-2026-07-03-permission-needed",
+      "id": "message-2026-07-04-permission-needed",
       "topic": "message",
       "source": "飞书消息",
       "badge": "待接入",
@@ -64,636 +64,220 @@
       "id": "uisdc",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "优设 / 今日刷新",
-      "title": "优设：今日 AI 设计与工作流信号",
-      "summary": "已从 Chrome 登录态重新读取优设首页，更新 12 条真实可见内容：AI 作品集、Codex+Obsidian、AI 动效、开源 Skill、AI 介入边界、Figma Make 与 Skills/MCP。",
+      "badge": "优设 / 公开访问受限",
+      "title": "优设：把 AI 设计方法论压成可面试的证据链",
+      "summary": "今天优设公开首页被 WAF 拦截，不能声称正常读取新页面；本次沿用已保存的可见封面与文章方向，重点把 AI 作品集、动效状态、Skill 化服务和介入边界转成 Bill 的求职表达。",
       "bullets": [
-        "采集时间：2026-07-03，来源为 Chrome 登录态可见优设首页。",
-        "重点信号：AI 能力证明、个人知识流、Agent Skill、AI 介入边界、动效与图文生产线。",
-        "产出方向：作品集证据链、AI Presence 行为规则、图文晨报升级、长期知识库沉淀。"
+        "来源状态：公开首页当前访问受限；不绕过 WAF，不读取账号或隐私数据。",
+        "图片来源：历史巡检保存的优设文章封面缩略图，覆盖 AI 作品集、AI 动效、Skill、主动介入边界、知识流。",
+        "产出方向：作品集结构、文章选题、平台交互改进。"
       ],
-      "detail": {
-        "why": "这次优设刷新最有价值的不是多几张图，而是出现了多条和 Bill 当前平台直接相关的信号：AI 作品集怎么证明能力、Codex 如何接入 Obsidian、Skill 如何把服务能力模块化、AI 介入边界如何设计。",
-        "points": [
-          "《拆解了10份大厂作品集》直接服务求职：AI 能力要有证据链，而不是堆工具名。",
-          "Codex + Obsidian 说明 Agent 执行和长期知识库需要打通，适合成为平台下一阶段。",
-          "AI 动效、Live Photo Skill、Vibe Motion 都指向图文/动态内容生产线，而不是静态晨报。",
-          "AI 介入边界和 Skills/MCP 内容，正好支撑 AI Presence、主动服务和真实服务连接。",
-          "Figma Make 类内容继续证明：可运行原型比纯 UI 展示更有价值。"
-        ],
-        "impact": "优设今天承担的是中文方法论和作品集表达层：把 AI Native、Agent UI、Skills、MCP、Vibe Coding 这些信号翻译成国内设计师和面试官能理解的项目叙事。",
-        "reason": "Bill 的平台目标是日用和求职证据并存。优设这批内容可以直接反哺平台：既能改交互，也能形成作品集观点。",
-        "output": "今日优设产出建议：写一页《AI 作品集不是工具清单，而是工作流证据链》，用本平台作为例子：来源读取、AI 判断、原站验证、产出任务、长期沉淀。",
-        "next": "下一步：把“今日产出”升级成可归档结构，让每条优设来源都能进入观点、视觉规则、组件规则或作品集证据。"
-      },
       "images": [
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-1.webp",
-          "alt": "拆解了10份大厂作品集，总结出4个呈现AI能力的方向",
+          "alt": "AI 能力作品集证据链参考",
           "href": "https://www.uisdc.com/proof-over-tools",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "拆解大厂作品集：AI 能力要被证明，而不是堆工具名",
-            "meta": "优设文章 · AI 作品集 · 2026-07-03",
-            "tags": [
-              "AI 作品集",
-              "求职表达",
-              "能力证明"
-            ],
-            "excerpt": "文章提醒作品集不能只罗列 AI 工具名，而要展示你如何用 AI 解决真实问题、形成判断、完成产出。",
-            "takeaways": [
-              "AI 能力需要过程证据：输入、判断、迭代、输出。",
-              "面试官更关心你如何定义问题，而不是用了多少工具。",
-              "作品集要把 AI 工作流转成可验证的设计贡献。"
-            ],
-            "value": "非常适合 Bill 当前目标：把这个平台包装成求职作品集里的 AI Native 工作台案例。",
-            "rule": "每个 AI 产出都要保留来源、判断、行动和结果，形成可被面试官理解的证据链。",
-            "apply": "作品集结构、今日产出、AI 晨报转观点。"
-          },
-          "rule": "每个 AI 产出都要保留来源、判断、行动和结果，形成可被面试官理解的证据链。",
-          "apply": "作品集结构、今日产出、AI 晨报转观点。"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-3.webp",
-          "alt": "没想到我一个没有绘画基础的设计师，也能做这种海报！",
-          "href": "https://www.uisdc.com/skill-free-poster",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "没有绘画基础，也能用 AI 流程做出专业海报",
-            "meta": "优设文章 · AI Skill / 海报流程 · 2026-07-03",
-            "tags": [
-              "AI Skill",
-              "海报生成",
-              "视觉流程"
-            ],
-            "excerpt": "这条内容的价值在于流程化：把创意、素材、生成、筛选和收尾拆成可复用步骤，而不是只看最终海报。",
-            "takeaways": [
-              "AI 视觉产出需要流程，不是单次抽卡。",
-              "没有绘画基础也可以通过结构化输入控制结果。",
-              "最终质量取决于筛选和收尾，而不只是模型能力。"
-            ],
-            "value": "适合未来把 AI 产品晨报升级成图文卡：不是随便配图，而是按主题生成可控视觉。",
-            "rule": "图文晨报的视觉必须绑定主题、信息层级和使用场景，不做纯装饰。",
-            "apply": "图文晨报、设计源卡片、作品集封面。"
-          },
-          "rule": "图文晨报的视觉必须绑定主题、信息层级和使用场景，不做纯装饰。",
-          "apply": "图文晨报、设计源卡片、作品集封面。"
+          "rule": "AI 能力要展示判断过程、协作路径和结果证据，不能只列工具名。",
+          "apply": "作品集结构"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-2.webp",
-          "alt": "这种动效还手搓？我30秒就做好了！",
+          "alt": "AI 动效生成与状态反馈参考",
           "href": "https://www.uisdc.com/autoanimate",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "AI 快速生成动效：从手搓帧动画转向状态表达",
-            "meta": "优设文章 · AI 动效 · 2026-07-03",
-            "tags": [
-              "AI 动效",
-              "微交互",
-              "状态反馈"
-            ],
-            "excerpt": "文章关注 AI 如何降低动效制作门槛。对平台来说，关键不是炫技，而是让读取、生成、完成、返回这些状态更顺。",
-            "takeaways": [
-              "动效应该服务状态理解，而不是装饰。",
-              "AI 可以快速生成候选，但节奏和退场仍需人工控制。",
-              "轻量动效能增强连续性和 AI Presence。"
-            ],
-            "value": "适合优化弹窗打开、详情返回、任务生成反馈，让平台更像可用工具而非静态页面。",
-            "rule": "只给关键状态加动效：读取中、已生成、已同步、返回原位置。",
-            "apply": "详情页切换、原始链接弹窗、生成今日产出。"
-          },
-          "rule": "只给关键状态加动效：读取中、已生成、已同步、返回原位置。",
-          "apply": "详情页切换、原始链接弹窗、生成今日产出。"
+          "rule": "动效优先解释 AI 当前状态，再承担视觉表现。",
+          "apply": "平台交互改进"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-4.webp",
-          "alt": "收藏好这个开源Skill，帮你快速做出 Live Photo！",
+          "alt": "Skill 化动态素材生成参考",
           "href": "https://www.uisdc.com/guizang-social-card-skill-2",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "开源 Skill 生成 Live Photo：Agent 产物开始变成传播素材",
-            "meta": "优设文章 · 开源 Skill · 2026-07-03",
-            "tags": [
-              "Skill",
-              "Agent 产物",
-              "动态卡片"
-            ],
-            "excerpt": "文章展示把录屏、网页 Demo、游戏片段等输入交给 Agent，生成可传播的动态卡片。重点是把能力封装成可复用 Skill。",
-            "takeaways": [
-              "Skill 是把重复工作沉淀成能力模块。",
-              "Agent 输出不止文本，也可以是动态传播素材。",
-              "输入素材越结构化，产物越稳定。"
-            ],
-            "value": "适合把 Bill 平台的高频动作沉淀为个人 Skill：晨报转观点、来源转规则、会议转行动项。",
-            "rule": "把高频产出动作做成固定模板，不每次从零 prompt。",
-            "apply": "AI 晨报自动化、设计源规则提取、作品集素材生成。"
-          },
-          "rule": "把高频产出动作做成固定模板，不每次从零 prompt。",
-          "apply": "AI 晨报自动化、设计源规则提取、作品集素材生成。"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260631-4.webp",
-          "alt": "灵感不设限！10 个值得收藏的设计灵感和工具网站",
-          "href": "https://www.uisdc.com/design-stack",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "10 个设计灵感和工具网站：从采集到风格系统",
-            "meta": "优设文章 · 设计工具 / 灵感源 · 2026-07-03",
-            "tags": [
-              "设计工具",
-              "灵感采集",
-              "风格系统"
-            ],
-            "excerpt": "这类内容可以补平台的设计源策略：灵感不是收藏越多越好，而是要按用途、风格、组件和产出方向分类。",
-            "takeaways": [
-              "灵感网站要服务明确的创作任务。",
-              "工具清单需要转成自己的风格规则。",
-              "设计源模块应该定期淘汰无关内容。"
-            ],
-            "value": "适合校准设计风格源模块：优设看中文方法，Pinterest 看视觉聚类，Dribbble 看组件细节。",
-            "rule": "每条设计源必须进入分类：方法论、视觉风格、组件模式、产出任务。",
-            "apply": "设计风格源首页、卡片筛选、今日产出。"
-          },
-          "rule": "每条设计源必须进入分类：方法论、视觉风格、组件模式、产出任务。",
-          "apply": "设计风格源首页、卡片筛选、今日产出。"
+          "rule": "把高频设计产出封装成 Skill，让平台从内容看板走向能力集合。",
+          "apply": "组件模式"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260627-6.webp",
-          "alt": "从弹窗提醒到全权接管，如何设计 AI 的介入边界？",
+          "alt": "AI 主动介入边界设计参考",
           "href": "https://www.uisdc.com/right-touch",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "从提醒到接管：AI 介入边界的体验设计",
-            "meta": "优设文章 · AI 介入边界 · 2026-06-27",
-            "tags": [
-              "AI Presence",
-              "主动服务",
-              "接管边界"
-            ],
-            "excerpt": "文章直接对应 Bill 长期关注的主动服务：AI 什么时候提醒、什么时候等待、什么时候接管，必须被设计成清晰的行为规则。",
-            "takeaways": [
-              "AI 介入越多不等于体验越好。",
-              "提醒、建议、代办、接管应有不同权限边界。",
-              "用户需要知道 AI 为什么出现以及如何退出。"
-            ],
-            "value": "这是平台 AI Presence 的核心规则来源，可用于定义自动总结、消息提醒和任务生成的行为边界。",
-            "rule": "所有主动建议都要说明触发原因、建议动作和退场方式。",
-            "apply": "AI 建议、飞书消息提醒、日程与纪要总结。"
-          },
-          "rule": "所有主动建议都要说明触发原因、建议动作和退场方式。",
-          "apply": "AI 建议、飞书消息提醒、日程与纪要总结。"
+          "rule": "主动 AI 必须同时说明触发原因、建议动作和退场方式。",
+          "apply": "视觉规则"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260626-2.webp",
-          "alt": "餐饮出行办公全覆盖！盘点16个把自己蒸馏成Skills的国民级App",
+          "alt": "服务能力蒸馏为 Skills 的产品参考",
           "href": "https://www.uisdc.com/skills-13",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "国民级 App 蒸馏成 Skills：Agent 从聊天走向真实服务",
-            "meta": "优设文章 · Skills / MCP / Agent · 2026-06-26",
-            "tags": [
-              "Skills",
-              "MCP",
-              "Agent 服务"
-            ],
-            "excerpt": "文章讨论 App 如何把自身能力蒸馏成 Skill，让 Agent 调用真实世界服务。它对应从聊天助手到系统级入口的方向。",
-            "takeaways": [
-              "Skill 是服务能力的模块化表达。",
-              "Agent 价值在于连接真实任务，而不是只回答问题。",
-              "权限、确认和结果反馈会成为关键体验。"
-            ],
-            "value": "适合支撑 Bill 的多智能体和系统级 AI 入口方向，把平台从看板升级为可行动工作台。",
-            "rule": "未来每个模块都要定义可被 Agent 调用的能力边界和确认点。",
-            "apply": "飞书接入、未来 PRD 模块、Agent 工作流。"
-          },
-          "rule": "未来每个模块都要定义可被 Agent 调用的能力边界和确认点。",
-          "apply": "飞书接入、未来 PRD 模块、Agent 工作流。"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260626-3.webp",
-          "alt": "从提示词到上线！手把手教你用Figma Make建立个人网站",
-          "href": "https://www.uisdc.com/figma-make",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "Figma Make 建站：从提示词到上线的 AI 设计实现链",
-            "meta": "优设文章 · Figma Make · 2026-06-26",
-            "tags": [
-              "Figma Make",
-              "AI 原型",
-              "上线链路"
-            ],
-            "excerpt": "文章强调 AI 工具可以把想法快速推进到线上页面。对你来说，关键是把设计表达变成可运行、可验证的产品证据。",
-            "takeaways": [
-              "可运行原型比静态概念更有说服力。",
-              "提示词需要包含目标、结构、状态和验收标准。",
-              "设计师的交付物正在靠近产品实现。"
-            ],
-            "value": "适合解释为什么 Bill AI Presence 要真实可用，而不是只做漂亮 UI。",
-            "rule": "每个新功能都要能被打开、点击、验证，而不是停在展示层。",
-            "apply": "平台迭代、作品集 Demo、未来上线地址。"
-          },
-          "rule": "每个新功能都要能被打开、点击、验证，而不是停在展示层。",
-          "apply": "平台迭代、作品集 Demo、未来上线地址。"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260630-1.webp",
-          "alt": "资讯/神器/素材全都有！2026年6月设计周刊第七波",
-          "href": "https://www.uisdc.com/design-tech-weekly-4",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "设计周刊：Figma、AI 视频、Codex 等工作流信号",
-            "meta": "优设周刊 · AI / 设计工具 · 2026-06-30",
-            "tags": [
-              "设计周刊",
-              "AI 工具",
-              "工作流变化"
-            ],
-            "excerpt": "周刊型内容适合作为趋势雷达：它不一定每条都深入，但能快速提示工具生态发生了什么变化。",
-            "takeaways": [
-              "设计工具正在重构工作流，而不是只加 AI 按钮。",
-              "AI 视频、Codex、Figma 等信号需要被归类到长期主题。",
-              "周刊内容适合做趋势扫描，不适合作为最终观点。"
-            ],
-            "value": "适合平台每天早上快速扫趋势，再挑 1-2 条进入深度产出。",
-            "rule": "周刊类来源只做雷达，不直接当结论；必须二次筛选。",
-            "apply": "AI 产品晨报、设计源筛选、今日总结。"
-          },
-          "rule": "周刊类来源只做雷达，不直接当结论；必须二次筛选。",
-          "apply": "AI 产品晨报、设计源筛选、今日总结。"
+          "rule": "每个服务模块都应有可调用能力、权限边界和人工确认点。",
+          "apply": "平台交互改进"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260630-3.webp",
-          "alt": "AI时代最该学的笔记软件！教你从零到一学会Obsidian",
+          "alt": "AI 时代个人知识流与 Obsidian 参考",
           "href": "https://www.uisdc.com/obsidian-2",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "AI 时代的 Obsidian：个人知识库成为工作流底座",
-            "meta": "优设文章 · Obsidian / 知识管理 · 2026-06-30",
-            "tags": [
-              "Obsidian",
-              "知识管理",
-              "AI 工作流"
-            ],
-            "excerpt": "文章说明 AI 时代的知识管理不只是存笔记，而是把信息、链接、观点和产出持续连接起来。",
-            "takeaways": [
-              "知识库要服务长期产出，而不是资料囤积。",
-              "双链和结构化笔记适合沉淀 AI 产品观察。",
-              "AI 可以辅助整理，但主题判断仍要由人掌控。"
-            ],
-            "value": "适合把 Bill 平台未来接到个人知识库：每天晨报、会议、灵感都沉淀成可复用素材。",
-            "rule": "每日信息必须可回到一个长期主题：AI Presence、Agent UI、多智能体、主动服务。",
-            "apply": "今日总结、长期知识库、作品集素材库。"
-          },
-          "rule": "每日信息必须可回到一个长期主题：AI Presence、Agent UI、多智能体、主动服务。",
-          "apply": "今日总结、长期知识库、作品集素材库。"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260630-2.webp",
-          "alt": "花了一个月，踩了10个坑，我终于搞懂了用代码做视频",
-          "href": "https://www.uisdc.com/vibe-motion",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "Vibe Motion：用代码做视频，把生成内容工程化",
-            "meta": "优设文章 · Vibe Motion · 2026-06-30",
-            "tags": [
-              "Vibe Motion",
-              "代码视频",
-              "工程化创作"
-            ],
-            "excerpt": "文章价值在于把视频创作从一次性生成转向工程化管线：脚本、组件、渲染、调试和复用。",
-            "takeaways": [
-              "AI 视频不是一句话生成，而是可迭代工作流。",
-              "代码化流程能保留版本和复用能力。",
-              "复杂创作需要调试和验收，而不是只看第一版。"
-            ],
-            "value": "适合未来把平台的图文晨报升级为可复用内容生产线。",
-            "rule": "内容生成要保留结构和版本，便于迭代和复盘。",
-            "apply": "图文晨报、作品集视频、动态演示。"
-          },
-          "rule": "内容生成要保留结构和版本，便于迭代和复盘。",
-          "apply": "图文晨报、作品集视频、动态演示。"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/Codex-20060703-01.webp",
-          "alt": "Codex+Obsidian这样用才顺手！5分钟搞懂AI工作流",
-          "href": "https://www.uisdc.com/group/675631.html",
-          "platform": "优设",
-          "article": {
-            "articleTitle": "Codex + Obsidian：把 AI 执行接入个人知识流",
-            "meta": "优设小组 · Codex / Obsidian · 2026-07-03",
-            "tags": [
-              "Codex",
-              "Obsidian",
-              "AI 工作流"
-            ],
-            "excerpt": "这条小组内容非常贴近当前平台：Codex 负责执行，Obsidian 负责沉淀，二者结合就是个人 AI 工作流底座。",
-            "takeaways": [
-              "Agent 执行需要连接长期知识库。",
-              "临时任务完成后要沉淀为笔记、规则或作品集证据。",
-              "Codex 不只是开发工具，也可以成为个人工作流执行层。"
-            ],
-            "value": "适合定义 Bill 平台下一阶段：晨报、设计源、飞书消息进入同一个长期知识系统。",
-            "rule": "每个今日产出任务都要能被归档到长期主题或项目。",
-            "apply": "今日产出、Obsidian 联动、长期知识库。"
-          },
-          "rule": "每个今日产出任务都要能被归档到长期主题或项目。",
-          "apply": "今日产出、Obsidian 联动、长期知识库。"
+          "rule": "每日风格信号要回流到长期主题库，而不是停留在当天收藏。",
+          "apply": "文章选题"
         }
-      ]
+      ],
+      "detail": {
+        "why": "优设今天最适合承担中文方法论和求职叙事层：把 AI Native 能力翻译成面试官能看懂的证据链，包括来源读取、AI 判断、人工取舍、组件沉淀和最终产出。",
+        "points": [
+          "作品集结构要从“我会用 AI 工具”升级为“我能设计 AI 协作系统”。",
+          "AI 动效应绑定状态：读取、推理、执行、等待确认、完成、失败恢复。",
+          "Skill 化内容提示平台下一步要暴露可调用能力，而不是只显示信息。",
+          "主动介入边界可直接沉淀为 AI Presence 行为原则。",
+          "知识流内容适合转成长期文章选题和设计雷达索引。"
+        ],
+        "impact": "它能帮助 Bill 把每日巡检变成作品集证据：不是灵感收藏，而是一套可持续的 AI Native 设计判断系统。",
+        "reason": "中文设计招聘语境更看重方法论、案例拆解和能力证明。优设负责“说清楚为什么”，Pinterest 和 Dribbble 负责“看见怎么做”。",
+        "output": "作品集结构：新增《AI Presence 平台如何证明 AI Native 设计能力》章节，按来源、判断、组件、行动、沉淀五段组织。",
+        "next": "下一轮若优设恢复访问，把新文章按观点、行为规则、组件规则、作品集证据四类入库。"
+      }
     },
     {
       "id": "pinterest",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "Pinterest / 登录态可见",
-      "title": "Pinterest：风格板方向保留，今日登录态需浏览器确认",
-      "summary": "Pinterest 保留 17 条真实 pin 封面与来源链接，点击后进入平台内灵感详情，不再依赖原站 iframe。",
+      "badge": "Pinterest / 登录态未确认",
+      "title": "Pinterest：把空间感图源收敛成 AI Presence 视觉规则",
+      "summary": "当前自动化环境不能确认 Pinterest 登录态首页，因此不声称读取今日私有图板。今天沿用历史可见缩略图，把 HMI、Apple design、Website-data、AI workspace 聚合为四组可执行规则。",
       "bullets": [
-        "设计信号：Pinterest 现在不只是入口，已经进入真实图源采集；每天应从图片里提炼可复用视觉规则。",
-        "图片来源：Chrome 登录态首页可见 pin，当前保留 17 张缩略图与对应 pin 链接。",
-        "产出方向：AI Workspace、Agent UI、Spatial Glass、Calm Productivity 四组 moodboard。",
-        "使用方式：点击图片在平台内预览 pin 原始链接，不再只放大封面。",
-        "今日重点：AI interface、空间光感、移动 dashboard、Figma 光效、信息产品视觉密度。",
-        "风险：Pinterest 图源混杂，需要每天过滤与平台无关的纯壁纸/纯装饰图。"
+        "来源状态：当前不可访问/登录态失效或未确认；不绕过登录，不读取账号隐私。",
+        "图片来源：历史巡检保存的 Pinterest 页面可见缩略图 URL，覆盖 HMI、Apple Spatial、数据可视化、AI interface。",
+        "产出方向：视觉规则、组件模式、平台交互改进。"
       ],
-      "detail": {
-        "why": "已从 Chrome 登录态的 Pinterest 首页读取到真实可见 pin。它的价值不在于复制图片，而是把 AI interface、空间层级、移动 dashboard、Figma 光效等视觉信号转成 Bill 平台的设计规则。",
-        "points": [
-          "AI interfaces pushed beyond ordinary light/dark mode：适合转成平台的空间层级和 AI 存在感规则。",
-          "Health & Nutrition Dashboard Mobile App UI：可参考移动端 dashboard 如何控制密度与层级。",
-          "Figma 光效教程：可提炼柔和发光边缘，谨慎用于 AI 状态和来源预览，不做廉价渐变。",
-          "HMI 与状态信息图：可转成 Agent 状态面板：待命、执行、等待确认、完成。",
-          "深色界面与光感结构：适合作为关键操作区，而不是整页套暗色风。",
-          "轻拟态信息容器：可用于来源预览、任务结果和总结面板。",
-          "Apple 风格空间布局：转成大圆角、浅层阴影、低饱和背景和清晰留白。",
-          "UI 元素与圆角节奏：当前页面圆角已提升，但按钮、弹窗、图片容器还要保持同一语气。",
-          "信息看板参考：优先做层级，不堆装饰图形。",
-          "未来感界面结构：只抽象为空间关系，不直接复制视觉皮肤。",
-          "移动端壁纸光感与材质：可辅助建立品牌情绪，但不能进入核心工作流。",
-          "数据产品视觉语言：用于 AI 产品晨报里的引用、证据和判断结构。",
-          "界面色块与层级：可用在 topic 选中态和来源类别，不扩大成彩虹色系统。",
-          "空间视觉与产品构图：适合后续作品集封面和项目讲述页。",
-          "清晰度与语境表达：提醒当前平台不要只展示图，要把图翻译成规则。",
-          "落地动作：每张图补一条“可复用规则”，并能生成今日产出任务。",
-          "下一步：把 Pinterest 的图片流变成“每日视觉规则卡”，而不是瀑布流相册。"
-        ],
-        "impact": "Pinterest 负责视觉气质层和跨端情绪层。它的作用不是堆图，而是把 HMI、Apple Spatial、UI dynamic、2.5D 等图源翻译成 Bill AI Presence 的界面规则：空间层级、状态表达、轻容器、动效节奏和陪伴感。",
-        "reason": "Bill 的目标不是做设计灵感站，而是建立 AI Native 体验设计系统。Pinterest 图源只有在被转成规则、组件和作品集证据时才有价值。",
-        "output": "视觉规则产出：从 17 张 pin 中筛选 5 张，分别提炼布局、材质、状态表达、动效节奏、适用组件，并反向应用到当前平台。",
-        "next": "下一步：把 Pinterest 模块升级为每日视觉规则卡，每张图都能写出“可复用规则”和“可应用到的平台模块”。"
-      },
       "images": [
         {
           "src": "https://i.pinimg.com/474x/c3/43/0e/c3430e5edfc183b878ccc1fd174e9b5b.jpg",
-          "alt": "Pinterest 登录态可见参考：空间界面与柔和层级",
+          "alt": "空间界面与柔和层级 moodboard 参考",
           "href": "https://www.pinterest.com/pin/695735842480691463/",
-          "rule": "提炼空间层级与柔和光感，服务 AI Presence 的存在感。"
-        },
-        {
-          "src": "https://i.pinimg.com/474x/65/10/01/651001b8152fa346f42cd4ebdb9cf8a4.jpg",
-          "alt": "Pinterest 登录态可见参考：深色界面与光感结构",
-          "href": "https://www.pinterest.com/pin/636626097370048750/",
-          "rule": "把图片转成布局、圆角、状态反馈和动效节奏规则。"
-        },
-        {
-          "src": "https://i.pinimg.com/474x/01/b0/bb/01b0bbba93f99f49a270afed8adc434f.jpg",
-          "alt": "Pinterest 登录态可见参考：轻拟态信息容器",
-          "href": "https://www.pinterest.com/pin/80994493295041536/",
-          "rule": "只作为 moodboard 证据，不把平台做成图片瀑布流。"
+          "rule": "背景深度和轻量容器负责 AI Presence 的环境感。",
+          "apply": "视觉规则"
         },
         {
           "src": "https://i.pinimg.com/474x/c8/de/81/c8de8171ad14262b448468e079bc5037.jpg",
-          "alt": "Pinterest 登录态可见参考：Apple 风格空间布局",
+          "alt": "Apple 风格空间布局参考",
           "href": "https://www.pinterest.com/pin/569846159122451357/",
-          "rule": "提炼空间层级与柔和光感，服务 AI Presence 的存在感。"
+          "rule": "主任务居中，辅助信号退到边缘，降低传统后台感。",
+          "apply": "视觉规则"
         },
         {
           "src": "https://i.pinimg.com/474x/38/76/f0/3876f0534844ef2f33b5697b99a9cf6c.jpg",
-          "alt": "Pinterest 登录态可见参考：HMI 与状态信息表达",
+          "alt": "HMI 状态信息表达参考",
           "href": "https://www.pinterest.com/pin/1131248000181500525/",
-          "rule": "把图片转成布局、圆角、状态反馈和动效节奏规则。"
-        },
-        {
-          "src": "https://i.pinimg.com/474x/f8/81/96/f8819622e43e2308533f3308beb3166e.jpg",
-          "alt": "Pinterest 登录态可见参考：移动端壁纸光感与材质",
-          "href": "https://www.pinterest.com/pin/896708975823500183/",
-          "rule": "只作为 moodboard 证据，不把平台做成图片瀑布流。"
-        },
-        {
-          "src": "https://i.pinimg.com/474x/df/45/72/df457202351fb60621e1eb4682199eec.jpg",
-          "alt": "Pinterest 登录态可见参考：UI 元素与圆角节奏",
-          "href": "https://www.pinterest.com/pin/242912973646450654/",
-          "rule": "提炼空间层级与柔和光感，服务 AI Presence 的存在感。"
+          "rule": "状态信息要像仪表一样可扫读，少用解释性长文占屏。",
+          "apply": "组件模式"
         },
         {
           "src": "https://i.pinimg.com/474x/8c/09/a7/8c09a7f7b115e59c94d21471317bd75a.jpg",
-          "alt": "AI interfaces pushed beyond ordinary light and dark mode",
+          "alt": "AI interfaces beyond ordinary light and dark mode",
           "href": "https://www.pinterest.com/pin/1152428992169871667/",
-          "rule": "把图片转成布局、圆角、状态反馈和动效节奏规则。"
-        },
-        {
-          "src": "https://i.pinimg.com/474x/0f/a4/9a/0fa49a25a871292dffdb98d6f5ece776.jpg",
-          "alt": "Pinterest 登录态可见参考：AI 产品界面氛围",
-          "href": "https://www.pinterest.com/pin/859835753919401936/",
-          "rule": "只作为 moodboard 证据，不把平台做成图片瀑布流。"
+          "rule": "AI 界面不只区分明暗主题，还要区分存在感强弱和行动状态。",
+          "apply": "平台交互改进"
         },
         {
           "src": "https://i.pinimg.com/474x/9f/b2/01/9fb201fa9d860c55b1b9c2096cbf8814.jpg",
-          "alt": "Pinterest 登录态可见参考：信息看板与视觉密度",
+          "alt": "信息看板与视觉密度参考",
           "href": "https://www.pinterest.com/pin/519110294569871257/",
-          "rule": "提炼空间层级与柔和光感，服务 AI Presence 的存在感。"
-        },
-        {
-          "src": "https://i.pinimg.com/474x/ee/a0/0d/eea00d90a6a1b46b8fe2ac8ea7b4f612.jpg",
-          "alt": "Pinterest 登录态可见参考：未来感界面结构",
-          "href": "https://www.pinterest.com/pin/722616702757497215/",
-          "rule": "把图片转成布局、圆角、状态反馈和动效节奏规则。"
+          "rule": "密度来自节奏、分区和对齐，不来自卡片堆叠。",
+          "apply": "视觉规则"
         },
         {
           "src": "https://i.pinimg.com/474x/34/c9/9b/34c99bf5c277ec7fab6ec691b267ea33.jpg",
-          "alt": "Pinterest 登录态可见参考：数据产品视觉语言",
+          "alt": "数据产品视觉语言参考",
           "href": "https://www.pinterest.com/pin/412360909653820781/",
-          "rule": "只作为 moodboard 证据，不把平台做成图片瀑布流。"
-        },
-        {
-          "src": "https://i.pinimg.com/474x/40/39/22/403922a439776cc60bbc7378ba0e091a.jpg",
-          "alt": "Figma 光效教程与柔和发光层级",
-          "href": "https://www.pinterest.com/pin/939352434793703227/",
-          "rule": "提炼空间层级与柔和光感，服务 AI Presence 的存在感。"
-        },
-        {
-          "src": "https://i.pinimg.com/474x/46/4d/fe/464dfe9ee1b2c30a63790024a874ca1d.jpg",
-          "alt": "Pinterest 登录态可见参考：界面色块与层级",
-          "href": "https://www.pinterest.com/pin/587227238955500624/",
-          "rule": "把图片转成布局、圆角、状态反馈和动效节奏规则。"
-        },
-        {
-          "src": "https://i.pinimg.com/474x/5e/14/d5/5e14d5b45fd79885aa781768b4f69401.jpg",
-          "alt": "Pinterest 登录态可见参考：空间视觉与产品构图",
-          "href": "https://www.pinterest.com/pin/751890100328894456/",
-          "rule": "只作为 moodboard 证据，不把平台做成图片瀑布流。"
-        },
-        {
-          "src": "https://i.pinimg.com/474x/68/ff/db/68ffdb1987c826d921c0a592e9b25d75.jpg",
-          "alt": "Health & Nutrition Dashboard Mobile App UI",
-          "href": "https://www.pinterest.com/pin/1109855901953449133/",
-          "rule": "提炼空间层级与柔和光感，服务 AI Presence 的存在感。"
-        },
-        {
-          "src": "https://i.pinimg.com/474x/33/21/0e/33210ea63016759d4a4fd4b767a6ad02.jpg",
-          "alt": "Pinterest 登录态可见参考：清晰度与语境表达",
-          "href": "https://www.pinterest.com/pin/1126674031815416605/",
-          "rule": "把图片转成布局、圆角、状态反馈和动效节奏规则。"
+          "rule": "数据视觉必须服务判断路径：来源、趋势、异常、下一步。",
+          "apply": "组件模式"
         }
-      ]
+      ],
+      "detail": {
+        "why": "Pinterest 今天的价值不是找新图，而是把已有空间感图源变成 Bill AI Presence 的风格语法：空间层级、状态可见、证据数据和低打扰动效。",
+        "points": [
+          "Spatial Layer：用深度、透明和留白表达 AI 的环境存在。",
+          "Agent State：空闲、读取、执行、等待、完成要有统一视觉强度。",
+          "Evidence Data：来源、可信度、异常和下一步必须在同一判断路径里。",
+          "Calm Motion：动效只在状态变化时出现，节奏轻，不抢主任务。",
+          "Dashboard 密度靠空间组织解决，避免普通运营后台感。"
+        ],
+        "impact": "这会直接影响平台首页：从卡片列表升级为一个有主任务、环境信号、来源证据和 AI 状态的工作场。",
+        "reason": "Bill 的方向不是普通 UI 拼贴，而是 Apple Spatial、AI Native、柔和层次和伴随式 AI 的一致视觉语言。",
+        "output": "视觉规则：建立四页 moodboard 规范：Spatial Layer、Agent State、Evidence Data、Calm Motion，每页保留 3 条 UI 原则。",
+        "next": "下次如登录态可用，优先进入 Apple design、UI dynamic、Website-data、HMI 图板，每组只采 3-6 张可解释缩略图。"
+      }
     },
     {
       "id": "dribbble",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "Dribbble / 登录态可见",
-      "title": "Dribbble：AI 工作台组件和微交互参考",
-      "summary": "已把 Dribbble 15 条真实 shot 的封面转为本地资源，避免第三方防盗链导致裂图；点击后进入平台内灵感详情。",
+      "badge": "Dribbble / 组件模式",
+      "title": "Dribbble：把 AI Dashboard 拆成可复用 Agent 工作台组件",
+      "summary": "Dribbble 今日继续作为组件与微交互雷达，不追表面炫技。重点提炼 Agent 状态胶囊、证据抽屉、产出队列、确认面板和跨端继续。",
       "bullets": [
-        "设计信号：Dribbble 现在有真实 shot 链接，可直接进入站内来源预览。",
-        "图片来源：Chrome 登录态 Dribbble popular 页面可见卡片，当前保留 16 张缩略图与对应 shot 链接。",
-        "产出方向：AI 工作台组件、状态反馈、来源预览、任务生成、跨端继续。",
-        "今日重点：Enterprise UI、AI OS、AI Nutrition、CRM、Social Dashboard、Patient Monitoring。",
-        "使用方式：点击图片在平台内预览 shot 原始链接，站点限制时再打开原始链接。",
-        "风险：Dribbble 视觉噪音高，只保留能转成工作流组件的参考。"
+        "来源状态：使用已保存公开缩略图与 Dribbble shot 链接；不批量下载原图。",
+        "图片来源：公开资源 assets/design-sources/dribbble 与对应 Dribbble 页面链接。",
+        "产出方向：组件模式、平台交互改进、视觉规则。"
       ],
-      "detail": {
-        "why": "已从 Dribbble popular 登录态页面读取到真实可见 shot。它适合做组件雷达：从企业 UI、AI OS、AI 营养、CRM、社媒管理、医疗监测等作品里提炼 AI 工作台可用的结构，而不是复刻视觉皮肤。",
-        "points": [
-          "Quantexa 企业级 UI/UX：适合参考复杂企业系统如何控制层级与信息密度。",
-          "Epoch Protocol Web3 基础设施：可观察深色系统如何表达平台级结构，但不能直接套暗黑风。",
-          "Marketplace 移动购物应用：可提炼移动端卡片节奏和跨端继续任务。",
-          "Veggy AI 营养与食谱网站：适合观察 AI 消费产品如何把智能建议包装成可信内容。",
-          "Axiom AI 应用 UI Kit：可转成 Bill 平台的组件规范输入。",
-          "患者监护移动 iOS：可借鉴高风险信息的状态、提醒和人工确认。",
-          "Kaspa DeFi 与 AI Agent：可观察 Agent/加密产品如何处理复杂状态和解释。",
-          "高端灯具电商：只取产品展示层次，不引入无关商业视觉。",
-          "AI OS：与 Bill 的系统级 AI 入口方向直接相关，可拆成状态栏、时钟、代码、仪表盘等系统组件。",
-          "Amanah CRM 捐赠者列表：适合学习 CRM 列表如何保持清晰、可筛选、可追踪。",
-          "Drift 社媒管理仪表盘：可转成内容生产工作台的日程、任务、分析三层结构。",
-          "Soma 血糖监测桌面应用：适合参考健康数据的趋势解释和风险提示。",
-          "Burger Island 与 Instinct 标志：不进主界面，可作为作品集品牌识别辅助。",
-          "Nemuta 品牌视觉：适合作为项目包装和封面风格参考。",
-          "Blockchain Finance Landing Page：只抽取模块节奏和信任感，不做营销页。",
-          "落地到当前页面：来源预览弹窗、底部返回、产出队列都应按组件系统继续精修。"
-        ],
-        "impact": "Dribbble 负责具体组件层和微交互层。它应该帮助 Bill 把 AI 工作台做成可操作系统：来源卡、状态反馈、任务生成、证据预览、人工确认、跨端继续，而不是只追求单张界面好看。",
-        "reason": "Bill 的平台要从设计雷达走向作品集证据，必须把 Dribbble 的风格参考转成组件系统、交互逻辑和可解释的 AI 行为。",
-        "output": "组件模式产出：基于 15 条 Dribbble shot，整理 12 个 AI Presence 工作台组件：来源卡、状态条、证据预览、任务生成、人工确认、完成归档、跨端继续、风险提示、列表筛选、状态密度、品牌封面、系统入口。",
-        "next": "下一步：按 Agent UI / AI dashboard / productivity workflow 三组关键词继续采集，给每个 shot 标注“可转成哪个组件”。"
-      },
       "images": [
         {
           "src": "assets/design-sources/dribbble/dribbble-01.webp",
           "alt": "Quantexa 企业级 UI/UX 设计",
           "href": "https://dribbble.com/shots/27044530-Enterprise-UI-UX-Design-for-Quantexa",
           "originalSrc": "https://cdn.dribbble.com/userupload/46593501/file/still-c92e7f64f22f44c5a3f3eb09f3a24baa.png?format=webp&resize=1200x900&vertical=center",
-          "rule": "把复杂信息压进清晰分区，避免普通后台式堆叠。"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-02.webp",
-          "alt": "Epoch Protocol Web3 基础设施平台",
-          "href": "https://dribbble.com/shots/27511694-Epoch-Protocol-Web3-Infrastructure-Platform",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48211487/file/b0b4cfb9d94e525ea29f43415f75ed0d.png?crop=0x2-2400x1802&format=webp&resize=1200x900&vertical=center",
-          "rule": "提炼为 AI 工作台组件：来源、状态、判断、下一步。"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-03.webp",
-          "alt": "Marketplace 移动购物应用",
-          "href": "https://dribbble.com/shots/27485397-Marketplace-Mobile-Shopping-App",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48113505/file/ca21f2dec1dd12cecf5eef4905291799.png?format=webp&resize=800x600&vertical=center",
-          "rule": "只借鉴结构和节奏，不复制装饰视觉。"
+          "rule": "复杂信息拆成判断区、证据区和行动区。",
+          "apply": "组件模式"
         },
         {
           "src": "assets/design-sources/dribbble/dribbble-04.webp",
           "alt": "Veggy AI 营养与食谱网站",
           "href": "https://dribbble.com/shots/27517635-Veggy-AI-Nutrition-Recipe-Website",
           "originalSrc": "https://cdn.dribbble.com/userupload/48234052/file/still-d3eb2477fba4ce56a102a97d3f76ee4d.png?format=webp&resize=800x600&vertical=center",
-          "rule": "把复杂信息压进清晰分区，避免普通后台式堆叠。"
+          "rule": "AI 建议需要显性说明输入、推理依据和可执行结果。",
+          "apply": "平台交互改进"
         },
         {
           "src": "assets/design-sources/dribbble/dribbble-05.webp",
           "alt": "Axiom AI 应用 UI Kit",
           "href": "https://dribbble.com/shots/27517797-Axiom-ui-kit",
           "originalSrc": "https://cdn.dribbble.com/userupload/48234613/file/fc0f1c0f01b89e7b8d8a33a21cfd2123.png?format=webp&resize=800x600&vertical=center",
-          "rule": "提炼为 AI 工作台组件：来源、状态、判断、下一步。"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-06.webp",
-          "alt": "患者监护移动 iOS 应用设计",
-          "href": "https://dribbble.com/shots/27518240-Patient-Monitoring-Mobile-iOS-App-Design",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48236029/file/still-4ad984a6e3674a00a9a32e4a59b704e7.png?format=webp&resize=800x600&vertical=center",
-          "rule": "只借鉴结构和节奏，不复制装饰视觉。"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-07.webp",
-          "alt": "Kaspa DeFi 生态系统与 AI Agent 信号",
-          "href": "https://dribbble.com/shots/27516817-Kaspa-com-DeFi-Ecosystem",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48230528/file/still-16b60d4aa584c58a235ad560040632fc.png?format=webp&resize=800x600&vertical=center",
-          "rule": "把复杂信息压进清晰分区，避免普通后台式堆叠。"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-08.webp",
-          "alt": "高端灯具电商网站 UI 设计",
-          "href": "https://dribbble.com/shots/27518582-Premium-Lamp-Ecommerce-Website-UI-Design",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48237255/file/b515288b9d0c57dc36a065a932ba20e3.png?format=webp&resize=800x600&vertical=center",
-          "rule": "提炼为 AI 工作台组件：来源、状态、判断、下一步。"
+          "rule": "Agent 状态组件要覆盖空闲、读取、执行、等待确认、完成。",
+          "apply": "组件模式"
         },
         {
           "src": "assets/design-sources/dribbble/dribbble-09.webp",
           "alt": "AI OS 系统界面概念",
           "href": "https://dribbble.com/shots/27516863-AI-OS",
           "originalSrc": "https://cdn.dribbble.com/userupload/48230732/file/bcc5657d72267abe02a30bb118d66721.png?crop=0x0-1600x1200&format=webp&resize=800x600&vertical=center",
-          "rule": "只借鉴结构和节奏，不复制装饰视觉。"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-10.webp",
-          "alt": "Amanah CRM 捐赠者列表",
-          "href": "https://dribbble.com/shots/27517801-Amanah-CRM-Donors-Listing",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48234626/file/f021783bece79393f9cffb7f487dd2de.png?format=webp&resize=800x600&vertical=center",
-          "rule": "把复杂信息压进清晰分区，避免普通后台式堆叠。"
+          "rule": "系统级 AI 入口要常驻但不侵占主工作区。",
+          "apply": "视觉规则"
         },
         {
           "src": "assets/design-sources/dribbble/dribbble-11.webp",
           "alt": "Drift 社交媒体管理仪表盘",
           "href": "https://dribbble.com/shots/27517258-Drift-Social-Media-Management-Dashboard",
           "originalSrc": "https://cdn.dribbble.com/userupload/48232668/file/18f7c027f430dc7c85a5183cd1ddf0bc.png?format=webp&resize=800x600&vertical=center",
-          "rule": "提炼为 AI 工作台组件：来源、状态、判断、下一步。"
+          "rule": "任务流、素材流和输出流要能在同一屏互相看见。",
+          "apply": "平台交互改进"
         },
         {
           "src": "assets/design-sources/dribbble/dribbble-12.webp",
           "alt": "Soma 血糖监测桌面应用",
           "href": "https://dribbble.com/shots/27506011-Soma-Glucose-Monitoring-Desktop-App",
           "originalSrc": "https://cdn.dribbble.com/userupload/48188744/file/bbd826fcb7dd3f5e3eee17d734139990.jpg?crop=0x0-3200x2400&format=webp&resize=800x600&vertical=center",
-          "rule": "只借鉴结构和节奏，不复制装饰视觉。"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-14.webp",
-          "alt": "Instinct 六边形与 AI 星形标志概念",
-          "href": "https://dribbble.com/shots/27517595-Instinct-logo-Hexagon-and-Ai-star-concept",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48233936/file/6f9d1faf2846f08cf979ec5f6bcb4c92.png?format=webp&resize=800x600&vertical=center",
-          "rule": "提炼为 AI 工作台组件：来源、状态、判断、下一步。"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-15.webp",
-          "alt": "Nemuta 高端眼镜品牌视觉",
-          "href": "https://dribbble.com/shots/27517336-Nemuta-Premium-Eyewear-Branding",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48233015/file/41938e11721536cf135fb0aa432150b1.jpg?format=webp&resize=800x600&vertical=center",
-          "rule": "只借鉴结构和节奏，不复制装饰视觉。"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-16.webp",
-          "alt": "Blockchain Finance Landing Page Design",
-          "href": "https://dribbble.com/shots/27517729-Blockchain-Finance-Landing-Page-Design",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48234388/file/29cd26cadff7fd3afb0d85f3b1d35a02.jpg?format=webp&resize=800x600&vertical=center",
-          "rule": "把复杂信息压进清晰分区，避免普通后台式堆叠。"
+          "rule": "监测类界面可借鉴到 AI 任务健康度和来源可信度。",
+          "apply": "组件模式"
         }
-      ]
+      ],
+      "detail": {
+        "why": "Dribbble 对 Bill 最有价值的是组件和微交互拆解：AI 状态、证据引用、任务分派、完成反馈、错误恢复，而不是单张视觉风格。",
+        "points": [
+          "Agent 状态胶囊：空闲、读取、执行、等待确认、完成、失败恢复。",
+          "证据抽屉：原始来源、AI 摘要、可信度、可打开链接。",
+          "产出队列：把今日信号转成作品集、文章、视觉规则或平台改进。",
+          "确认面板：行动前展示影响、权限和可撤销路径。",
+          "跨端继续：Phone 看提醒，Pad 做阅读，PC 做产出。"
+        ],
+        "impact": "这些组件能把平台从内容聚合页推进到 AI 工作台：用户不是看完离开，而是把每条信号转成下一步产出。",
+        "reason": "Bill 不需要普通 dashboard，而需要有 AI 存在感、任务连续性和可解释行为的工作场。",
+        "output": "组件模式：整理 5 个核心组件规格：Agent 状态胶囊、来源证据抽屉、产出队列、确认面板、跨端继续卡。",
+        "next": "下一轮继续搜索 AI dashboard、Agent UI、workflow、assistant UI，只保留能转成平台组件的参考。"
+      }
     },
     {
       "id": "prd",
@@ -720,7 +304,7 @@
       "id": "brief-2026-07-02-codex-agentic-ai",
       "topic": "brief",
       "source": "AI 产品晨报",
-      "badge": "今天最值得关注",
+      "badge": "最近工作日重点",
       "title": "Codex 信号：Agentic AI 从写代码走向组织工作方式",
       "summary": "最新 Codex 使用研究显示，Agentic AI 的采用正在从开发者扩展到组织协作，关键变化是用户开始并行管理多个可执行任务的 AI agent。",
       "bullets": [
