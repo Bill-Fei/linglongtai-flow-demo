@@ -410,7 +410,7 @@
         if (frame) {
           new MutationObserver(blockEmbeddedSourcePreview).observe(frame, {
             attributes: true,
-            attributeFilter: ["src", "hidden"],
+            attributeFilter: ["src"],
           });
         }
       })();
