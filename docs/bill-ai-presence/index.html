@@ -379,7 +379,42 @@
         </div>
       </section>
     </div>
-    <script src="script.js?v=20260704-guardrail"></script>
+    <script src="script.js?v=20260704-no-embed-preview"></script>
+    <script>
+      (() => {
+        const blockEmbeddedSourcePreview = () => {
+          const frame = document.getElementById("modalFrame");
+          const tip = document.getElementById("sourceFrameTip");
+          if (frame) {
+            frame.removeAttribute("src");
+            frame.hidden = true;
+          }
+          if (tip) {
+            tip.hidden = false;
+            const text = tip.querySelector("span");
+            if (text) {
+              text.textContent = "Dribbble、Pinterest、优设等外站通常禁止被嵌入到第三方页面。这里保留来源说明，完整页面请用左侧入口打开。";
+            }
+          }
+        };
+        document.addEventListener(
+          "click",
+          (event) => {
+            if (event.target.closest("[data-source-index], [data-image-index]")) {
+              window.setTimeout(blockEmbeddedSourcePreview, 0);
+            }
+          },
+          true,
+        );
+        const frame = document.getElementById("modalFrame");
+        if (frame) {
+          new MutationObserver(blockEmbeddedSourcePreview).observe(frame, {
+            attributes: true,
+            attributeFilter: ["src", "hidden"],
+          });
+        }
+      })();
+    </script>
     <script>
       (() => {
         const getDataDate = (value) => String(value || "").match(/\d{4}-\d{2}-\d{2}/)?.[0] || "";
