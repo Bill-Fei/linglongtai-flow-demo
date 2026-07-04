@@ -8,6 +8,7 @@ const pageTitle = document.querySelector("#pageTitle");
 const pageKicker = document.querySelector("#pageKicker");
 const pageNote = document.querySelector("#pageNote");
 const syncStatus = document.querySelector("#syncStatus");
+const pageDate = document.querySelector("#pageDate");
 const imageModal = document.querySelector("#imageModal");
 const modalClose = document.querySelector("#modalClose");
 const modalImage = document.querySelector("#modalImage");
@@ -40,7 +41,7 @@ const MESSAGE_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
 const FULL_PAGE_REFRESH_INTERVAL_MS = 12 * 60 * 60 * 1000;
 const LOCAL_CALENDAR_FILE = "data/feishu-calendar.local.json";
 const LOCAL_MESSAGES_FILE = "data/feishu-messages.local.json";
-const APP_VERSION = "20260703-sidebar-sticky";
+const APP_VERSION = "20260704-data-freshness";
 
 function readStoredOutputTasks() {
   try {
@@ -319,6 +320,13 @@ function setSyncStatus(message, state = "ready") {
   if (!syncStatus) return;
   syncStatus.textContent = message;
   syncStatus.dataset.state = state;
+}
+
+function setPageDate(value) {
+  if (!pageDate) return;
+  const match = String(value || "").match(/\d{4}-\d{2}-\d{2}/);
+  const dateText = match ? match[0].replaceAll("-", ".") : new Date().toLocaleDateString("zh-CN").replaceAll("/", ".");
+  pageDate.textContent = `${dateText} / Data`;
 }
 
 function formatUpdatedAt(value) {
@@ -686,6 +694,7 @@ function applyContentData(data) {
   updateFeishuMessageStatus(data.items);
   sourceState.contentLoaded = true;
   sourceState.lastContentLabel = `${formatClock()} 已读取`;
+  setPageDate(data.updatedAt);
   renderSourceHealth(data.items);
   showSummary();
   setTopic(document.querySelector(".topic.is-active")?.dataset.topic || "all");
