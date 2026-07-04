@@ -37,11 +37,15 @@ const feishuMessageStatus = document.querySelector("#feishuMessageStatus");
 const addToOutputButton = document.querySelector("#addToOutput");
 const sourceHealthList = document.querySelector("#sourceHealthList");
 const runtimeStatus = document.querySelector("#runtimeStatus");
+const freshnessStrip = document.querySelector("#freshnessStrip");
+const freshnessDate = document.querySelector("#freshnessDate");
+const freshnessState = document.querySelector("#freshnessState");
+const publishState = document.querySelector("#publishState");
 const MESSAGE_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
 const FULL_PAGE_REFRESH_INTERVAL_MS = 12 * 60 * 60 * 1000;
 const LOCAL_CALENDAR_FILE = "data/feishu-calendar.local.json";
 const LOCAL_MESSAGES_FILE = "data/feishu-messages.local.json";
-const APP_VERSION = "20260704-data-freshness";
+const APP_VERSION = "20260704-freeze-guard";
 
 function readStoredOutputTasks() {
   try {
@@ -63,6 +67,8 @@ let sourceState = {
   localMessagesLoaded: false,
   localCalendarCount: 0,
   localMessagesCount: 0,
+  dataDate: "",
+  freshnessState: "checking",
   lastContentLabel: "未读取",
   lastMessageRefreshLabel: "未刷新",
 };
@@ -329,6 +335,44 @@ function setPageDate(value) {
   pageDate.textContent = `${dateText} / Data`;
 }
 
+function getDataDate(value) {
+  const match = String(value || "").match(/\d{4}-\d{2}-\d{2}/);
+  return match ? match[0] : "";
+}
+
+function isWeekend(dateText) {
+  if (!dateText) return false;
+  const day = new Date(`${dateText}T12:00:00`).getDay();
+  return day === 0 || day === 6;
+}
+
+function getTodayDateText() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function updateFreshnessGate(data) {
+  const dataDate = getDataDate(data?.updatedAt);
+  const today = getTodayDateText();
+  const weekend = isWeekend(today);
+  const isToday = dataDate === today;
+  const isCarry = isToday && weekend && /沿用|最近工作日|周末|周六|周日/.test(`${data?.updatedAt || ""} ${data?.todayFocus?.summary || ""}`);
+  const state = isToday ? (isCarry ? "carry" : "fresh") : "stale";
+  sourceState.dataDate = dataDate;
+  sourceState.freshnessState = state;
+  if (freshnessStrip) freshnessStrip.dataset.state = state;
+  if (freshnessDate) freshnessDate.textContent = dataDate || "未知";
+  if (freshnessState) {
+    freshnessState.textContent = state === "fresh" ? "今日数据" : state === "carry" ? "周末沿用已标注" : "数据过期";
+  }
+  if (publishState) {
+    publishState.textContent = isToday ? "线上已读到当天 JSON" : "线上 JSON 未到当天";
+  }
+}
+
 function formatUpdatedAt(value) {
   if (!value) return "数据更新时间未知";
   return `数据更新：${value}`;
@@ -399,17 +443,17 @@ function renderSourceHealth(items = latestItems) {
 function openImagePreview(image) {
   if (!imageModal || !modalImage || !modalCaption || !modalSource || !image) return;
   const sourceUrl = image.href || image.src;
-  const canPreview = Boolean(image.href && image.href !== "#");
+  const hasSourceLink = Boolean(image.href && image.href !== "#");
   watchImages(imageModal);
   setPreviewImage(modalImage, image);
   setPreviewImage(modalHeroImage, image);
   modalCaption.textContent = image.alt || "设计参考图";
   modalSource.href = sourceUrl;
-  modalSource.hidden = !canPreview;
-  if (sourceActionRow) sourceActionRow.hidden = !canPreview;
+  modalSource.hidden = !hasSourceLink;
+  if (sourceActionRow) sourceActionRow.hidden = !hasSourceLink;
   if (modalNote) {
-    modalNote.textContent = canPreview
-      ? "左侧保留平台沉淀信息；右侧直接打开这条来源的原始链接。"
+    modalNote.textContent = hasSourceLink
+      ? "站内保留平台沉淀信息；原始页面用新标签打开，避免外站拒绝内嵌。"
       : "这张图来自已保存的缩略图流，当前没有可确认的原始详情页，所以只保留为视觉参考。";
   }
   if (modalPlatform) {
@@ -426,37 +470,44 @@ function openImagePreview(image) {
   }
   if (modalFrame) {
     modalFrame.removeAttribute("src");
-    modalFrame.hidden = !canPreview;
-    if (canPreview) {
-      modalFrame.src = sourceUrl;
-    }
+    modalFrame.hidden = true;
   }
   if (sourceFrameTip) {
-    sourceFrameTip.hidden = canPreview;
-    sourceFrameTip.querySelector("span").textContent = "这条来源没有可确认的原始详情页，右侧暂不加载页面。";
+    sourceFrameTip.hidden = false;
+    sourceFrameTip.querySelector("span").textContent = hasSourceLink
+      ? "Dribbble、Pinterest、优设等外站通常禁止被嵌入到第三方页面。这里保留来源说明，完整页面请用左侧入口打开。"
+      : "这条来源没有可确认的原始详情页，右侧暂不加载页面。";
   }
   imageModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
 }
 
-function closeImagePreview() {
-  if (!imageModal || !modalImage) return;
-  imageModal.setAttribute("aria-hidden", "true");
+function resetBlockingLayers() {
+  document.body.classList.remove("modal-open");
+  if (imageModal) imageModal.setAttribute("aria-hidden", "true");
   if (modalSideInsight) modalSideInsight.innerHTML = "";
-  modalImage.removeAttribute("src");
+  if (modalImage) {
+    modalImage.removeAttribute("src");
+    modalImage.hidden = false;
+    clearImageFallback(modalImage);
+  }
   if (modalHeroImage) {
     modalHeroImage.hidden = false;
     clearImageFallback(modalHeroImage);
     modalHeroImage.removeAttribute("src");
   }
-  modalImage.hidden = false;
-  clearImageFallback(modalImage);
   if (modalFrame) {
     modalFrame.removeAttribute("src");
-    modalFrame.hidden = false;
+    modalFrame.hidden = true;
   }
-  document.body.classList.remove("modal-open");
+  if (sourceFrameTip) sourceFrameTip.hidden = false;
 }
+
+function closeImagePreview() {
+  resetBlockingLayers();
+}
+
+window.addEventListener("pageshow", resetBlockingLayers);
 
 function renderFeed(items) {
   feed.innerHTML = items
@@ -695,6 +746,7 @@ function applyContentData(data) {
   sourceState.contentLoaded = true;
   sourceState.lastContentLabel = `${formatClock()} 已读取`;
   setPageDate(data.updatedAt);
+  updateFreshnessGate(data);
   renderSourceHealth(data.items);
   showSummary();
   setTopic(document.querySelector(".topic.is-active")?.dataset.topic || "all");
@@ -983,6 +1035,7 @@ async function refreshFeishuMessages({ silent = true } = {}) {
 }
 
 function setTopic(topic) {
+  resetBlockingLayers();
   const meta = topicMeta[topic] || topicMeta.all;
   topics.forEach((item) => item.classList.toggle("is-active", item.dataset.topic === topic));
   cards.forEach((card) => {
@@ -995,6 +1048,7 @@ function setTopic(topic) {
 }
 
 function showList(topic = "all", options = {}) {
+  resetBlockingLayers();
   detailView.classList.remove("is-active");
   listView.classList.add("is-active");
   setTopic(topic);
@@ -1017,45 +1071,54 @@ function showList(topic = "all", options = {}) {
 function openDetail(id) {
   const data = detailData[id];
   if (!data) return;
-  currentDetailId = id;
-  lastOpenedCardId = id;
-  lastListScrollY = window.scrollY;
-  taskResult.hidden = true;
-  taskResult.innerHTML = "";
-  updateAddToOutputButton();
+  resetBlockingLayers();
+  try {
+    currentDetailId = id;
+    lastOpenedCardId = id;
+    lastListScrollY = window.scrollY;
+    taskResult.hidden = true;
+    taskResult.innerHTML = "";
+    updateAddToOutputButton();
 
-  document.querySelector("#detailType").textContent = data.type;
-  document.querySelector("#detailTitle").textContent = data.title;
-  document.querySelector("#detailWhy").textContent = data.why;
-  document.querySelector("#detailImpact").textContent = data.impact || "这条信息需要补充对 AI × 设计的影响。";
-  document.querySelector("#detailReason").textContent = data.reason || "这条信息需要补充为什么值得关注。";
-  document.querySelector("#detailOutput").textContent = data.output;
-  document.querySelector("#detailNext").textContent = data.next;
-  document.querySelector("#detailPoints").innerHTML = data.points.map((point) => `<li>${point}</li>`).join("");
-  const gallery = document.querySelector("#detailGallery");
-  gallery.innerHTML = (data.images || [])
-    .map((image, index) => `
-        <div class="gallery-item">
-          <button type="button" data-image-index="${index}">
-          <img src="${escapeHtml(image.src)}" ${image.originalSrc ? `data-fallback-src="${escapeHtml(image.originalSrc)}"` : ""} alt="${escapeHtml(image.alt)}" loading="lazy" referrerpolicy="no-referrer" />
-          <span>${escapeHtml(image.alt)}</span>
-          </button>
-          <button class="source-link" type="button" data-source-index="${index}">${image.href ? "原始页面" : "查看参考"}</button>
-        </div>
-      `)
-    .join("");
-  gallery.classList.toggle("is-empty", !(data.images || []).length);
-  watchImages(gallery);
-  gallery.querySelectorAll("[data-image-index]").forEach((button) => {
-    button.addEventListener("click", () => openImagePreview(data.images[Number(button.dataset.imageIndex)]));
-  });
-  gallery.querySelectorAll("[data-source-index]").forEach((button) => {
-    button.addEventListener("click", () => openImagePreview(data.images[Number(button.dataset.sourceIndex)]));
-  });
+    document.querySelector("#detailType").textContent = data.type;
+    document.querySelector("#detailTitle").textContent = data.title;
+    document.querySelector("#detailWhy").textContent = data.why;
+    document.querySelector("#detailImpact").textContent = data.impact || "这条信息需要补充对 AI × 设计的影响。";
+    document.querySelector("#detailReason").textContent = data.reason || "这条信息需要补充为什么值得关注。";
+    document.querySelector("#detailOutput").textContent = data.output;
+    document.querySelector("#detailNext").textContent = data.next;
+    document.querySelector("#detailPoints").innerHTML = data.points.map((point) => `<li>${point}</li>`).join("");
+    const gallery = document.querySelector("#detailGallery");
+    gallery.innerHTML = (data.images || [])
+      .map((image, index) => `
+          <div class="gallery-item">
+            <button type="button" data-image-index="${index}">
+            <img src="${escapeHtml(image.src)}" ${image.originalSrc ? `data-fallback-src="${escapeHtml(image.originalSrc)}"` : ""} alt="${escapeHtml(image.alt)}" loading="lazy" referrerpolicy="no-referrer" />
+            <span>${escapeHtml(image.alt)}</span>
+            </button>
+            <button class="source-link" type="button" data-source-index="${index}">${image.href ? "原始页面" : "查看参考"}</button>
+          </div>
+        `)
+      .join("");
+    gallery.classList.toggle("is-empty", !(data.images || []).length);
+    watchImages(gallery);
+    gallery.querySelectorAll("[data-image-index]").forEach((button) => {
+      button.addEventListener("click", () => openImagePreview(data.images[Number(button.dataset.imageIndex)]));
+    });
+    gallery.querySelectorAll("[data-source-index]").forEach((button) => {
+      button.addEventListener("click", () => openImagePreview(data.images[Number(button.dataset.sourceIndex)]));
+    });
 
-  listView.classList.remove("is-active");
-  detailView.classList.add("is-active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+    listView.classList.remove("is-active");
+    detailView.classList.add("is-active");
+    window.scrollTo({ top: 0, behavior: "auto" });
+  } catch (error) {
+    resetBlockingLayers();
+    detailView.classList.remove("is-active");
+    listView.classList.add("is-active");
+    showToast("详情页加载失败，已自动回到列表。");
+    console.error("Failed to open detail", error);
+  }
 }
 
 topics.forEach((topic) => topic.addEventListener("click", () => showList(topic.dataset.topic)));
