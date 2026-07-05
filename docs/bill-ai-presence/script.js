@@ -1091,19 +1091,9 @@ function showList(topic = "all", options = {}) {
   listView.classList.add("is-active");
   setTopic(topic);
   window.scrollTo({ top: lastListScrollY, behavior: "auto" });
-  requestAnimationFrame(() => {
-    if (options.scrollTarget) {
-      options.scrollTarget.hidden = false;
-      options.scrollTarget.scrollIntoView({ block: "start", behavior: "smooth" });
-      return;
-    }
-    const anchorCard = lastOpenedCardId ? document.querySelector(`[data-id="${CSS.escape(lastOpenedCardId)}"]`) : null;
-    if (anchorCard && !anchorCard.classList.contains("is-hidden")) {
-      anchorCard.scrollIntoView({ block: "center", behavior: "smooth" });
-    } else {
-      window.scrollTo({ top: lastListScrollY, behavior: "smooth" });
-    }
-  });
+  if (options.scrollTarget) {
+    options.scrollTarget.hidden = false;
+  }
 }
 
 function openDetail(id) {
@@ -1196,7 +1186,7 @@ addToOutputButton?.addEventListener("click", () => {
 });
 
 clearSummary?.addEventListener("click", () => {
-  document.querySelector("#feed")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  document.querySelector("#feed")?.scrollIntoView({ behavior: "auto", block: "start" });
 });
 
 clearOutput?.addEventListener("click", () => {
