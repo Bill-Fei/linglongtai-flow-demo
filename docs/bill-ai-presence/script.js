@@ -45,6 +45,80 @@ const LOCAL_CALENDAR_FILE = "data/feishu-calendar.local.json";
 const LOCAL_MESSAGES_FILE = "data/feishu-messages.local.json";
 const APP_VERSION = "20260705-final-clean";
 
+const fallbackDesignImages = {
+  uisdc: [
+    {
+      src: "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-1.webp",
+      alt: "AI 能力作品集证据链参考",
+      href: "https://www.uisdc.com/proof-over-tools",
+      rule: "AI 能力要展示判断过程、协作路径和结果证据，不能只列工具名。",
+      apply: "作品集结构",
+    },
+    {
+      src: "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-2.webp",
+      alt: "AI 动效生成与状态反馈参考",
+      href: "https://www.uisdc.com/autoanimate",
+      rule: "动效优先解释 AI 当前状态，再承担视觉表现。",
+      apply: "平台交互改进",
+    },
+    {
+      src: "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-4.webp",
+      alt: "Skill 化动态素材生成参考",
+      href: "https://www.uisdc.com/guizang-social-card-skill-2",
+      rule: "高频设计产出应封装为 Skill，让平台从内容看板走向能力集合。",
+      apply: "组件模式",
+    },
+  ],
+  pinterest: [
+    {
+      src: "https://i.pinimg.com/474x/c3/43/0e/c3430e5edfc183b878ccc1fd174e9b5b.jpg",
+      alt: "空间界面与柔和层级 moodboard 参考",
+      href: "https://www.pinterest.com/pin/695735842480691463/",
+      rule: "背景深度和轻量容器负责 AI Presence 的环境感。",
+      apply: "视觉规则",
+    },
+    {
+      src: "https://i.pinimg.com/474x/c8/de/81/c8de8171ad14262b448468e079bc5037.jpg",
+      alt: "Apple 风格空间布局参考",
+      href: "https://www.pinterest.com/pin/569846159122451357/",
+      rule: "主任务居中，辅助信号退到边缘，降低传统后台感。",
+      apply: "视觉规则",
+    },
+    {
+      src: "https://i.pinimg.com/474x/38/76/f0/3876f0534844ef2f33b5697b99a9cf6c.jpg",
+      alt: "HMI 状态信息表达参考",
+      href: "https://www.pinterest.com/pin/1131248000181500525/",
+      rule: "状态信息要像仪表一样可扫读，少用解释性长文占屏。",
+      apply: "组件模式",
+    },
+  ],
+  dribbble: [
+    {
+      src: "assets/design-sources/dribbble/dribbble-01.webp",
+      alt: "Quantexa 企业级 UI/UX 设计",
+      href: "https://dribbble.com/shots/27044530-Enterprise-UI-UX-Design-for-Quantexa",
+      originalSrc: "https://cdn.dribbble.com/userupload/46593501/file/still-c92e7f64f22f44c5a3f3eb09f3a24baa.png?format=webp&resize=1200x900&vertical=center",
+      rule: "复杂信息拆成判断区、证据区和行动区。",
+      apply: "组件模式",
+    },
+    {
+      src: "assets/design-sources/dribbble/dribbble-04.webp",
+      alt: "Veggy AI 营养与食谱网站",
+      href: "https://dribbble.com/shots/27517635-Veggy-AI-Nutrition-Recipe-Website",
+      originalSrc: "https://cdn.dribbble.com/userupload/48234052/file/still-d3eb2477fba4ce56a102a97d3f76ee4d.png?format=webp&resize=800x600&vertical=center",
+      rule: "AI 建议需要显性说明输入、推理依据和可执行结果。",
+      apply: "平台交互改进",
+    },
+    {
+      src: "assets/design-sources/dribbble/dribbble-06.webp",
+      alt: "AI dashboard workflow 参考",
+      href: "https://dribbble.com/search/ai-dashboard",
+      rule: "任务流要呈现计划、执行、验证和交付状态。",
+      apply: "组件模式",
+    },
+  ],
+};
+
 function readStoredOutputTasks() {
   try {
     const stored = JSON.parse(window.localStorage?.getItem("bill-ai-output-tasks") || "[]");
@@ -503,12 +577,13 @@ function renderFeed(items) {
 
 function buildDetailRecord(item) {
   const detail = item.detail || {};
+  const images = item.images?.length ? item.images : fallbackDesignImages[item.id] || [];
   return {
     type: item.source,
     title: item.title,
     why: detail.why || item.summary,
     points: detail.points || item.bullets || [],
-    images: item.images || [],
+    images,
     impact: detail.impact,
     reason: detail.reason,
     output: detail.output,
@@ -1031,7 +1106,15 @@ function openDetail(id) {
     document.querySelector("#detailNext").textContent = data.next;
     document.querySelector("#detailPoints").innerHTML = data.points.map((point) => `<li>${point}</li>`).join("");
     const gallery = document.querySelector("#detailGallery");
-    gallery.innerHTML = (data.images || [])
+    const detailImages = data.images?.length ? data.images : fallbackDesignImages[id] || [];
+    gallery.innerHTML = detailImages.length
+      ? `
+        <div class="detail-gallery-header">
+          <span>设计图片参考</span>
+          <em>${detailImages.length} 张可转译来源</em>
+        </div>
+        <div class="detail-gallery-grid">
+          ${detailImages
       .map((image, index) => `
           <div class="gallery-item">
             <button type="button" data-image-index="${index}">
@@ -1041,14 +1124,17 @@ function openDetail(id) {
             <button class="source-link" type="button" data-source-index="${index}">${image.href ? "原始页面" : "查看参考"}</button>
           </div>
         `)
-      .join("");
-    gallery.classList.toggle("is-empty", !(data.images || []).length);
+      .join("")}
+        </div>
+      `
+      : "";
+    gallery.classList.toggle("is-empty", !detailImages.length);
     watchImages(gallery);
     gallery.querySelectorAll("[data-image-index]").forEach((button) => {
-      button.addEventListener("click", () => openImagePreview(data.images[Number(button.dataset.imageIndex)]));
+      button.addEventListener("click", () => openImagePreview(detailImages[Number(button.dataset.imageIndex)]));
     });
     gallery.querySelectorAll("[data-source-index]").forEach((button) => {
-      button.addEventListener("click", () => openImagePreview(data.images[Number(button.dataset.sourceIndex)]));
+      button.addEventListener("click", () => openImagePreview(detailImages[Number(button.dataset.sourceIndex)]));
     });
 
     listView.classList.remove("is-active");
