@@ -542,7 +542,7 @@ function renderFeed(items) {
             ${previewImages
               .map(
                 (image) => `
-                  <figure>
+                  <figure style="--cover-src: url('${escapeHtml(image.src)}')">
                     <img src="${escapeHtml(image.src)}" ${image.originalSrc ? `data-fallback-src="${escapeHtml(image.originalSrc)}"` : ""} alt="${escapeHtml(image.alt)}" loading="lazy" referrerpolicy="no-referrer" />
                   </figure>
                 `,
@@ -1128,7 +1128,7 @@ function openDetail(id) {
           ${detailImages
       .map((image, index) => `
           <div class="gallery-item">
-            <button type="button" data-image-index="${index}">
+            <button type="button" data-image-index="${index}" style="--cover-src: url('${escapeHtml(image.src)}')">
             <img src="${escapeHtml(image.src)}" ${image.originalSrc ? `data-fallback-src="${escapeHtml(image.originalSrc)}"` : ""} alt="${escapeHtml(image.alt)}" loading="lazy" referrerpolicy="no-referrer" />
             <span>${escapeHtml(image.alt)}</span>
             </button>
