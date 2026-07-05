@@ -1,3 +1,203 @@
+{
+  "updatedAt": "2026-07-05 22:45 CST / 近期 AI 产品信号已核验 / 只保留有效内容",
+  "freshness": {
+    "date": "2026-07-05",
+    "state": "latest-public-signal",
+    "reason": "今天是周日，没有伪装成全天实时抓取；本次更新使用近期可公开确认的 AI 产品、Agent、设计工具信号，并剔除占位内容。",
+    "designSources": "设计源保留优设、Pinterest、Dribbble 三组历史可见图片源；只写已经沉淀到平台里的设计判断。"
+  },
+  "todayFocus": {
+    "title": "Agent 从能力展示进入真实采用、入口和治理设计",
+    "summary": "今天重点看 5 个已核验信号：Codex 相关研究显示 agentic AI 正在改变工程工作方式，Codex 硬件入口让 AI 工作台走向桌面环境，微软 CLI Agent 研究说明组织采用依赖同伴可见性，Fable 5 事件暴露治理状态要前台化，Figma AI 画布说明设计工具正在变成 Agent 协作场。",
+    "meta": "5 条 AI 产品信号 · 3 个设计行动 · 无占位内容"
+  },
+  "items": [
+    {
+      "id": "uisdc",
+      "topic": "design",
+      "source": "设计风格源",
+      "badge": "优设 / 中文方法论",
+      "title": "优设：把 AI 能力转成作品集证据链",
+      "summary": "今天继续保留优设作为中文方法论入口：重点不是“看文章”，而是把 AI 作品集、AI 动效、Skill 化交付、主动介入边界沉淀成 Bill 可讲清楚的求职证据。",
+      "bullets": [
+        "用途：把 AI Native / Agent UI 讲成中文设计圈能理解的方法论。",
+        "适合产出：作品集结构、文章选题、面试表达、平台交互规则。",
+        "今天动作：从 6 张封面里提炼 3 条“AI 能力如何被证明”的规则。"
+      ],
+      "images": [
+        {
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-1.webp",
+          "alt": "AI 能力作品集证据链参考",
+          "href": "https://www.uisdc.com/proof-over-tools",
+          "rule": "AI 能力要展示判断过程、协作路径和结果证据，不能只列工具名。",
+          "apply": "作品集结构"
+        },
+        {
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-2.webp",
+          "alt": "AI 动效生成与状态反馈参考",
+          "href": "https://www.uisdc.com/autoanimate",
+          "rule": "动效优先解释 AI 当前状态，再承担视觉表现。",
+          "apply": "平台交互改进"
+        },
+        {
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-4.webp",
+          "alt": "Skill 化动态素材生成参考",
+          "href": "https://www.uisdc.com/guizang-social-card-skill-2",
+          "rule": "高频设计产出应封装为 Skill，让平台从内容看板走向能力集合。",
+          "apply": "组件模式"
+        },
+        {
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260627-6.webp",
+          "alt": "AI 主动介入边界设计参考",
+          "href": "https://www.uisdc.com/right-touch",
+          "rule": "主动 AI 必须同时说明触发原因、建议动作、影响范围和退场方式。",
+          "apply": "视觉规则"
+        },
+        {
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260626-2.webp",
+          "alt": "服务能力蒸馏为 Skills 的产品参考",
+          "href": "https://www.uisdc.com/skills-13",
+          "rule": "每个服务模块都应有可调用能力、权限边界和人工确认点。",
+          "apply": "平台交互改进"
+        },
+        {
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260630-3.webp",
+          "alt": "AI 时代个人知识流与 Obsidian 参考",
+          "href": "https://www.uisdc.com/obsidian-2",
+          "rule": "每日风格信号要回流到长期主题库，而不是停留在当天收藏。",
+          "apply": "文章选题"
+        }
+      ],
+      "detail": {
+        "why": "优设这组内容最适合承担中文表达层：它能把 AI 能力从“我会用工具”转成“我能证明判断、流程和结果”的作品集语言。",
+        "points": [
+          "AI 作品集不应该只列工具，而要展示问题、判断、协作过程和结果证据。",
+          "AI 动效关键词适合转成 Agent 状态反馈：读取、思考、执行、完成、等待确认。",
+          "Skill 化交付可以变成你的作品集亮点：不是页面截图，而是一套可复用工作流。",
+          "主动介入边界可以转成 AI Presence 行为准则。"
+        ],
+        "impact": "这组内容能把 Bill AI Presence 从信息看板推进到求职证据系统：每条内容都要能变成作品集、文章或组件规则。",
+        "reason": "你现在最需要的是可被面试官理解的 AI 设计证据，而不是更多泛泛的资讯。",
+        "output": "产出任务：写一页《AI 设计能力不是工具清单，而是证据链》。结构：问题判断、AI 协作过程、可验证结果、复用方法。",
+        "next": "今天先把优设内容转成 3 条作品集表达规则。"
+      }
+    },
+    {
+      "id": "pinterest",
+      "topic": "design",
+      "source": "设计风格源",
+      "badge": "Pinterest / 视觉雷达",
+      "title": "Pinterest：空间感、轻容器和情绪化留白",
+      "summary": "Pinterest 继续作为视觉气质雷达：今天只保留能服务 AI Presence 的方向，包括空间层级、轻拟态容器、低打扰动效、跨端连续视觉。",
+      "bullets": [
+        "用途：建立 Bill AI Desk 的视觉语言，不做普通后台。",
+        "适合产出：moodboard、组件气质、移动端/桌面端空间关系。",
+        "今天动作：沉淀 4 个视觉关键词：calm、spatial、glass、presence。"
+      ],
+      "images": [
+        {
+          "src": "https://i.pinimg.com/474x/c3/43/0e/c3430e5edfc183b878ccc1fd174e9b5b.jpg",
+          "alt": "空间界面与柔和层级 moodboard 参考",
+          "href": "https://www.pinterest.com/pin/695735842480691463/",
+          "rule": "背景深度和轻量容器负责 AI Presence 的环境感。",
+          "apply": "视觉规则"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/c8/de/81/c8de8171ad14262b448468e079bc5037.jpg",
+          "alt": "Apple 风格空间布局参考",
+          "href": "https://www.pinterest.com/pin/569846159122451357/",
+          "rule": "主任务居中，辅助信号退到边缘，降低传统后台感。",
+          "apply": "视觉规则"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/38/76/f0/3876f0534844ef2f33b5697b99a9cf6c.jpg",
+          "alt": "HMI 状态信息表达参考",
+          "href": "https://www.pinterest.com/pin/1131248000181500525/",
+          "rule": "状态信息要像仪表一样可扫读，少用解释性长文占屏。",
+          "apply": "组件模式"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/8c/09/a7/8c09a7f7b115e59c94d21471317bd75a.jpg",
+          "alt": "AI interfaces beyond ordinary light and dark mode",
+          "href": "https://www.pinterest.com/pin/1152428992169871667/",
+          "rule": "AI 界面不只区分明暗主题，还要区分存在感强弱和行动状态。",
+          "apply": "平台交互改进"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/9f/b2/01/9fb201fa9d860c55b1b9c2096cbf8814.jpg",
+          "alt": "信息看板与视觉密度参考",
+          "href": "https://www.pinterest.com/pin/519110294569871257/",
+          "rule": "密度来自节奏、分区和对齐，不来自卡片堆叠。",
+          "apply": "视觉规则"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/34/c9/9b/34c99bf5c277ec7fab6ec691b267ea33.jpg",
+          "alt": "数据产品视觉语言参考",
+          "href": "https://www.pinterest.com/pin/412360909653820781/",
+          "rule": "数据视觉必须服务判断路径：来源、趋势、异常、下一步。",
+          "apply": "组件模式"
+        }
+      ],
+      "detail": {
+        "why": "Pinterest 对这个项目的价值不是图片收藏，而是帮助定义 Bill AI Desk 的“空间感”和“陪伴感”：它应该像一个持续存在的 AI 工作空间，而不是企业后台。",
+        "points": [
+          "空间层级：内容、来源、AI 判断、下一步动作要有前后关系。",
+          "轻容器：减少厚重卡片，保留柔和边界和呼吸感。",
+          "低打扰动效：AI 状态要能被感知，但不能抢走注意力。",
+          "跨端连续：Phone 看提醒，Pad 做阅读，PC 做产出。"
+        ],
+        "impact": "视觉语言要服务 AI Presence：让用户感到 AI 在持续陪伴、整理和推进，而不是堆卡片。",
+        "reason": "这直接对应你的审美和方向：Apple Spatial、AI Native、柔和动态、系统连续性。",
+        "output": "产出任务：整理一张 Bill AI Desk moodboard，四个关键词：Calm Presence / Spatial Layer / Glass Container / Soft Motion。",
+        "next": "今天把这 4 个关键词转成首页和详情页的组件规则。"
+      }
+    },
+    {
+      "id": "dribbble",
+      "topic": "design",
+      "source": "设计风格源",
+      "badge": "Dribbble / 组件参考",
+      "title": "Dribbble：把 AI Dashboard 拆成 Agent Workbench 组件",
+      "summary": "Dribbble 今天继续承担组件拆解层：只保留能转成 Agent Workbench 的模式，例如状态胶囊、证据抽屉、产出队列、确认面板和跨端继续。",
+      "bullets": [
+        "用途：从视觉参考转成 AI 工作台组件库。",
+        "适合产出：Agent Status、Evidence Drawer、Output Queue、Human Confirm。",
+        "今天动作：把 6 张参考图拆成 5 个组件规格。"
+      ],
+      "images": [
+        {
+          "src": "assets/design-sources/dribbble/dribbble-01.webp",
+          "alt": "Quantexa 企业级 UI/UX 设计",
+          "href": "https://dribbble.com/shots/27044530-Enterprise-UI-UX-Design-for-Quantexa",
+          "originalSrc": "https://cdn.dribbble.com/userupload/46593501/file/still-c92e7f64f22f44c5a3f3eb09f3a24baa.png?format=webp&resize=1200x900&vertical=center",
+          "rule": "复杂信息拆成判断区、证据区和行动区。",
+          "apply": "组件模式"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-04.webp",
+          "alt": "Veggy AI 营养与食谱网站",
+          "href": "https://dribbble.com/shots/27517635-Veggy-AI-Nutrition-Recipe-Website",
+          "originalSrc": "https://cdn.dribbble.com/userupload/48234052/file/still-d3eb2477fba4ce56a102a97d3f76ee4d.png?format=webp&resize=800x600&vertical=center",
+          "rule": "AI 建议需要显性说明输入、推理依据和可执行结果。",
+          "apply": "平台交互改进"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-06.webp",
+          "alt": "AI dashboard workflow 参考",
+          "href": "https://dribbble.com/search/ai-dashboard",
+          "rule": "任务流要呈现计划、执行、验证和交付状态。",
+          "apply": "组件模式"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-08.webp",
+          "alt": "工作流与任务管理界面参考",
+          "href": "https://dribbble.com/search/workflow-dashboard",
+          "rule": "多 Agent 协作要展示角色分工、依赖关系和阻塞点。",
+          "apply": "平台交互改进"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-11.webp",
+          "alt": "移动端 assistant UI 参考",
           "href": "https://dribbble.com/search/assistant-ui-mobile",
           "rule": "Phone 端只承载提醒、确认和快速继续，不承担完整分析。",
           "apply": "组件模式"
