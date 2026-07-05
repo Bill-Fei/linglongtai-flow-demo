@@ -22,7 +22,9 @@ const modalRule = document.querySelector("#modalRule");
 const modalApply = document.querySelector("#modalApply");
 const modalSideInsight = document.querySelector("#modalSideInsight");
 const modalFrame = document.querySelector("#modalFrame");
-const sourceFrameTip = document.querySelector("#sourceFrameTip");
+const sourceImageStage = document.querySelector("#sourceImageStage");
+const modalSourceImage = document.querySelector("#modalSourceImage");
+const sourceOpenCard = document.querySelector("#sourceOpenCard");
 const summaryPanel = document.querySelector("#summaryPanel");
 const summaryTitle = document.querySelector("#summaryTitle");
 const summaryPoints = document.querySelector("#summaryPoints");
@@ -37,15 +39,11 @@ const feishuMessageStatus = document.querySelector("#feishuMessageStatus");
 const addToOutputButton = document.querySelector("#addToOutput");
 const sourceHealthList = document.querySelector("#sourceHealthList");
 const runtimeStatus = document.querySelector("#runtimeStatus");
-const freshnessStrip = document.querySelector("#freshnessStrip");
-const freshnessDate = document.querySelector("#freshnessDate");
-const freshnessState = document.querySelector("#freshnessState");
-const publishState = document.querySelector("#publishState");
 const MESSAGE_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
 const FULL_PAGE_REFRESH_INTERVAL_MS = 12 * 60 * 60 * 1000;
 const LOCAL_CALENDAR_FILE = "data/feishu-calendar.local.json";
 const LOCAL_MESSAGES_FILE = "data/feishu-messages.local.json";
-const APP_VERSION = "20260704-freeze-guard";
+const APP_VERSION = "20260705-final-clean";
 
 function readStoredOutputTasks() {
   try {
@@ -68,7 +66,6 @@ let sourceState = {
   localCalendarCount: 0,
   localMessagesCount: 0,
   dataDate: "",
-  freshnessState: "checking",
   lastContentLabel: "未读取",
   lastMessageRefreshLabel: "未刷新",
 };
@@ -98,11 +95,6 @@ const topicMeta = {
     title: "设计风格源",
     kicker: "风格雷达",
     note: "今天已接入优设、Pinterest 和 Dribbble。先做轻量采集：标题、图板方向、组件关键词和可转成作品集/文章的设计任务。",
-  },
-  work: {
-    title: "未来工作模块",
-    kicker: "入职后模块",
-    note: "这一组先占位，之后用于把 PRD、研发输出、验收风险和设计追问接到同一条工作流里。",
   },
 };
 
@@ -194,14 +186,6 @@ let detailData = {
     reason: "你现在的平台产品逻辑已经开始清楚，下一步需要的不是装饰，而是把每个真实动作做得顺：读、判断、进入详情、生成任务、回到列表、沉淀产出。",
     output: "创作任务：整理 10 个 AI 工作台组件模式：输入、Agent 状态、信息来源、引用、阅读进度、生成任务、授权、完成反馈、错误恢复、跨端继续。",
     next: "下一步：按 Agent UI / AI dashboard / productivity 三个关键词搜索并保存可落地组件。",
-  },
-  prd: {
-    type: "未来工作模块",
-    title: "PRD 理解与研发输出追踪",
-    why: "等你入职后，这会是平台最实用的模块。它把产品需求和研发输出放进同一条设计决策链路里，帮助你减少遗漏和返工。",
-    points: ["PRD 理解：目标、用户、流程、模糊点、设计追问。", "研发输出：接口变更、状态流、验收项、还原风险。", "AI 作用：自动生成风险清单和会议追问。"],
-    output: "创作任务：先写清楚未来模块边界，不现在做重功能。PRD 模块负责理解需求，研发模块负责追踪实现，AI 总结层负责把两者连起来。",
-    next: "暂不展开开发，避免首版过重。",
   },
 };
 
@@ -362,15 +346,6 @@ function updateFreshnessGate(data) {
   const isCarry = isToday && weekend && /沿用|最近工作日|周末|周六|周日/.test(`${data?.updatedAt || ""} ${data?.todayFocus?.summary || ""}`);
   const state = isToday ? (isCarry ? "carry" : "fresh") : "stale";
   sourceState.dataDate = dataDate;
-  sourceState.freshnessState = state;
-  if (freshnessStrip) freshnessStrip.dataset.state = state;
-  if (freshnessDate) freshnessDate.textContent = dataDate || "未知";
-  if (freshnessState) {
-    freshnessState.textContent = state === "fresh" ? "今日数据" : state === "carry" ? "周末沿用已标注" : "数据过期";
-  }
-  if (publishState) {
-    publishState.textContent = isToday ? "线上已读到当天 JSON" : "线上 JSON 未到当天";
-  }
 }
 
 function formatUpdatedAt(value) {
@@ -386,66 +361,22 @@ function getLocalStatus(items, topic) {
   return items.filter((item) => item.topic === topic && item.id?.includes("-local-"));
 }
 
-function renderSourceHealth(items = latestItems) {
-  if (!sourceHealthList) return;
-  const calendarItems = items.filter((item) => item.topic === "calendar");
-  const messageItems = items.filter((item) => item.topic === "message");
-  const briefCount = items.filter((item) => item.topic === "brief").length;
-  const designCount = items.filter((item) => item.topic === "design").length;
-  const calendarLocal = getLocalStatus(items, "calendar").length;
-  const messageLocal = getLocalStatus(items, "message").length;
-  const calendarSynced = calendarItems.some((item) => !["待授权", "待接入"].includes(item.badge) && !item.id?.includes("auth-needed"));
-  const messageSynced = messageItems.some((item) => !["待授权", "待接入"].includes(item.badge) && !item.id?.includes("permission-needed"));
-  const syncRiskCount = Number(!calendarSynced && !calendarLocal) + Number(!messageSynced && !messageLocal);
-  const rows = [
-    {
-      state: calendarLocal ? "local" : calendarSynced ? "ready" : "waiting",
-      value: calendarLocal || (calendarSynced ? calendarItems.length : 0),
-      label: "日程待办",
-      note: calendarLocal ? "私有覆盖" : calendarSynced ? "已同步" : "待授权",
-    },
-    {
-      state: messageLocal ? "local" : messageSynced ? "ready" : "waiting",
-      value: messageLocal || (messageSynced ? messageItems.length : 0),
-      label: "消息待办",
-      note: messageLocal ? "私有覆盖" : messageSynced ? "已同步" : "待接入",
-    },
-    {
-      state: "ready",
-      value: briefCount,
-      label: "行业目标",
-      note: "12 小时重读",
-    },
-    {
-      state: "local",
-      value: designCount,
-      label: "设计素材",
-      note: syncRiskCount ? `${syncRiskCount} 个同步风险` : "采集正常",
-    },
-  ];
+function renderSourceHealth() {
+  if (runtimeStatus) runtimeStatus.textContent = `v${APP_VERSION}`;
+}
 
-  sourceHealthList.innerHTML = rows
-    .map(
-      (row) => `
-        <article>
-          <strong>${escapeHtml(String(row.value))}</strong>
-          <span>${escapeHtml(row.label)}</span>
-          <p><i class="status ${escapeHtml(row.state)}"></i>${escapeHtml(row.note)}</p>
-        </article>
-      `,
-    )
-    .join("");
-  if (runtimeStatus) {
-    runtimeStatus.textContent = `v${APP_VERSION} / ${sourceState.lastContentLabel}`;
-  }
+function canEmbedSource(url) {
+  return /uisdc\.com|youxituoluo\.com/i.test(String(url || ""));
 }
 
 function openImagePreview(image) {
   if (!imageModal || !modalImage || !modalCaption || !modalSource || !image) return;
   const sourceUrl = image.href || image.src;
   const hasSourceLink = Boolean(image.href && image.href !== "#");
+  const shouldEmbed = hasSourceLink && canEmbedSource(sourceUrl);
   watchImages(imageModal);
   setPreviewImage(modalImage, image);
+  setPreviewImage(modalSourceImage, image);
   setPreviewImage(modalHeroImage, image);
   modalCaption.textContent = image.alt || "设计参考图";
   modalSource.href = sourceUrl;
@@ -453,8 +384,10 @@ function openImagePreview(image) {
   if (sourceActionRow) sourceActionRow.hidden = !hasSourceLink;
   if (modalNote) {
     modalNote.textContent = hasSourceLink
-      ? "站内保留平台沉淀信息；原始页面用新标签打开，避免外站拒绝内嵌。"
-      : "这张图来自已保存的缩略图流，当前没有可确认的原始详情页，所以只保留为视觉参考。";
+      ? shouldEmbed
+        ? "右侧展示原始页面；左侧保留这条来源可转成平台规则的要点。"
+        : "右侧展示保存预览；完整页面从下方原链接打开。"
+      : "这张图来自已保存的缩略图流，当前没有可确认的原始详情页。";
   }
   if (modalPlatform) {
     modalPlatform.textContent = image.platform || (sourceUrl.includes("uisdc") ? "优设文章" : sourceUrl.includes("pinterest") ? "Pinterest 灵感" : sourceUrl.includes("dribbble") ? "Dribbble 组件参考" : "设计来源");
@@ -469,14 +402,22 @@ function openImagePreview(image) {
     modalSideInsight.innerHTML = getSideInsightMarkup(image);
   }
   if (modalFrame) {
-    modalFrame.removeAttribute("src");
-    modalFrame.hidden = true;
+    modalFrame.hidden = !shouldEmbed;
+    if (shouldEmbed) {
+      modalFrame.src = sourceUrl;
+    } else {
+      modalFrame.removeAttribute("src");
+    }
   }
-  if (sourceFrameTip) {
-    sourceFrameTip.hidden = false;
-    sourceFrameTip.querySelector("span").textContent = hasSourceLink
-      ? "Dribbble、Pinterest、优设等外站通常禁止被嵌入到第三方页面。这里保留来源说明，完整页面请用左侧入口打开。"
-      : "这条来源没有可确认的原始详情页，右侧暂不加载页面。";
+  if (sourceImageStage) {
+    sourceImageStage.hidden = shouldEmbed;
+  }
+  if (sourceOpenCard) {
+    sourceOpenCard.hidden = shouldEmbed || !hasSourceLink;
+    const title = sourceOpenCard.querySelector("strong");
+    const text = sourceOpenCard.querySelector("span");
+    if (title) title.textContent = "保存预览";
+    if (text) text.textContent = "完整页面从左侧原链接打开。";
   }
   imageModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
@@ -496,11 +437,17 @@ function resetBlockingLayers() {
     clearImageFallback(modalHeroImage);
     modalHeroImage.removeAttribute("src");
   }
+  if (modalSourceImage) {
+    modalSourceImage.hidden = false;
+    clearImageFallback(modalSourceImage);
+    modalSourceImage.removeAttribute("src");
+  }
   if (modalFrame) {
     modalFrame.removeAttribute("src");
     modalFrame.hidden = true;
   }
-  if (sourceFrameTip) sourceFrameTip.hidden = false;
+  if (sourceImageStage) sourceImageStage.hidden = false;
+  if (sourceOpenCard) sourceOpenCard.hidden = true;
 }
 
 function closeImagePreview() {
@@ -693,10 +640,19 @@ function replaceTopicItems(items, topic, replacements) {
   return nextItems;
 }
 
+function filterVisibleItems(items) {
+  return (Array.isArray(items) ? items : []).filter((item) => {
+    if (item.topic === "work") return false;
+    if (item.badge && /待授权|待接入/.test(item.badge)) return false;
+    if (item.id && /auth-needed|permission-needed/.test(item.id)) return false;
+    return true;
+  });
+}
+
 async function mergeLocalPrivateData(data, { includeCalendar = true, includeMessages = true } = {}) {
   const nextData = {
     ...data,
-    items: Array.isArray(data?.items) ? [...data.items] : [],
+    items: filterVisibleItems(data?.items),
   };
 
   if (includeCalendar) {
@@ -729,25 +685,25 @@ async function mergeLocalPrivateData(data, { includeCalendar = true, includeMess
 
 function applyContentData(data) {
   if (!data || !Array.isArray(data.items)) return;
-  latestItems = data.items;
+  const visibleItems = filterVisibleItems(data.items);
+  latestItems = visibleItems;
   if (data.todayFocus) {
     topicMeta.all.note = data.todayFocus.summary || topicMeta.all.note;
   }
 
-  detailData = data.items.reduce((acc, item) => {
+  detailData = visibleItems.reduce((acc, item) => {
     acc[item.id] = buildDetailRecord(item);
     return acc;
   }, {});
 
-  renderFeed(data.items);
-  updateTopicCounts(data.topicCounts || getTopicCounts(data.items));
-  updateFeishuStatus(data.items);
-  updateFeishuMessageStatus(data.items);
+  renderFeed(visibleItems);
+  updateTopicCounts(getTopicCounts(visibleItems));
+  updateFeishuStatus(visibleItems);
+  updateFeishuMessageStatus(visibleItems);
   sourceState.contentLoaded = true;
   sourceState.lastContentLabel = `${formatClock()} 已读取`;
   setPageDate(data.updatedAt);
   updateFreshnessGate(data);
-  renderSourceHealth(data.items);
   showSummary();
   setTopic(document.querySelector(".topic.is-active")?.dataset.topic || "all");
   setSyncStatus(`${formatUpdatedAt(data.updatedAt)} / ${sourceState.lastContentLabel}`, "ready");
@@ -760,7 +716,7 @@ function applyMessageContentData(data) {
     return;
   }
 
-  const messageItems = data.items.filter((item) => item.topic === "message");
+  const messageItems = filterVisibleItems(data.items).filter((item) => item.topic === "message");
   const nextItems = [];
   let insertedMessages = false;
 
@@ -794,7 +750,6 @@ function applyMessageContentData(data) {
   updateTopicCounts(getTopicCounts(latestItems));
   updateFeishuMessageStatus(latestItems);
   sourceState.lastMessageRefreshLabel = formatClock();
-  renderSourceHealth(latestItems);
   showSummary();
   setTopic(document.querySelector(".topic.is-active")?.dataset.topic || "all");
   setSyncStatus(`飞书消息本地检查：${sourceState.lastMessageRefreshLabel}`, "ready");
@@ -807,7 +762,6 @@ function getTopicCounts(items) {
     message: items.filter((item) => item.topic === "message").length,
     brief: items.filter((item) => item.topic === "brief").length,
     design: items.filter((item) => item.topic === "design").length,
-    work: items.filter((item) => item.topic === "work").length,
   };
 }
 
@@ -865,18 +819,11 @@ function buildSummary() {
     : Object.entries(detailData).map(([id, item]) => ({ id, topic: "brief", title: item.title, detail: item }));
   const briefCount = items.filter((item) => item.topic === "brief").length;
   const designCount = items.filter((item) => item.topic === "design").length;
-  const calendarCount = items.filter((item) => item.topic === "calendar").length;
-  const messageCount = items.filter((item) => item.topic === "message").length;
-  const workCount = items.filter((item) => item.topic === "work").length;
   const focus = items.find((item) => item.topic === "brief") || items[0];
   const design = items.find((item) => item.topic === "design");
-  const syncRiskCount = Number(!sourceState.localCalendarLoaded && calendarCount > 0) + Number(!sourceState.localMessagesLoaded && messageCount > 0);
-  const syncRisk = syncRiskCount
-    ? `飞书仍有 ${syncRiskCount} 个授权风险，今天不能把日程/消息视为完整数据。`
-    : "日程和消息已有可用兜底，可以进入正常审阅。";
 
   return {
-    title: "今天只盯 3 件事：观点产出、视觉规则、飞书同步",
+    title: "今天只盯 2 件事：观点产出和视觉规则",
     points: [
       {
         label: "行业目标",
@@ -887,11 +834,6 @@ function buildSummary() {
         label: "设计任务",
         title: design ? `从「${design.title}」提炼 3 条视觉规则` : "等待设计源刷新后再提炼规则",
         note: `今天有 ${designCount} 组设计源，不再只看图，优先沉淀可复用的界面规则。`,
-      },
-      {
-        label: "同步风险",
-        title: syncRisk,
-        note: `当前读取 ${items.length} 条信息：日程 ${calendarCount}、消息 ${messageCount}、晨报 ${briefCount}、设计源 ${designCount}、工作占位 ${workCount}。`,
       },
     ],
   };
@@ -1144,11 +1086,6 @@ addToOutputButton?.addEventListener("click", () => {
     return;
   }
   addCurrentDetailToOutput();
-});
-
-document.querySelector("#makeSummary").addEventListener("click", () => {
-  showSummary();
-  summaryPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
 });
 
 clearSummary?.addEventListener("click", () => {
