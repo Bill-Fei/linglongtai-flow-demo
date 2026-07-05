@@ -1,74 +1,27 @@
 {
-  "updatedAt": "2026-07-04 设计风格源巡检已刷新 / 周六 AI 晨报沿用最近工作日 / 优设公开访问受限 / Pinterest 登录态未确认 / Behance 暂停",
+  "updatedAt": "2026-07-05 08:52 CST / 设计风格源巡检已更新 / 公开访问受限不伪装实时读取",
+  "freshness": {
+    "date": "2026-07-05",
+    "state": "weekend-carry-forward",
+    "reason": "今天是周日，沿用最近工作日 AI 产品晨报，不伪装成今日全新晨报；7 月 4 日设计源巡检状态继续保留。飞书日程与消息仅写同步状态，不把私人内容写入 GitHub Pages。",
+    "publishGate": "必须确认线上 daily-content.json 与本地 updatedAt 完全一致。",
+    "designSources": "2026-07-05 巡检：优设公开页返回 403；Dribbble 搜索页触发 WAF challenge；Pinterest 当前自动化环境不能确认登录态且请求未完成；Behance 地区不可用继续暂停。本次仅使用历史巡检保存的页面可见缩略图与公开链接，保留图片优先展示。"
+  },
   "todayFocus": {
     "title": "从 Agent 执行转向 AI 工作组织设计",
-    "summary": "今天是周六，AI 产品晨报暂沿用最近工作日信号；7 月 4 日已刷新设计源状态，重点是把 AI 产品趋势、视觉规则和飞书同步风险拆成可执行任务。",
-    "meta": "5 条最近工作日晨报条目 · 3 个设计产出建议"
+    "summary": "今天是周日，AI 产品晨报沿用最近工作日信号；重点关注 Codex 异步委托、Claude Code 远程协作、Gemini CLI 开源 Agent、Figma AI 画布，以及多智能体环境模型。",
+    "meta": "5 条最近工作日 AI 产品信号 · 3 个设计行动"
   },
   "items": [
-    {
-      "id": "meeting-2026-07-04-auth-needed",
-      "topic": "calendar",
-      "source": "日程与纪要",
-      "badge": "待授权",
-      "title": "飞书个人日历待授权：当前不能判断是否无日程",
-      "summary": "公开数据无法确认你的个人日历。若本地私有日程文件存在，页面会优先加载本地私有结果；否则这里仅代表正式授权未完成。",
-      "bullets": [
-        "状态：飞书用户身份授权未完成",
-        "兜底：本地私有日程文件会优先覆盖",
-        "风险：不能把这里理解为今天没有会议"
-      ],
-      "detail": {
-        "why": "这个 fallback 用于避免误判。应用级日历没有读到个人日程，不等于你今天没有会议；只有飞书用户身份授权完成后，才能把日程状态视为正式同步。",
-        "points": [
-          "公开发布数据不包含你的私人日历。",
-          "当前页面会尝试读取本地私有日程文件。",
-          "如果本地文件存在，会替换这条 fallback。",
-          "如果本地文件不存在，这里只能说明正式授权未完成。",
-          "不能把“未读到”当成“无日程”。"
-        ],
-        "impact": "日程是这个平台的基础事实源，必须优先保证可信度。比起显示一个好看的空状态，更重要的是告诉你当前数据是否足够可靠。",
-        "reason": "你准备日用这个平台，最危险的情况不是少一张卡片，而是平台错误地告诉你今天没会。",
-        "output": "完成飞书用户授权，或继续维护本地私有日程文件作为临时兜底。",
-        "next": "下一步：打通飞书用户 OAuth 后，把状态从“本地私有”升级为“正式同步”。"
-      }
-    },
-    {
-      "id": "message-2026-07-04-permission-needed",
-      "topic": "message",
-      "source": "飞书消息",
-      "badge": "待接入",
-      "title": "飞书消息待授权：当前只支持本地私有消息兜底",
-      "summary": "公开数据无法读取你的私人飞书消息。若本地私有消息文件存在，页面会优先加载真实消息；正式自动接入仍需要事件订阅或消息权限。",
-      "bullets": [
-        "状态：正式消息权限未完成",
-        "兜底：本地私有消息文件会优先覆盖",
-        "刷新：页面每 10 分钟重读本地消息结果"
-      ],
-      "detail": {
-        "why": "飞书消息涉及个人和群聊内容，不能在公开数据里默认写入。当前正确状态是：页面支持本地私有消息兜底，但正式自动接入还需要飞书事件订阅或消息读取权限。",
-        "points": [
-          "这个模块最终要回答：谁找你、说了什么、在哪个群或私聊、是否需要回复。",
-          "当前页面会优先读取本地私有消息文件。",
-          "页面每 10 分钟只会重读本地结果，不会自己去飞书后台抓新消息。",
-          "正式自动接入需要飞书机器人事件订阅，或补齐消息 API 权限。",
-          "消息内容不会写进 GitHub Pages，后续应只保存在本地数据或私有后端。"
-        ],
-        "impact": "消息模块会把被动沟通转成可审阅的工作信号：哪些消息只是通知，哪些需要回复，哪些应该进入今日产出或日程跟进。",
-        "reason": "这比单纯展示未读数更有用。你的平台目标是综合审阅并产出，所以消息需要被结构化成行动判断。",
-        "output": "先把本地私有消息兜底跑稳定，再完成飞书事件订阅，让新消息自动进入平台。",
-        "next": "下一步：启动本地 webhook 服务，把公网回调地址填到飞书开放平台事件订阅里，并订阅 im.message.receive_v1。"
-      }
-    },
     {
       "id": "uisdc",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "优设 / 公开访问受限",
-      "title": "优设：把 AI 设计方法论压成可面试的证据链",
-      "summary": "今天优设公开首页被 WAF 拦截，不能声称正常读取新页面；本次沿用已保存的可见封面与文章方向，重点把 AI 作品集、动效状态、Skill 化服务和介入边界转成 Bill 的求职表达。",
+      "badge": "优设 / 中文方法论",
+      "title": "优设：把 AI 设计方法论转成求职证据链",
+      "summary": "今日优设公开页返回 403，未绕过访问限制；巡检沿用历史可见封面图源，把 AI 作品集、AI 动效、Skill 化交付、主动介入边界和知识流沉淀为 Bill 的作品集叙事。",
       "bullets": [
-        "来源状态：公开首页当前访问受限；不绕过 WAF，不读取账号或隐私数据。",
+        "来源状态：公开页当前访问受限，返回 403；不绕过 WAF，不读取账号或隐私数据。",
         "图片来源：历史巡检保存的优设文章封面缩略图，覆盖 AI 作品集、AI 动效、Skill、主动介入边界、知识流。",
         "产出方向：作品集结构、文章选题、平台交互改进。"
       ],
@@ -91,14 +44,14 @@
           "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-4.webp",
           "alt": "Skill 化动态素材生成参考",
           "href": "https://www.uisdc.com/guizang-social-card-skill-2",
-          "rule": "把高频设计产出封装成 Skill，让平台从内容看板走向能力集合。",
+          "rule": "高频设计产出应封装为 Skill，让平台从内容看板走向能力集合。",
           "apply": "组件模式"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260627-6.webp",
           "alt": "AI 主动介入边界设计参考",
           "href": "https://www.uisdc.com/right-touch",
-          "rule": "主动 AI 必须同时说明触发原因、建议动作和退场方式。",
+          "rule": "主动 AI 必须同时说明触发原因、建议动作、影响范围和退场方式。",
           "apply": "视觉规则"
         },
         {
@@ -117,15 +70,15 @@
         }
       ],
       "detail": {
-        "why": "优设今天最适合承担中文方法论和求职叙事层：把 AI Native 能力翻译成面试官能看懂的证据链，包括来源读取、AI 判断、人工取舍、组件沉淀和最终产出。",
+        "why": "优设今天承担中文方法论层：把 AI Native 体验设计翻译成面试官能看懂的证据链，包括来源读取、AI 判断、人工取舍、组件沉淀和最终产出。",
         "points": [
-          "作品集结构要从“我会用 AI 工具”升级为“我能设计 AI 协作系统”。",
-          "AI 动效应绑定状态：读取、推理、执行、等待确认、完成、失败恢复。",
+          "作品集结构从“我会用 AI 工具”升级为“我能设计 AI 协作系统”。",
+          "AI 动效绑定读取、推理、执行、等待确认、完成、失败恢复六种状态。",
           "Skill 化内容提示平台下一步要暴露可调用能力，而不是只显示信息。",
-          "主动介入边界可直接沉淀为 AI Presence 行为原则。",
+          "主动介入边界可沉淀为 AI Presence 行为原则。",
           "知识流内容适合转成长期文章选题和设计雷达索引。"
         ],
-        "impact": "它能帮助 Bill 把每日巡检变成作品集证据：不是灵感收藏，而是一套可持续的 AI Native 设计判断系统。",
+        "impact": "它能帮助 Bill 把每日巡检变成作品集证据：不是灵感收藏，而是一套持续产出 AI Native 设计判断的系统。",
         "reason": "中文设计招聘语境更看重方法论、案例拆解和能力证明。优设负责“说清楚为什么”，Pinterest 和 Dribbble 负责“看见怎么做”。",
         "output": "作品集结构：新增《AI Presence 平台如何证明 AI Native 设计能力》章节，按来源、判断、组件、行动、沉淀五段组织。",
         "next": "下一轮若优设恢复访问，把新文章按观点、行为规则、组件规则、作品集证据四类入库。"
@@ -137,7 +90,7 @@
       "source": "设计风格源",
       "badge": "Pinterest / 登录态未确认",
       "title": "Pinterest：把空间感图源收敛成 AI Presence 视觉规则",
-      "summary": "当前自动化环境不能确认 Pinterest 登录态首页，因此不声称读取今日私有图板。今天沿用历史可见缩略图，把 HMI、Apple design、Website-data、AI workspace 聚合为四组可执行规则。",
+      "summary": "当前自动化环境不能确认 Pinterest 登录态，且公开请求长时间未完成；今天不声称读取私有首页或图板，只沿用历史可见缩略图，把 HMI、Apple design、Website-data、AI workspace 聚合为空间层级、状态仪表、证据数据和低打扰动效。",
       "bullets": [
         "来源状态：当前不可访问/登录态失效或未确认；不绕过登录，不读取账号隐私。",
         "图片来源：历史巡检保存的 Pinterest 页面可见缩略图 URL，覆盖 HMI、Apple Spatial、数据可视化、AI interface。",
@@ -206,11 +159,11 @@
       "id": "dribbble",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "Dribbble / 组件模式",
+      "badge": "Dribbble / WAF challenge",
       "title": "Dribbble：把 AI Dashboard 拆成可复用 Agent 工作台组件",
-      "summary": "Dribbble 今日继续作为组件与微交互雷达，不追表面炫技。重点提炼 Agent 状态胶囊、证据抽屉、产出队列、确认面板和跨端继续。",
+      "summary": "今日 Dribbble 搜索页触发 WAF challenge，未进行绕过；巡检继续使用已保存公开缩略图与 shot 链接，提炼 Agent 状态胶囊、证据抽屉、产出队列、确认面板和跨端继续。",
       "bullets": [
-        "来源状态：使用已保存公开缩略图与 Dribbble shot 链接；不批量下载原图。",
+        "来源状态：搜索页返回 WAF challenge；使用已保存公开缩略图与 Dribbble shot 链接，不批量下载原图。",
         "图片来源：公开资源 assets/design-sources/dribbble 与对应 Dribbble 页面链接。",
         "产出方向：组件模式、平台交互改进、视觉规则。"
       ],
@@ -232,206 +185,185 @@
           "apply": "平台交互改进"
         },
         {
-          "src": "assets/design-sources/dribbble/dribbble-05.webp",
-          "alt": "Axiom AI 应用 UI Kit",
-          "href": "https://dribbble.com/shots/27517797-Axiom-ui-kit",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48234613/file/fc0f1c0f01b89e7b8d8a33a21cfd2123.png?format=webp&resize=800x600&vertical=center",
-          "rule": "Agent 状态组件要覆盖空闲、读取、执行、等待确认、完成。",
+          "src": "assets/design-sources/dribbble/dribbble-06.webp",
+          "alt": "AI dashboard workflow 参考",
+          "href": "https://dribbble.com/search/ai-dashboard",
+          "rule": "任务流要呈现计划、执行、验证和交付状态。",
           "apply": "组件模式"
         },
         {
-          "src": "assets/design-sources/dribbble/dribbble-09.webp",
-          "alt": "AI OS 系统界面概念",
-          "href": "https://dribbble.com/shots/27516863-AI-OS",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48230732/file/bcc5657d72267abe02a30bb118d66721.png?crop=0x0-1600x1200&format=webp&resize=800x600&vertical=center",
-          "rule": "系统级 AI 入口要常驻但不侵占主工作区。",
-          "apply": "视觉规则"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-11.webp",
-          "alt": "Drift 社交媒体管理仪表盘",
-          "href": "https://dribbble.com/shots/27517258-Drift-Social-Media-Management-Dashboard",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48232668/file/18f7c027f430dc7c85a5183cd1ddf0bc.png?format=webp&resize=800x600&vertical=center",
-          "rule": "任务流、素材流和输出流要能在同一屏互相看见。",
+          "src": "assets/design-sources/dribbble/dribbble-08.webp",
+          "alt": "工作流与任务管理界面参考",
+          "href": "https://dribbble.com/search/workflow-dashboard",
+          "rule": "多 Agent 协作要展示角色分工、依赖关系和阻塞点。",
           "apply": "平台交互改进"
         },
         {
-          "src": "assets/design-sources/dribbble/dribbble-12.webp",
-          "alt": "Soma 血糖监测桌面应用",
-          "href": "https://dribbble.com/shots/27506011-Soma-Glucose-Monitoring-Desktop-App",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48188744/file/bbd826fcb7dd3f5e3eee17d734139990.jpg?crop=0x0-3200x2400&format=webp&resize=800x600&vertical=center",
-          "rule": "监测类界面可借鉴到 AI 任务健康度和来源可信度。",
+          "src": "assets/design-sources/dribbble/dribbble-11.webp",
+          "alt": "移动端 assistant UI 参考",
+          "href": "https://dribbble.com/search/assistant-ui-mobile",
+          "rule": "Phone 端只承载提醒、确认和快速继续，不承担完整分析。",
           "apply": "组件模式"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-16.webp",
+          "alt": "Onboarding micro interaction 参考",
+          "href": "https://dribbble.com/search/onboarding-micro-interaction",
+          "rule": "首次使用要解释 AI 如何介入、何时安静、如何退出。",
+          "apply": "视觉规则"
         }
       ],
       "detail": {
-        "why": "Dribbble 对 Bill 最有价值的是组件和微交互拆解：AI 状态、证据引用、任务分派、完成反馈、错误恢复，而不是单张视觉风格。",
+        "why": "Dribbble 适合承担组件与微交互层，不直接照搬视觉，而是拆成 Bill AI Presence 可落地的 Agent Workbench 组件库。",
         "points": [
-          "Agent 状态胶囊：空闲、读取、执行、等待确认、完成、失败恢复。",
-          "证据抽屉：原始来源、AI 摘要、可信度、可打开链接。",
-          "产出队列：把今日信号转成作品集、文章、视觉规则或平台改进。",
-          "确认面板：行动前展示影响、权限和可撤销路径。",
-          "跨端继续：Phone 看提醒，Pad 做阅读，PC 做产出。"
+          "Agent 状态胶囊：显示读取、判断、执行、等待确认、同步完成。",
+          "证据抽屉：把来源链接、图片、判断理由和可采纳规则放在同一层。",
+          "产出队列：将灵感转成视觉规则、组件模式、文章选题、作品集结构。",
+          "确认面板：高影响动作必须有人工确认与回滚提示。",
+          "跨端继续：Phone 做提醒，Pad 做浏览，PC 做深度产出。"
         ],
-        "impact": "这些组件能把平台从内容聚合页推进到 AI 工作台：用户不是看完离开，而是把每条信号转成下一步产出。",
-        "reason": "Bill 不需要普通 dashboard，而需要有 AI 存在感、任务连续性和可解释行为的工作场。",
-        "output": "组件模式：整理 5 个核心组件规格：Agent 状态胶囊、来源证据抽屉、产出队列、确认面板、跨端继续卡。",
-        "next": "下一轮继续搜索 AI dashboard、Agent UI、workflow、assistant UI，只保留能转成平台组件的参考。"
+        "impact": "这些模式可以直接推进平台组件库，让 Bill 的作品集从“页面好看”变成“AI Native 系统组件有方法”。",
+        "reason": "Agent UI 的关键不是更多卡片，而是让用户知道 AI 在哪里、做到了哪一步、需要用户做什么判断。",
+        "output": "组件模式：沉淀 Agent Status Capsule、Evidence Drawer、Output Queue、Human Confirm Panel、Cross-device Continue 五个组件。",
+        "next": "下一步在平台首页优先落地 Evidence Drawer，把设计源图片、规则、产出方向和下一步放到同一张可展开组件里。"
       }
     },
     {
-      "id": "prd",
-      "topic": "work",
-      "source": "未来工作模块",
-      "badge": "占位",
-      "title": "PRD 理解与研发输出追踪",
-      "summary": "上班后接入产品需求文档和研发输出，帮助你快速提炼设计风险、追问和验收项。",
-      "bullets": [],
-      "detail": {
-        "why": "等你入职后，这会是平台最实用的模块。它把产品需求和研发输出放进同一条设计决策链路里，帮助你减少遗漏和返工。",
-        "points": [
-          "PRD 理解：目标、用户、流程、模糊点、设计追问。",
-          "研发输出：接口变更、状态流、验收项、还原风险。",
-          "AI 作用：自动生成风险清单和会议追问。"
-        ],
-        "impact": "这个模块会把需求理解、设计决策和研发验收放进同一条链路。",
-        "reason": "入职后真正消耗你的不是画页面，而是模糊需求、实现偏差和跨团队沟通成本。",
-        "output": "创作任务：先写清楚未来模块边界，不现在做重功能。PRD 模块负责理解需求，研发模块负责追踪实现，AI 总结层负责把两者连起来。",
-        "next": "暂不展开开发，避免首版过重。"
-      }
-    },
-    {
-      "id": "brief-2026-07-02-codex-agentic-ai",
+      "id": "brief-2026-07-05-codex-delegation",
       "topic": "brief",
-      "source": "AI 产品晨报",
+      "source": "OpenAI 官方发布",
+      "sourceUrl": "https://openai.com/index/introducing-codex/",
       "badge": "最近工作日重点",
-      "title": "Codex 信号：Agentic AI 从写代码走向组织工作方式",
-      "summary": "最新 Codex 使用研究显示，Agentic AI 的采用正在从开发者扩展到组织协作，关键变化是用户开始并行管理多个可执行任务的 AI agent。",
+      "title": "Codex：异步委托正在变成 AI 工作台的基础范式",
+      "summary": "OpenAI 对 Codex 的定位不是代码补全，而是能在云端沙盒并行处理任务、运行测试、提供日志证据并提交可审查结果的工程 Agent。",
       "bullets": [
-        "来源：arXiv《The Shift to Agentic AI: Evidence from Codex》",
-        "影响：生产力界面会从聊天框变成多 Agent 编排台",
-        "产出：画一张多 Agent 工作台状态模型"
+        "发生了什么：Codex 强调并行任务、隔离环境、测试输出和可验证证据。",
+        "影响：AI 产品界面要呈现任务生命周期，而不是只给一个生成结果。",
+        "产出：画一张 Agent 任务卡的信息架构。"
       ],
       "detail": {
-        "why": "研究基于 OpenAI Codex 使用数据，指出 2026 年上半年活跃使用快速增长，且增长开始超出早期软件开发者人群。它说明 Agentic AI 的价值不只是生成代码，而是代表用户执行、排队、验证和交付任务。",
+        "why": "这条信号说明 AI Native 工具正在从实时对话转向异步协作。用户分配任务后，AI 需要展示读取、执行、卡住、求助、提交、复盘这些状态。",
         "points": [
-          "发生了什么：Codex 被作为可并行执行任务的 agent 研究样本。",
-          "对 AI x 设计的影响：界面重点会转向任务状态、证据、权限、等待点和人工接管。",
-          "为什么值得关注：这正是 AUI 从 ChatBot 走向工作组织层的证据。"
+          "对 AI x 设计的影响：核心交付物会从聊天框布局变成任务编排、证据链、审批点和失败恢复。",
+          "为什么值得关注：Bill AI Presence 要成为日常工作入口，就必须让 AI 像可审阅的协作者，而不是黑盒生成器。",
+          "可转成什么产出：Agent 任务卡、执行证据抽屉、等待人工确认状态。"
         ],
-        "impact": "未来 Agent UI 需要呈现多个智能体的意图、进度、风险、产物和可验证证据，而不是只呈现一条线性的对话流。",
-        "reason": "对体验设计师来说，这是一类新交付物：Agent 状态模型、编排信息架构、可审计执行链路。",
-        "output": "把 Codex/Cursor 工作流拆成单 Agent 与多 Agent 两版，比较状态、权限和反馈机制。",
-        "next": "转成平台条目：多 Agent 工作台的信息架构草图。"
+        "impact": "AUI 的关键不是让 AI 更会说话，而是让 AI 的行动过程可信、可暂停、可接管。",
+        "reason": "这直接对应多智能体工作台和系统级 AI 入口的设计方向。",
+        "output": "整理一页《异步 AI 同事任务生命周期》：分配、执行、阻塞、求助、提交、复盘。",
+        "next": "可视化建议：用时间轴叠加证据抽屉，不用传统卡片堆叠。"
       }
     },
     {
-      "id": "brief-2026-07-02-openai-codex-delegation",
+      "id": "brief-2026-07-05-claude-code-remote-mcp",
       "topic": "brief",
-      "source": "AI 产品晨报",
-      "badge": "产品形态",
-      "title": "OpenAI Codex：异步委托正在成为 AI 工作台默认范式",
-      "summary": "OpenAI 对 Codex 的官方定位仍然强调云端沙盒、并行任务、日志证据、PR 审查和未来跨工具委托，这些都指向“像同事一样异步协作”的产品形态。",
+      "source": "Anthropic / Claude 官方博客",
+      "sourceUrl": "https://claude.com/blog/claude-code-remote-mcp",
+      "badge": "Agent 连接层",
+      "title": "Claude Code Remote MCP：Agent 正在连接真实工作系统",
+      "summary": "Claude Code 对 Remote MCP 的支持把编码 Agent 从本地命令行推向可连接项目管理、文档、仓库和内部工具的协作层。",
       "bullets": [
-        "来源：OpenAI 官方 Introducing Codex",
-        "影响：AI 产品要设计可验证的执行过程，而不只是结果页",
-        "产出：整理一页 Agent 任务证据清单"
+        "发生了什么：Claude Code 强化 Remote MCP 连接能力。",
+        "影响：Agent UI 需要显示工具来源、权限边界和动作后果。",
+        "产出：做一张 MCP 工具连接与授权状态图。"
       ],
       "detail": {
-        "why": "Codex 每个任务运行在隔离环境中，可读写文件、运行测试并返回终端日志和测试输出。官方还提到未来会支持任务中途指导、主动进度更新，以及从 CLI、桌面、issue tracker、CI 等入口分发任务。",
+        "why": "Remote MCP 的产品意义不只是多接几个工具，而是让 Agent 可以跨系统读取上下文并触发行动。体验设计必须把连接状态、授权范围、失败原因和人工确认做成可理解的前台信息。",
         "points": [
-          "发生了什么：Codex 把实时配对和异步委托放在同一套工作流里。",
-          "对 AI x 设计的影响：Agent 需要有任务卡、证据链、审批点和失败解释。",
-          "为什么值得关注：这是 AI Native 工具从“生成器”走向“协作系统”的标准样本。"
+          "对 AI x 设计的影响：AI Presence 需要有工具地图，而不是只显示聊天历史。",
+          "为什么值得关注：当 Agent 进入真实工作流，权限、审计、数据来源会成为体验信任的一部分。",
+          "可转成什么产出：MCP 连接面板、授权状态标签、工具调用回放。"
         ],
-        "impact": "设计重点从输入框美化转向协作契约：Agent 能做什么、做到哪一步、何时需要人确认、结果如何被信任。",
-        "reason": "这和你的 AI Presence 方向一致：AI 不只是按钮后面的模型，而是持续存在的执行角色。",
-        "output": "做一张“异步 AI 同事”的任务生命周期：分配、执行、卡住、求助、提交、复盘。",
-        "next": "转成平台条目：Codex 异步委托范式。"
+        "impact": "这会推动 AUI 从单点输入框升级为工作系统的编排层。",
+        "reason": "你的平台未来要接日历、飞书、邮箱、设计源，这类连接状态必须设计清楚。",
+        "output": "补一页《Agent 工具连接状态》：未连接、已授权、受限、调用中、失败、需人工确认。",
+        "next": "可视化建议：把工具连接画成环绕 AI Presence 的轻量轨道。"
       }
     },
     {
-      "id": "brief-2026-07-02-qwen-agentworld",
+      "id": "brief-2026-07-05-gemini-cli",
       "topic": "brief",
-      "source": "AI 产品晨报",
+      "source": "Google 官方博客",
+      "sourceUrl": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-cli-open-source-ai-agent/",
+      "badge": "开源 Agent",
+      "title": "Gemini CLI：开源命令行 Agent 让 AI 工作流更接近可组合基础设施",
+      "summary": "Google 推出 Gemini CLI，把 AI Agent 放进终端与开发工作流，重点是开源、可扩展和面向真实任务的命令行协作。",
+      "bullets": [
+        "发生了什么：Gemini CLI 以开源 Agent 形态进入开发者工作流。",
+        "影响：设计师需要理解 CLI、IDE、网页和移动端之间的连续体验。",
+        "产出：画一张跨端 Agent 入口地图。"
+      ],
+      "detail": {
+        "why": "CLI Agent 的增长说明 AI 产品不一定从漂亮界面开始，而是先进入高频工作场景。对设计师来说，挑战是把命令行里的执行状态、上下文和结果，翻译成普通用户也能理解的跨端体验。",
+        "points": [
+          "对 AI x 设计的影响：同一个 Agent 需要在 Phone、Pad、PC、CLI 中保持任务连续。",
+          "为什么值得关注：跨端智能体验不是视觉适配，而是上下文、权限和任务状态的迁移。",
+          "可转成什么产出：多端 Agent 入口和任务接力模型。"
+        ],
+        "impact": "这能帮助你把 AI Presence 从一个页面扩展成系统级入口。",
+        "reason": "未来设计师需要设计 Agent 在不同端上的存在强度：轻提示、侧边栏、全屏工作台、后台执行。",
+        "output": "产出《跨端 Agent 入口地图》：CLI、桌面、网页、移动端、通知中心。",
+        "next": "可视化建议：用同一任务在四个端的状态迁移做图。"
+      }
+    },
+    {
+      "id": "brief-2026-07-05-figma-ai-canvas",
+      "topic": "brief",
+      "source": "Figma 官方博客",
+      "sourceUrl": "https://www.figma.com/blog/config-2025-recap/",
+      "badge": "设计工具",
+      "title": "Figma AI 画布：设计工具正在从编辑器变成产品生成环境",
+      "summary": "Figma 在 Config 方向上持续把 Make、Sites、Draw、Grid 等能力组合到设计工作流里，信号是设计工具越来越接近从想法到可交互产物的一体化环境。",
+      "bullets": [
+        "发生了什么：Figma 继续把 AI、站点生成和表达工具放进设计链路。",
+        "影响：UI/UX 交付会从静态稿扩展到可运行原型和内容系统。",
+        "产出：把 Bill AI Presence 首页拆成 Figma 可复用组件。"
+      ],
+      "detail": {
+        "why": "设计工具的竞争重点正在从画图效率转向产品化速度：想法、结构、视觉、交互、发布会被压缩在同一工作流里。",
+        "points": [
+          "对 AI x 设计的影响：设计师的价值会更多体现在产品判断、系统语言和原型验证。",
+          "为什么值得关注：这对 AI Native 作品集很关键，面试官更容易看到从概念到运行体验的证据链。",
+          "可转成什么产出：AI Presence 组件库、状态流、可点击原型、发布页。"
+        ],
+        "impact": "Figma 不只是视觉工具，而是 AI 产品想法的快速验证场。",
+        "reason": "这和 Bill 的方向一致：不要只做界面生成器，要把产品逻辑、状态和连续体验做出来。",
+        "output": "整理《AI Presence Figma 组件拆解》：Presence 状态、来源证据、今日行动、工具连接、输出队列。",
+        "next": "可视化建议：用空间层级表达 AI 存在感，减少传统后台卡片感。"
+      }
+    },
+    {
+      "id": "brief-2026-07-05-agent-world-model",
+      "topic": "brief",
+      "source": "Qwen-Agent / AgentWorld 方向",
+      "sourceUrl": "https://github.com/QwenLM/Qwen-Agent",
       "badge": "多智能体",
-      "title": "Qwen-AgentWorld：Agent 开始需要“世界模型”而非单次回复",
-      "summary": "Qwen-AgentWorld 用语言世界模型模拟 agentic 环境，覆盖多领域真实交互轨迹，核心价值是让 Agent 在行动前理解环境状态和后果。",
+      "title": "多智能体环境模型：Agent 产品需要设计“场”，不只是设计角色",
+      "summary": "国内外 Agent 方向都在从单次回复走向工具调用、环境反馈和多步执行。对 AUI 来说，关键是把目标、角色、工具、状态、约束和反馈设计成一个可理解的工作场。",
       "bullets": [
-        "来源：arXiv Qwen-AgentWorld 论文 / GitHub",
-        "影响：多智能体体验要设计环境、状态与失败恢复",
-        "产出：写一页多智能体环境状态图"
+        "发生了什么：Agent 框架持续强调工具、记忆、规划和环境交互。",
+        "影响：多智能体界面要表达环境状态与行动后果。",
+        "产出：画一张 Agent 环境状态图。"
       ],
       "detail": {
-        "why": "论文提出 Qwen-AgentWorld-35B-A3B 和 397B-A17B，用超过 1000 万条环境交互轨迹训练语言世界模型，并用 AgentWorldBench 评估。对产品设计来说，关键不是参数，而是 Agent 需要能预测环境变化。",
+        "why": "多智能体不是把几个头像放在一起，而是让不同 Agent 在同一环境里观察、分工、执行和复盘。设计师需要定义环境规则：谁能看见什么、谁能调用什么、何时需要人确认、失败后如何恢复。",
         "points": [
-          "发生了什么：国内模型团队把 Agent 训练与评测推向环境模拟。",
-          "对 AI x 设计的影响：AUI 要表达环境状态、行动后果、回滚和学习机制。",
-          "为什么值得关注：这会影响多 Agent 工作台、个人助理和跨端主动服务的底层体验。"
+          "对 AI x 设计的影响：界面需要显示环境状态、角色边界、工具可用性和任务依赖。",
+          "为什么值得关注：这是 AI Companion 和系统级主动服务的底层体验结构。",
+          "可转成什么产出：Agent 环境模型、角色协作图、失败恢复流程。"
         ],
-        "impact": "设计师需要理解 Agent 的“场”：上下文、工具、权限、环境反馈和长期记忆共同决定体验。",
-        "reason": "这能把你的多智能体兴趣从概念讨论推进到系统结构表达。",
-        "output": "画一张 Agent 环境模型：目标、角色、工具、状态、约束、观测、动作、反馈。",
-        "next": "转成平台条目：多智能体环境模型。"
-      }
-    },
-    {
-      "id": "brief-2026-07-02-google-notebooklm-video",
-      "topic": "brief",
-      "source": "AI 产品晨报",
-      "badge": "多模态",
-      "title": "NotebookLM 视频摘要：AI 知识工具从文本整理走向可视化表达",
-      "summary": "Google 正在把 NotebookLM 的长文档总结扩展为短视频概览，这说明知识工作流的输出形态正在从文字摘要变成可直接传播的多模态内容。",
-      "bullets": [
-        "来源：Android Central 对 NotebookLM Short Video Overviews 的报道",
-        "影响：设计工具会越来越强调“从资料到表达”的一体化流",
-        "产出：把一篇 AI 产品文章转成 60 秒脚本结构"
-      ],
-      "detail": {
-        "why": "NotebookLM 的视频摘要把文档、笔记和 PDF 转成约一分钟的竖向视频解释，包含叙事说明与教育动画。它不是单纯更炫的总结，而是把知识处理、表达包装和传播格式连在一起。",
-        "points": [
-          "发生了什么：AI 知识产品开始支持视频化输出。",
-          "对 AI x 设计的影响：信息架构要同时服务阅读、观看、复盘和发布。",
-          "为什么值得关注：这适合设计师把趋势资料快速转成作品集素材、短内容或汇报脚本。"
-        ],
-        "impact": "未来设计师的 AI 工作流会从“整理资料”升级为“生成可传播观点资产”。",
-        "reason": "你的平台可以把每日晨报条目直接变成卡片、短视频脚本、观点稿和案例页。",
-        "output": "选择今天一条信息，写成 5 镜头短视频脚本：问题、信号、影响、案例、行动。",
-        "next": "转成平台条目：AI brief 到多模态输出。"
-      }
-    },
-    {
-      "id": "brief-2026-07-02-anthropic-governance",
-      "topic": "brief",
-      "source": "AI 产品晨报",
-      "badge": "治理信号",
-      "title": "Anthropic 模型访问风波：Agent 产品的权限与治理会进入前台",
-      "summary": "多家媒体报道 Anthropic 高级模型访问限制与恢复，虽然不是纯产品发布，但它提醒 AI agent 的能力边界、地区权限、安全策略和透明度会直接影响用户信任。",
-      "bullets": [
-        "来源：Guardian / Wired 对 Anthropic 访问限制恢复的报道",
-        "影响：AI Presence 必须设计可解释的权限和治理状态",
-        "产出：补一页 Agent 权限透明度原则"
-      ],
-      "detail": {
-        "why": "Anthropic 相关高级模型经历访问限制与恢复，围绕安全、出口管制、政府合作和用户可见性出现争议。对 AUI 来说，这类事件会让“模型为什么不能做”“为什么被限制”“谁能访问”变成体验的一部分。",
-        "points": [
-          "发生了什么：高级模型访问与安全策略成为公共议题。",
-          "对 AI x 设计的影响：权限、审计、风险提示和降级策略需要前台化。",
-          "为什么值得关注：AI 数字员工一旦进入组织，信任机制比功能列表更关键。"
-        ],
-        "impact": "Agent 产品不能只设计能力，还要设计能力边界：可用、受限、需授权、已降级、不可执行。",
-        "reason": "这会成为企业级 AI Native 体验的重要门槛，也是作品集里能体现系统思维的部分。",
-        "output": "写一组 Agent 治理状态标签：可执行、需授权、受限、降级、安全拒绝、等待审计。",
-        "next": "转成平台条目：Agent 权限与治理状态。"
+        "impact": "它能把多智能体从概念演示推进到可落地的产品结构。",
+        "reason": "Bill AI Presence 如果要长期演进，就需要有角色、记忆、计划、执行和审计的系统骨架。",
+        "output": "做一页《Agent 环境模型》：目标、角色、工具、状态、约束、观测、动作、反馈。",
+        "next": "可视化建议：用中心任务场 + 周边 Agent 轨道表达协作关系。"
       }
     }
   ],
   "topicCounts": {
-    "all": 11,
-    "calendar": 1,
-    "message": 1,
-    "brief": 5,
+    "all": 8,
+    "calendar": 0,
+    "message": 0,
     "design": 3,
-    "work": 1
+    "brief": 5
   }
 }
