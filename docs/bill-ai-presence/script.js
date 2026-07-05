@@ -534,7 +534,7 @@ function renderFeed(items) {
   feed.innerHTML = items
     .map((item, index) => {
       const bullets = (item.bullets || []).map((point) => `<li>${escapeHtml(point)}</li>`).join("");
-      const images = item.images || [];
+      const images = item.images?.length ? item.images : fallbackDesignImages[item.id] || [];
       const previewImages = images.slice(0, 3);
       const media = previewImages.length
         ? `
@@ -573,6 +573,26 @@ function renderFeed(items) {
     card.querySelector(".open-detail").addEventListener("click", () => openDetail(card.dataset.id));
   });
   watchImages(feed);
+}
+
+function renderEmbeddedFallback() {
+  const embeddedItems = Object.entries(detailData).map(([id, item]) => ({
+    id,
+    topic: ["uisdc", "pinterest", "dribbble"].includes(id) ? "design" : id === "meeting" ? "calendar" : "brief",
+    source: item.type,
+    badge: ["uisdc", "pinterest", "dribbble"].includes(id) ? "已采集" : "内置",
+    title: item.title,
+    summary: item.why,
+    bullets: item.points?.slice(0, 2) || [],
+    images: item.images?.length ? item.images : fallbackDesignImages[id] || [],
+  }));
+  latestItems = embeddedItems;
+  renderFeed(embeddedItems);
+  updateTopicCounts(getTopicCounts(embeddedItems));
+  updateFeishuStatus(embeddedItems);
+  updateFeishuMessageStatus(embeddedItems);
+  showSummary();
+  setTopic(document.querySelector(".topic.is-active")?.dataset.topic || "all");
 }
 
 function buildDetailRecord(item) {
@@ -1031,6 +1051,7 @@ async function loadDailyContent({ silent = false } = {}) {
     applyContentData(data);
     if (!silent) showToast("已读取最新发布数据。");
   } catch (error) {
+    renderEmbeddedFallback();
     renderSourceHealth([]);
     setSyncStatus("使用页面内置数据", "fallback");
     if (!silent) showToast("没有读到已发布数据，先使用页面内置内容。");
