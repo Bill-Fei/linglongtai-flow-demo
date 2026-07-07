@@ -447,22 +447,26 @@ function canEmbedSource(url) {
 
 function openImagePreview(image) {
   if (!imageModal || !modalImage || !modalCaption || !modalSource || !image) return;
-  const sourceUrl = image.href || image.src;
-  const hasSourceLink = Boolean(image.href && image.href !== "#");
-  const shouldEmbed = hasSourceLink && canEmbedSource(sourceUrl);
+  const sourceUrl = image.href || image.sourceEntry || image.src;
+  const isSavedOnly = image.sourceStatus === "saved-cover";
+  const hasSourceLink = Boolean(sourceUrl && sourceUrl !== "#");
+  const shouldEmbed = Boolean(image.href && !isSavedOnly && canEmbedSource(sourceUrl));
   watchImages(imageModal);
   setPreviewImage(modalImage, image);
   setPreviewImage(modalSourceImage, image);
   setPreviewImage(modalHeroImage, image);
   modalCaption.textContent = image.alt || "设计参考图";
   modalSource.href = sourceUrl;
+  modalSource.textContent = isSavedOnly ? "打开来源入口" : "打开原始链接";
   modalSource.hidden = !hasSourceLink;
   if (sourceActionRow) sourceActionRow.hidden = !hasSourceLink;
   if (modalNote) {
     modalNote.textContent = hasSourceLink
-      ? shouldEmbed
-        ? "右侧展示原始页面；左侧保留这条来源可转成平台规则的要点。"
-        : "右侧展示保存预览；完整页面从下方原链接打开。"
+      ? isSavedOnly
+        ? image.sourceNote || "右侧展示已保存封面；原始详情页未完成验证，先保留来源入口和可转译规则。"
+        : shouldEmbed
+          ? "右侧展示原始页面；左侧保留这条来源可转成平台规则的要点。"
+          : "右侧展示保存预览；完整页面从下方原链接打开。"
       : "这张图来自已保存的缩略图流，当前没有可确认的原始详情页。";
   }
   if (modalPlatform) {
@@ -492,8 +496,8 @@ function openImagePreview(image) {
     sourceOpenCard.hidden = shouldEmbed || !hasSourceLink;
     const title = sourceOpenCard.querySelector("strong");
     const text = sourceOpenCard.querySelector("span");
-    if (title) title.textContent = "保存预览";
-    if (text) text.textContent = "完整页面从左侧原链接打开。";
+    if (title) title.textContent = isSavedOnly ? "已保存封面" : "保存预览";
+    if (text) text.textContent = isSavedOnly ? "原始详情页未验证，先保留来源入口和可转译规则。" : "完整页面从左侧原链接打开。";
   }
   imageModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
@@ -1134,7 +1138,7 @@ function openDetail(id) {
             <img src="${escapeHtml(image.src)}" ${image.originalSrc ? `data-fallback-src="${escapeHtml(image.originalSrc)}"` : ""} alt="${escapeHtml(image.alt)}" loading="lazy" referrerpolicy="no-referrer" />
             <span>${escapeHtml(image.alt)}</span>
             </button>
-            <button class="source-link" type="button" data-source-index="${index}">${image.href ? "原始页面" : "查看参考"}</button>
+            <button class="source-link" type="button" data-source-index="${index}">${image.href ? "原始页面" : image.sourceEntry ? "来源入口" : "查看参考"}</button>
           </div>
         `)
       .join("")}

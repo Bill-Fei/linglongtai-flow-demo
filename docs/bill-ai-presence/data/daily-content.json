@@ -76,47 +76,65 @@
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260706-uisdcbanner-coding-motion.webp",
           "alt": "优设已保存封面：Coding 做动画",
-          "href": "https://www.uisdc.com/coding-motion"
+          "sourceStatus": "saved-cover",
+          "sourceNote": "当前为已保存封面，原始详情页未完成验证；不在平台内嵌入原站页面。",
+          "sourceEntry": "https://www.uisdc.com/archives"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260704-uisdcbanner-ai-dashboard.webp",
           "alt": "优设已保存封面：AI 大屏设计",
-          "href": "https://www.uisdc.com/ai-dashboard-design"
+          "sourceStatus": "saved-cover",
+          "sourceNote": "当前为已保存封面，原始详情页未完成验证；不在平台内嵌入原站页面。",
+          "sourceEntry": "https://www.uisdc.com/archives"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260703-uisdcbanner-ai-portfolio.webp",
           "alt": "优设已保存封面：呈现 AI 能力的作品集方向",
-          "href": "https://www.uisdc.com/ai-portfolio-capability"
+          "sourceStatus": "saved-cover",
+          "sourceNote": "当前为已保存封面，原始详情页未完成验证；不在平台内嵌入原站页面。",
+          "sourceEntry": "https://www.uisdc.com/archives"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260703-uisdcbanner-codex-obsidian.webp",
           "alt": "优设已保存封面：Codex+Obsidian 工作流",
-          "href": "https://www.uisdc.com/codex-obsidian-workflow"
+          "sourceStatus": "saved-cover",
+          "sourceNote": "当前为已保存封面，原始详情页未完成验证；不在平台内嵌入原站页面。",
+          "sourceEntry": "https://www.uisdc.com/archives"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260631-3.webp",
           "alt": "优设已保存封面：AI 动效关键词与生成流程",
-          "href": "https://www.uisdc.com/ai-motion-lab"
+          "sourceStatus": "saved-cover",
+          "sourceNote": "当前为已保存封面，原始详情页未完成验证；不在平台内嵌入原站页面。",
+          "sourceEntry": "https://www.uisdc.com/archives"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/06/20260621-uisdcbanner-prd-design4.webp",
           "alt": "优设已保存封面：AI Pipeline 与 PRD 设计流程",
-          "href": "https://www.uisdc.com/ai-pipeline"
+          "sourceStatus": "saved-cover",
+          "sourceNote": "当前为已保存封面，原始详情页未完成验证；不在平台内嵌入原站页面。",
+          "sourceEntry": "https://www.uisdc.com/archives"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/06/20260615-uisdcbanner-vibecoding-5.webp",
           "alt": "优设已保存封面：Vibe Coding 设计工具",
-          "href": "https://www.uisdc.com/vibe-coding-10"
+          "sourceStatus": "saved-cover",
+          "sourceNote": "当前为已保存封面，原始详情页未完成验证；不在平台内嵌入原站页面。",
+          "sourceEntry": "https://www.uisdc.com/archives"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/06/20260607-uisdcbanner-codex.webp",
           "alt": "优设已保存封面：Codex 工作流",
-          "href": "https://www.uisdc.com/codex-5"
+          "sourceStatus": "saved-cover",
+          "sourceNote": "当前为已保存封面，原始详情页未完成验证；不在平台内嵌入原站页面。",
+          "sourceEntry": "https://www.uisdc.com/archives"
         },
         {
           "src": "https://image.uisdc.com/wp-content/uploads/2026/05/20250527-uisdcbanner-gpt-figma.webp",
           "alt": "优设已保存封面：GPT 与 Figma AI 设计流",
-          "href": "https://www.uisdc.com/ai-design-flow-3"
+          "sourceStatus": "saved-cover",
+          "sourceNote": "当前为已保存封面，原始详情页未完成验证；不在平台内嵌入原站页面。",
+          "sourceEntry": "https://www.uisdc.com/archives"
         }
       ],
       "detail": {
