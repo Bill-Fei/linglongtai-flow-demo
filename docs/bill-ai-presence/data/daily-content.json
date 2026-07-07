@@ -1,371 +1,459 @@
 {
-  "updatedAt": "2026-07-05 22:45 CST / 近期 AI 产品信号已核验 / 只保留有效内容",
-  "freshness": {
-    "date": "2026-07-05",
-    "state": "latest-public-signal",
-    "reason": "今天是周日，没有伪装成全天实时抓取；本次更新使用近期可公开确认的 AI 产品、Agent、设计工具信号，并剔除占位内容。",
-    "designSources": "设计源保留优设、Pinterest、Dribbble 三组历史可见图片源；只写已经沉淀到平台里的设计判断。"
-  },
+  "updatedAt": "2026-07-07 09:08 CST / 设计源巡检已更新；晨报沿用最近工作日",
   "todayFocus": {
-    "title": "Agent 从能力展示进入真实采用、入口和治理设计",
-    "summary": "今天重点看 5 个已核验信号：Codex 相关研究显示 agentic AI 正在改变工程工作方式，Codex 硬件入口让 AI 工作台走向桌面环境，微软 CLI Agent 研究说明组织采用依赖同伴可见性，Fable 5 事件暴露治理状态要前台化，Figma AI 画布说明设计工具正在变成 Agent 协作场。",
-    "meta": "5 条 AI 产品信号 · 3 个设计行动 · 无占位内容"
+    "title": "沿用最近工作日：把 Agent 从工具变成可感知的工作存在",
+    "summary": "今天本地外网 DNS 解析失败，无法确认 2026-07-07 是否有全新官方发布；本次不伪装成今日新鲜晨报，沿用最近工作日已保存的公开 AI 产品信号。重点仍是 Codex 异步委托、Gemini CLI 终端 Agent、Claude Code 工作流、Figma Make/Sites 的设计到生产链路，以及 MCP 工具治理。",
+    "meta": "5 条 AI 产品条目 · 沿用最近工作日 · 私有日程和消息不写入公开数据 · 邮箱未接入"
   },
   "items": [
+    {
+      "id": "meeting-2026-07-03-auth-needed",
+      "topic": "calendar",
+      "source": "日程与纪要",
+      "badge": "待授权",
+      "title": "飞书个人日历待授权：当前不能判断是否无日程",
+      "summary": "公开数据无法确认你的个人日历。若本地私有日程文件存在，页面会优先加载本地私有结果；否则这里仅代表正式授权未完成。",
+      "bullets": [
+        "状态：飞书用户身份授权未完成",
+        "兜底：本地私有日程文件会优先覆盖",
+        "风险：不能把这里理解为今天没有会议"
+      ],
+      "detail": {
+        "why": "这个 fallback 用于避免误判。应用级日历没有读到个人日程，不等于你今天没有会议；只有飞书用户身份授权完成后，才能把日程状态视为正式同步。",
+        "points": [
+          "公开发布数据不包含你的私人日历。",
+          "当前页面会尝试读取本地私有日程文件。",
+          "如果本地文件存在，会替换这条 fallback。",
+          "如果本地文件不存在，这里只能说明正式授权未完成。",
+          "不能把“未读到”当成“无日程”。"
+        ],
+        "impact": "日程是这个平台的基础事实源，必须优先保证可信度。比起显示一个好看的空状态，更重要的是告诉你当前数据是否足够可靠。",
+        "reason": "你准备日用这个平台，最危险的情况不是少一张卡片，而是平台错误地告诉你今天没会。",
+        "output": "完成飞书用户授权，或继续维护本地私有日程文件作为临时兜底。",
+        "next": "下一步：打通飞书用户 OAuth 后，把状态从“本地私有”升级为“正式同步”。"
+      }
+    },
+    {
+      "id": "message-2026-07-03-permission-needed",
+      "topic": "message",
+      "source": "飞书消息",
+      "badge": "待接入",
+      "title": "飞书消息待授权：当前只支持本地私有消息兜底",
+      "summary": "公开数据无法读取你的私人飞书消息。若本地私有消息文件存在，页面会优先加载真实消息；正式自动接入仍需要事件订阅或消息权限。",
+      "bullets": [
+        "状态：正式消息权限未完成",
+        "兜底：本地私有消息文件会优先覆盖",
+        "刷新：页面每 10 分钟重读本地消息结果"
+      ],
+      "detail": {
+        "why": "飞书消息涉及个人和群聊内容，不能在公开数据里默认写入。当前正确状态是：页面支持本地私有消息兜底，但正式自动接入还需要飞书事件订阅或消息读取权限。",
+        "points": [
+          "这个模块最终要回答：谁找你、说了什么、在哪个群或私聊、是否需要回复。",
+          "当前页面会优先读取本地私有消息文件。",
+          "页面每 10 分钟只会重读本地结果，不会自己去飞书后台抓新消息。",
+          "正式自动接入需要飞书机器人事件订阅，或补齐消息 API 权限。",
+          "消息内容不会写进 GitHub Pages，后续应只保存在本地数据或私有后端。"
+        ],
+        "impact": "消息模块会把被动沟通转成可审阅的工作信号：哪些消息只是通知，哪些需要回复，哪些应该进入今日产出或日程跟进。",
+        "reason": "这比单纯展示未读数更有用。你的平台目标是综合审阅并产出，所以消息需要被结构化成行动判断。",
+        "output": "先把本地私有消息兜底跑稳定，再完成飞书事件订阅，让新消息自动进入平台。",
+        "next": "下一步：启动本地 webhook 服务，把公网回调地址填到飞书开放平台事件订阅里，并订阅 im.message.receive_v1。"
+      }
+    },
     {
       "id": "uisdc",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "优设 / 中文方法论",
-      "title": "优设：把 AI 能力转成作品集证据链",
-      "summary": "今天继续保留优设作为中文方法论入口：重点不是“看文章”，而是把 AI 作品集、AI 动效、Skill 化交付、主动介入边界沉淀成 Bill 可讲清楚的求职证据。",
+      "badge": "优设 / 当前不可访问",
+      "title": "优设：中文 AI 设计方法论要沉淀成作品集证据链",
+      "summary": "今天自动化环境对优设域名解析失败，不能确认首页新内容；本次基于平台已保存的优设封面缩略图复盘，重点仍是把 AI 动效、AI 大屏、Codex+Obsidian 和 AI 能力呈现转成 Bill 的 AI Native 作品集证据。",
       "bullets": [
-        "用途：把 AI Native / Agent UI 讲成中文设计圈能理解的方法论。",
-        "适合产出：作品集结构、文章选题、面试表达、平台交互规则。",
-        "今天动作：从 6 张封面里提炼 3 条“AI 能力如何被证明”的规则。"
+        "设计信号：中文 AI 设计内容不要停留在工具教程，要转成“任务背景、AI 协作流程、人工判断点、验证结果、作品集表达”的证据链。",
+        "图片来源：沿用平台已保存优设封面缩略图；今天无法实时读取优设首页，因此不把它标记为今日新鲜来源。",
+        "产出方向：文章选题、作品集结构、平台交互改进。"
       ],
       "images": [
         {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-1.webp",
-          "alt": "AI 能力作品集证据链参考",
-          "href": "https://www.uisdc.com/proof-over-tools",
-          "rule": "AI 能力要展示判断过程、协作路径和结果证据，不能只列工具名。",
-          "apply": "作品集结构"
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260706-uisdcbanner-coding-motion.webp",
+          "alt": "优设已保存封面：Coding 做动画",
+          "href": "https://www.uisdc.com/coding-motion"
         },
         {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-2.webp",
-          "alt": "AI 动效生成与状态反馈参考",
-          "href": "https://www.uisdc.com/autoanimate",
-          "rule": "动效优先解释 AI 当前状态，再承担视觉表现。",
-          "apply": "平台交互改进"
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260704-uisdcbanner-ai-dashboard.webp",
+          "alt": "优设已保存封面：AI 大屏设计",
+          "href": "https://www.uisdc.com/ai-dashboard-design"
         },
         {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260703-4.webp",
-          "alt": "Skill 化动态素材生成参考",
-          "href": "https://www.uisdc.com/guizang-social-card-skill-2",
-          "rule": "高频设计产出应封装为 Skill，让平台从内容看板走向能力集合。",
-          "apply": "组件模式"
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260703-uisdcbanner-ai-portfolio.webp",
+          "alt": "优设已保存封面：呈现 AI 能力的作品集方向",
+          "href": "https://www.uisdc.com/ai-portfolio-capability"
         },
         {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260627-6.webp",
-          "alt": "AI 主动介入边界设计参考",
-          "href": "https://www.uisdc.com/right-touch",
-          "rule": "主动 AI 必须同时说明触发原因、建议动作、影响范围和退场方式。",
-          "apply": "视觉规则"
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260703-uisdcbanner-codex-obsidian.webp",
+          "alt": "优设已保存封面：Codex+Obsidian 工作流",
+          "href": "https://www.uisdc.com/codex-obsidian-workflow"
         },
         {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260626-2.webp",
-          "alt": "服务能力蒸馏为 Skills 的产品参考",
-          "href": "https://www.uisdc.com/skills-13",
-          "rule": "每个服务模块都应有可调用能力、权限边界和人工确认点。",
-          "apply": "平台交互改进"
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260631-3.webp",
+          "alt": "优设已保存封面：AI 动效关键词与生成流程",
+          "href": "https://www.uisdc.com/ai-motion-lab"
         },
         {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/ysbanner-20260630-3.webp",
-          "alt": "AI 时代个人知识流与 Obsidian 参考",
-          "href": "https://www.uisdc.com/obsidian-2",
-          "rule": "每日风格信号要回流到长期主题库，而不是停留在当天收藏。",
-          "apply": "文章选题"
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/20260621-uisdcbanner-prd-design4.webp",
+          "alt": "优设已保存封面：AI Pipeline 与 PRD 设计流程",
+          "href": "https://www.uisdc.com/ai-pipeline"
+        },
+        {
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/20260615-uisdcbanner-vibecoding-5.webp",
+          "alt": "优设已保存封面：Vibe Coding 设计工具",
+          "href": "https://www.uisdc.com/vibe-coding-10"
+        },
+        {
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/20260607-uisdcbanner-codex.webp",
+          "alt": "优设已保存封面：Codex 工作流",
+          "href": "https://www.uisdc.com/codex-5"
+        },
+        {
+          "src": "https://image.uisdc.com/wp-content/uploads/2026/05/20250527-uisdcbanner-gpt-figma.webp",
+          "alt": "优设已保存封面：GPT 与 Figma AI 设计流",
+          "href": "https://www.uisdc.com/ai-design-flow-3"
         }
       ],
       "detail": {
-        "why": "优设这组内容最适合承担中文表达层：它能把 AI 能力从“我会用工具”转成“我能证明判断、流程和结果”的作品集语言。",
+        "why": "优设对 Bill 的价值是中文方法论与求职表达。今天不能确认新文章，因此不做“今日新鲜内容”判断，而是把已保存图源继续压缩为可交付的作品集结构。",
         "points": [
-          "AI 作品集不应该只列工具，而要展示问题、判断、协作过程和结果证据。",
-          "AI 动效关键词适合转成 Agent 状态反馈：读取、思考、执行、完成、等待确认。",
-          "Skill 化交付可以变成你的作品集亮点：不是页面截图，而是一套可复用工作流。",
-          "主动介入边界可以转成 AI Presence 行为准则。"
+          "把 AI 动效从效果图转成“感受参数、状态变化、触发条件、验收标准”。",
+          "把 AI 大屏从数据墙转成“Agent 判断、证据来源、行动建议、人工确认”。",
+          "把 Codex+Obsidian 从工具组合转成“长期记忆、知识沉淀、作品集资产”的流程案例。",
+          "把 AI 能力呈现从工具清单转成任务、过程、决策、验证和产出证据。"
         ],
-        "impact": "这组内容能把 Bill AI Presence 从信息看板推进到求职证据系统：每条内容都要能变成作品集、文章或组件规则。",
-        "reason": "你现在最需要的是可被面试官理解的 AI 设计证据，而不是更多泛泛的资讯。",
-        "output": "产出任务：写一页《AI 设计能力不是工具清单，而是证据链》。结构：问题判断、AI 协作过程、可验证结果、复用方法。",
-        "next": "今天先把优设内容转成 3 条作品集表达规则。"
+        "impact": "优设负责文章选题与中文表达层，帮助 Bill 把 AI Native 体验设计讲成招聘方能理解的案例。",
+        "reason": "求职作品集需要证明你能把 AI 工作流产品化，而不是只展示灵感图和工具名。",
+        "output": "作品集结构：背景 / AI 协作流程 / Agent 状态 / 人工判断 / 证据沉淀 / 产出验证。",
+        "next": "下一步写文章选题：《AI 时代体验设计师的作品集，应该展示 AI 协作证据链》。"
       }
     },
     {
       "id": "pinterest",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "Pinterest / 视觉雷达",
-      "title": "Pinterest：空间感、轻容器和情绪化留白",
-      "summary": "Pinterest 继续作为视觉气质雷达：今天只保留能服务 AI Presence 的方向，包括空间层级、轻拟态容器、低打扰动效、跨端连续视觉。",
+      "badge": "Pinterest / 当前不可访问",
+      "title": "Pinterest：把 HMI、Apple design、UI dynamic 收敛为空间规则库",
+      "summary": "今天自动化环境对 Pinterest 域名解析失败，不能确认首页推荐、登录态或个人图板；本次不绕过登录态，继续使用平台已保存可见 pin 缩略图，服务 Spatial Layer、Agent State、Evidence Data、Calm Motion 四套规则。",
       "bullets": [
-        "用途：建立 Bill AI Desk 的视觉语言，不做普通后台。",
-        "适合产出：moodboard、组件气质、移动端/桌面端空间关系。",
-        "今天动作：沉淀 4 个视觉关键词：calm、spatial、glass、presence。"
+        "设计信号：Pinterest 不应继续作为图片收藏夹，而要转成 Bill AI Presence 的空间、状态、证据和动效规则。",
+        "图片来源：平台已保存 Pinterest 可见缩略图；今天无法实时读取 Pinterest 页面或确认登录态。",
+        "产出方向：视觉规则、组件模式、作品集结构。"
       ],
       "images": [
         {
           "src": "https://i.pinimg.com/474x/c3/43/0e/c3430e5edfc183b878ccc1fd174e9b5b.jpg",
-          "alt": "空间界面与柔和层级 moodboard 参考",
-          "href": "https://www.pinterest.com/pin/695735842480691463/",
-          "rule": "背景深度和轻量容器负责 AI Presence 的环境感。",
-          "apply": "视觉规则"
+          "alt": "Pinterest 已保存参考：空间界面与柔和层级",
+          "href": "https://www.pinterest.com/pin/695735842480691463/"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/65/10/01/651001b8152fa346f42cd4ebdb9cf8a4.jpg",
+          "alt": "Pinterest 已保存参考：深色界面与光感结构",
+          "href": "https://www.pinterest.com/pin/636626097370048750/"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/01/b0/bb/01b0bbba93f99f49a270afed8adc434f.jpg",
+          "alt": "Pinterest 已保存参考：轻拟态信息容器",
+          "href": "https://www.pinterest.com/pin/80994493295041536/"
         },
         {
           "src": "https://i.pinimg.com/474x/c8/de/81/c8de8171ad14262b448468e079bc5037.jpg",
-          "alt": "Apple 风格空间布局参考",
-          "href": "https://www.pinterest.com/pin/569846159122451357/",
-          "rule": "主任务居中，辅助信号退到边缘，降低传统后台感。",
-          "apply": "视觉规则"
+          "alt": "Pinterest 已保存参考：Apple 风格空间布局",
+          "href": "https://www.pinterest.com/pin/569846159122451357/"
         },
         {
           "src": "https://i.pinimg.com/474x/38/76/f0/3876f0534844ef2f33b5697b99a9cf6c.jpg",
-          "alt": "HMI 状态信息表达参考",
-          "href": "https://www.pinterest.com/pin/1131248000181500525/",
-          "rule": "状态信息要像仪表一样可扫读，少用解释性长文占屏。",
-          "apply": "组件模式"
+          "alt": "Pinterest 已保存参考：HMI 与状态信息表达",
+          "href": "https://www.pinterest.com/pin/1131248000181500525/"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/f8/81/96/f8819622e43e2308533f3308beb3166e.jpg",
+          "alt": "Pinterest 已保存参考：移动端壁纸光感与材质",
+          "href": "https://www.pinterest.com/pin/896708975823500183/"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/df/45/72/df457202351fb60621e1eb4682199eec.jpg",
+          "alt": "Pinterest 已保存参考：UI 元素与圆角节奏",
+          "href": "https://www.pinterest.com/pin/242912973646450654/"
         },
         {
           "src": "https://i.pinimg.com/474x/8c/09/a7/8c09a7f7b115e59c94d21471317bd75a.jpg",
-          "alt": "AI interfaces beyond ordinary light and dark mode",
-          "href": "https://www.pinterest.com/pin/1152428992169871667/",
-          "rule": "AI 界面不只区分明暗主题，还要区分存在感强弱和行动状态。",
-          "apply": "平台交互改进"
+          "alt": "Pinterest 已保存参考：AI interfaces pushed beyond ordinary light and dark mode",
+          "href": "https://www.pinterest.com/pin/1152428992169871667/"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/0f/a4/9a/0fa49a25a871292dffdb98d6f5ece776.jpg",
+          "alt": "Pinterest 已保存参考：AI 产品界面氛围",
+          "href": "https://www.pinterest.com/pin/859835753919401936/"
         },
         {
           "src": "https://i.pinimg.com/474x/9f/b2/01/9fb201fa9d860c55b1b9c2096cbf8814.jpg",
-          "alt": "信息看板与视觉密度参考",
-          "href": "https://www.pinterest.com/pin/519110294569871257/",
-          "rule": "密度来自节奏、分区和对齐，不来自卡片堆叠。",
-          "apply": "视觉规则"
+          "alt": "Pinterest 已保存参考：信息看板与视觉密度",
+          "href": "https://www.pinterest.com/pin/519110294569871257/"
+        },
+        {
+          "src": "https://i.pinimg.com/474x/ee/a0/0d/eea00d90a6a1b46b8fe2ac8ea7b4f612.jpg",
+          "alt": "Pinterest 已保存参考：未来感界面结构",
+          "href": "https://www.pinterest.com/pin/722616702757497215/"
         },
         {
           "src": "https://i.pinimg.com/474x/34/c9/9b/34c99bf5c277ec7fab6ec691b267ea33.jpg",
-          "alt": "数据产品视觉语言参考",
-          "href": "https://www.pinterest.com/pin/412360909653820781/",
-          "rule": "数据视觉必须服务判断路径：来源、趋势、异常、下一步。",
-          "apply": "组件模式"
+          "alt": "Pinterest 已保存参考：数据产品视觉语言",
+          "href": "https://www.pinterest.com/pin/412360909653820781/"
         }
       ],
       "detail": {
-        "why": "Pinterest 对这个项目的价值不是图片收藏，而是帮助定义 Bill AI Desk 的“空间感”和“陪伴感”：它应该像一个持续存在的 AI 工作空间，而不是企业后台。",
+        "why": "Pinterest 图源最适合做视觉规则抽象。当前无法实时访问时，正确动作不是硬抓新图，而是把已保存图源转成平台可执行的风格约束。",
         "points": [
-          "空间层级：内容、来源、AI 判断、下一步动作要有前后关系。",
-          "轻容器：减少厚重卡片，保留柔和边界和呼吸感。",
-          "低打扰动效：AI 状态要能被感知，但不能抢走注意力。",
-          "跨端连续：Phone 看提醒，Pad 做阅读，PC 做产出。"
+          "Spatial Layer：背景、浮层、信息组、主行动之间要有清晰距离和层级呼吸。",
+          "Agent State：AI 的聆听、理解、生成、等待确认、失败恢复必须连续可感知。",
+          "Evidence Data：来源、引用、判断理由、风险和下一步要形成可扫读证据区。",
+          "Calm Motion：动效只解释状态变化，不制造装饰性噪音。"
         ],
-        "impact": "视觉语言要服务 AI Presence：让用户感到 AI 在持续陪伴、整理和推进，而不是堆卡片。",
-        "reason": "这直接对应你的审美和方向：Apple Spatial、AI Native、柔和动态、系统连续性。",
-        "output": "产出任务：整理一张 Bill AI Desk moodboard，四个关键词：Calm Presence / Spatial Layer / Glass Container / Soft Motion。",
-        "next": "今天把这 4 个关键词转成首页和详情页的组件规则。"
+        "impact": "Pinterest 负责视觉规则层，让平台避免普通 dashboard 和传统卡片堆叠。",
+        "reason": "Bill 的审美核心是系统感、空间感、柔和层次和 AI 存在感；这些需要被写成规则才能稳定复用。",
+        "output": "视觉规则：沉淀 Spatial Layer、Agent State、Evidence Data、Calm Motion 四张风格规则卡。",
+        "next": "下一步把设计源详情页改为“图源 -> 规则 -> 组件 -> 作品集证据”的固定阅读结构。"
       }
     },
     {
       "id": "dribbble",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "Dribbble / 组件参考",
-      "title": "Dribbble：把 AI Dashboard 拆成 Agent Workbench 组件",
-      "summary": "Dribbble 今天继续承担组件拆解层：只保留能转成 Agent Workbench 的模式，例如状态胶囊、证据抽屉、产出队列、确认面板和跨端继续。",
+      "badge": "Dribbble / 当前不可访问",
+      "title": "Dribbble：AI dashboard 参考要拆成 Assistant + Workflow 组件",
+      "summary": "今天自动化环境对 Dribbble 域名解析失败，不能确认搜索页新内容；本次沿用平台本地已保存公开缩略图，继续把 AI dashboard、企业 UI、AI OS 和任务工作台方向拆成 Agent UI 组件模式。",
       "bullets": [
-        "用途：从视觉参考转成 AI 工作台组件库。",
-        "适合产出：Agent Status、Evidence Drawer、Output Queue、Human Confirm。",
-        "今天动作：把 6 张参考图拆成 5 个组件规格。"
+        "设计信号：AI dashboard 的重点不是复制大屏外观，而是抽象 assistant header、任务队列、证据抽屉、人工确认和跨端继续。",
+        "图片来源：bill-ai-presence/assets/design-sources/dribbble 下已保存公开作品缩略图；今天无法实时读取 Dribbble 搜索页。",
+        "产出方向：组件模式、平台交互改进、作品集结构。"
       ],
       "images": [
         {
           "src": "assets/design-sources/dribbble/dribbble-01.webp",
           "alt": "Quantexa 企业级 UI/UX 设计",
-          "href": "https://dribbble.com/shots/27044530-Enterprise-UI-UX-Design-for-Quantexa",
-          "originalSrc": "https://cdn.dribbble.com/userupload/46593501/file/still-c92e7f64f22f44c5a3f3eb09f3a24baa.png?format=webp&resize=1200x900&vertical=center",
-          "rule": "复杂信息拆成判断区、证据区和行动区。",
-          "apply": "组件模式"
+          "href": "https://dribbble.com/shots/27044530-Enterprise-UI-UX-Design-for-Quantexa"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-05.webp",
+          "alt": "Axiom AI 应用 UI Kit",
+          "href": "https://dribbble.com/shots/27517797-Axiom-ui-kit"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-09.webp",
+          "alt": "AI OS 系统界面概念",
+          "href": "https://dribbble.com/shots/27516863-AI-OS"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-11.webp",
+          "alt": "Drift 社交媒体管理仪表盘",
+          "href": "https://dribbble.com/shots/27517258-Drift-Social-Media-Management-Dashboard"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-12.webp",
+          "alt": "Soma 血糖监测桌面应用",
+          "href": "https://dribbble.com/shots/27506011-Soma-Glucose-Monitoring-Desktop-App"
         },
         {
           "src": "assets/design-sources/dribbble/dribbble-04.webp",
           "alt": "Veggy AI 营养与食谱网站",
-          "href": "https://dribbble.com/shots/27517635-Veggy-AI-Nutrition-Recipe-Website",
-          "originalSrc": "https://cdn.dribbble.com/userupload/48234052/file/still-d3eb2477fba4ce56a102a97d3f76ee4d.png?format=webp&resize=800x600&vertical=center",
-          "rule": "AI 建议需要显性说明输入、推理依据和可执行结果。",
-          "apply": "平台交互改进"
+          "href": "https://dribbble.com/shots/27517635-Veggy-AI-Nutrition-Recipe-Website"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-07.webp",
+          "alt": "Kaspa DeFi 生态系统与 AI Agent 信号",
+          "href": "https://dribbble.com/shots/27516817-Kaspa-com-DeFi-Ecosystem"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-10.webp",
+          "alt": "Amanah CRM 捐赠者列表",
+          "href": "https://dribbble.com/shots/27517801-Amanah-CRM-Donors-Listing"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-02.webp",
+          "alt": "Epoch Protocol Web3 基础设施平台",
+          "href": "https://dribbble.com/shots/27511694-Epoch-Protocol-Web3-Infrastructure-Platform"
         },
         {
           "src": "assets/design-sources/dribbble/dribbble-06.webp",
-          "alt": "AI dashboard workflow 参考",
-          "href": "https://dribbble.com/search/ai-dashboard",
-          "rule": "任务流要呈现计划、执行、验证和交付状态。",
-          "apply": "组件模式"
+          "alt": "患者监护移动 iOS 应用设计",
+          "href": "https://dribbble.com/shots/27518240-Patient-Monitoring-Mobile-iOS-App-Design"
+        },
+        {
+          "src": "assets/design-sources/dribbble/dribbble-03.webp",
+          "alt": "Marketplace 移动购物应用",
+          "href": "https://dribbble.com/shots/27485397-Marketplace-Mobile-Shopping-App"
         },
         {
           "src": "assets/design-sources/dribbble/dribbble-08.webp",
-          "alt": "工作流与任务管理界面参考",
-          "href": "https://dribbble.com/search/workflow-dashboard",
-          "rule": "多 Agent 协作要展示角色分工、依赖关系和阻塞点。",
-          "apply": "平台交互改进"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-11.webp",
-          "alt": "移动端 assistant UI 参考",
-          "href": "https://dribbble.com/search/assistant-ui-mobile",
-          "rule": "Phone 端只承载提醒、确认和快速继续，不承担完整分析。",
-          "apply": "组件模式"
-        },
-        {
-          "src": "assets/design-sources/dribbble/dribbble-16.webp",
-          "alt": "Onboarding micro interaction 参考",
-          "href": "https://dribbble.com/search/onboarding-micro-interaction",
-          "rule": "首次使用要解释 AI 如何介入、何时安静、如何退出。",
-          "apply": "视觉规则"
+          "alt": "高端灯具电商网站 UI 设计",
+          "href": "https://dribbble.com/shots/27518582-Premium-Lamp-Ecommerce-Website-UI-Design"
         }
       ],
       "detail": {
-        "why": "Dribbble 对 Bill 最有价值的是组件和微交互拆解，而不是单张视觉风格。它能把 AI 状态、证据引用、任务分派、完成反馈和错误恢复拆成可复用组件。",
+        "why": "Dribbble 对 Bill 的价值是组件模式层。即使今天无法实时访问，已保存缩略图仍能支持把 AI dashboard 方向抽成 Agent 工作台组件。",
         "points": [
-          "Agent 状态胶囊：空闲、读取、执行、等待确认、完成、失败恢复。",
-          "证据抽屉：原始来源、AI 摘要、可信度、可打开链接。",
-          "产出队列：把今日信号转成作品集、文章、视觉规则或平台改进。",
-          "确认面板：行动前展示影响、权限和可撤销路径。",
-          "跨端继续：Phone 看提醒，Pad 做阅读，PC 做产出。"
+          "Assistant Header：让 AI 的当前任务、信心、上下文来源始终可见。",
+          "Agent Status Capsule：用低打扰状态表达同步、分析、生成、等待确认、完成和失败。",
+          "Evidence Drawer：把来源、引用、AI 判断理由、风险和下一步集中在可展开区域。",
+          "Output Queue：把文章、视觉规则、组件规范、作品集素材组织成可推进队列。",
+          "Human Confirm Panel：高风险行动必须有确认、撤回、继续编辑和原因说明。",
+          "Cross-device Continue：Phone、Pad、PC 保留同一任务上下文和状态。"
         ],
-        "impact": "这些组件能把平台从内容聚合页推进到 AI 工作台：用户不是看完离开，而是把每条信号转成下一步产出。",
-        "reason": "Bill 不需要普通 dashboard，而需要有 AI 存在感、任务连续性和可解释行为的工作场。",
-        "output": "组件模式：整理 5 个核心组件规格：Agent 状态胶囊、来源证据抽屉、产出队列、确认面板、跨端继续卡。",
-        "next": "今天先把 Dribbble 参考图对应到这 5 个组件规格。"
+        "impact": "Dribbble 负责组件模式层，帮助 Bill AI Presence 从信息展示升级为可执行 Agent 工作台。",
+        "reason": "AUI 作品集要展示 AI 如何出现、行动、解释、等待接管和跨端延续，而不是只展示漂亮 dashboard。",
+        "output": "组件模式：Assistant Header、Agent 状态胶囊、证据抽屉、产出队列、人工确认面板、跨端继续卡。",
+        "next": "下一步把这六个组件做成一页规范：状态、触发条件、信息结构、微交互、适用端。"
       }
     },
     {
-      "id": "brief-2026-07-05-codex-agentic-shift",
+      "id": "brief-2026-07-07-openai-codex-delegation-carried",
       "topic": "brief",
-      "source": "AI 产品晨报",
-      "sourceUrl": "https://arxiv.org/abs/2606.26959",
-      "badge": "Agent 采用研究",
-      "title": "Codex 研究：Agentic AI 正在改变工程工作方式",
-      "summary": "arXiv 新论文《The Shift to Agentic AI: Evidence from Codex》把 Codex 当作观察样本，讨论软件工程从辅助补全走向可委托 Agent 的变化。对 Bill 来说，重点不是代码工具本身，而是 AI 工作台如何呈现任务委托、过程证据和人的接管点。",
+      "source": "OpenAI 官方发布",
+      "badge": "沿用 / Codex",
+      "title": "Codex 异步委托仍是 AI Presence 的关键样本",
+      "summary": "沿用最近工作日来源：OpenAI Codex 强调把代码任务委托给云端 agent，用户可以在本地继续工作，再回到结果、日志和验证证据。今天无法联网确认新发布，因此只把它作为持续有效的产品信号。",
       "bullets": [
-        "发生了什么：研究把 Codex 放在 agentic AI 采用变化里观察。",
-        "影响：AI 产品要从“辅助生成”升级为“任务委托与过程管理”。",
-        "产出：画一张 Agent 任务委托的证据链结构。"
+        "发生了什么：Codex 代表 AI 从“对话回答”进入“可委托、可检查、可恢复”的任务执行层。",
+        "AI × 设计影响：AUI 需要表达任务状态、证据、风险、等待确认和用户接管，而不是只展示聊天气泡。",
+        "为什么值得关注：Bill AI Presence 可以把异步 agent 设计成一种持续陪伴的工作存在，让用户知道 AI 正在做什么、做到哪一步、需要谁确认。"
       ],
       "detail": {
-        "why": "这条信号对 Bill AI Presence 很重要：Codex 代表的不是单点工具，而是一种新的工作关系。用户把目标交给 Agent，Agent 需要读取上下文、规划步骤、执行、遇到阻塞时请求人介入，最后交付可审查结果。",
+        "why": "这条信号适合支撑 Bill 的 AI Presence 方向：AI 不只是工具按钮，而是能在后台推进任务、前台保持可感知状态的协作者。今天未能重新联网验证，所以标注为沿用最近工作日。",
         "points": [
-          "Agentic AI 的体验重点不是输入框，而是任务生命周期。",
-          "用户需要看见 Agent 读了什么、准备怎么做、做到哪一步。",
-          "复杂任务必须设计人工接管点，而不是只显示最终答案。",
-          "工程场景里的证据链可以迁移到设计、内容和知识工作。"
+          "来源链接：https://openai.com/index/introducing-codex/",
+          "可转成产出：异步 Agent 工作台的信息架构。",
+          "可视化建议：把任务拆成“委托中、执行中、需确认、已验证、失败恢复”五种状态。"
         ],
-        "impact": "AI Native 体验会越来越像“可委托工作层”：用户要知道 AI 正在做什么、为什么这么做、什么时候需要自己介入。",
-        "reason": "这正好对应你的 AI Presence 方向：AI 不是一个按钮，而是持续存在、能承担角色的工作成员。",
-        "output": "产出任务：画一张《Agent 任务委托证据链》：目标、上下文、计划、执行、阻塞、人工确认、交付、复盘。",
-        "next": "把 Codex 研究转成 Bill AI Desk 的任务卡组件规则。"
+        "impact": "平台可把晨报、代码任务、设计任务都统一成可追踪的 Agent 状态，而不是分散的信息卡片。",
+        "reason": "这能直接证明 Bill 的作品集不是工具测评，而是在设计下一代 AI 工作入口。",
+        "output": "做一张“异步 Agent 状态模型”作品集页，说明每个状态对应的用户感知、证据和控制权。"
       }
     },
     {
-      "id": "brief-2026-07-05-codex-hardware",
+      "id": "brief-2026-07-07-gemini-cli-open-agent-carried",
       "topic": "brief",
-      "source": "AI 产品晨报",
-      "sourceUrl": "https://www.theverge.com/ai-artificial-intelligence/959174/openai-codex-hardware-work-louder",
-      "badge": "硬件入口",
-      "title": "OpenAI 预告 Codex 硬件入口：Agent 工具开始走向桌面环境",
-      "summary": "OpenAI 预告与 Work Louder 合作的 Codex 相关硬件，预计 7 月 15 日揭晓。它不像通用 AI 设备，更像给 Codex 工作流准备的快捷入口。",
+      "source": "Google 官方博客",
+      "badge": "沿用 / CLI Agent",
+      "title": "Gemini CLI 提醒设计师：无界面 Agent 也需要体验设计",
+      "summary": "沿用最近工作日来源：Gemini CLI 将 AI agent 放进终端与脚本流，支持开发、内容生成、研究和任务处理。今天无法确认新动态，但它仍是理解“不可见界面”的重要样本。",
       "bullets": [
-        "发生了什么：Codex 可能获得一块面向开发工作流的实体控制器。",
-        "影响：Agent 操作从屏幕按钮扩展到物理快捷入口。",
-        "产出：思考 AI 工作台哪些动作值得硬件化。"
+        "发生了什么：Agent 能力从 App UI 延伸到命令行、日志、文件上下文和自动化脚本。",
+        "AI × 设计影响：体验设计不只设计屏幕，还要设计权限提示、进度反馈、错误解释和可审计输出。",
+        "为什么值得关注：Bill AI Presence 可以把终端 Agent 的不可见执行转译成普通用户也能理解的 Presence UI。"
       ],
       "detail": {
-        "why": "Codex 硬件入口的价值不在设备本身，而在它说明 AI Agent 已经需要更高频、更确定的操作入口。一个实体控制器意味着用户可能会反复触发启动任务、切换 Agent、批准执行、查看结果这些动作。",
+        "why": "CLI Agent 证明界面正在从“视觉页面”扩展为“执行环境”。设计师需要把命令、上下文、工具调用和结果证据纳入体验对象。",
         "points": [
-          "Agent 高频动作可能会脱离传统按钮，进入物理快捷键、旋钮、触控层。",
-          "AI 工作台需要识别哪些动作是可重复、可肌肉记忆、可快速确认的。",
-          "硬件入口会强化 AI Presence：AI 不只在网页里，而在桌面工作环境里。",
-          "这也提醒设计师：下一代 AI 交互不一定只发生在 UI 画布上。"
+          "来源链接：https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-cli-open-source-ai-agent/",
+          "可转成产出：终端 Agent 的可视化状态镜像。",
+          "可视化建议：用“环境、上下文、工具、结果、证据”五层解释不可见执行。"
         ],
-        "impact": "跨端智能体验会扩展到“桌面环境 + 软件工作台 + 物理入口”的组合。",
-        "reason": "你关注 Phone / Pad / PC 统一体验，Codex 硬件入口是一个很好的“PC 侧 AI 入口”观察样本。",
-        "output": "产出任务：列出 8 个 Bill AI Desk 高频动作，判断哪些适合键盘快捷键、哪些适合实体控制器、哪些必须保留屏幕确认。",
-        "next": "把 Codex 硬件入口转成一张《AI 工作台物理入口》分析卡。"
+        "impact": "帮助平台从网页信息面板升级为跨端 Agent 观察层：终端、浏览器、设计工具都能被统一感知。",
+        "reason": "这贴合 Bill 对跨端连续性和系统级 AI 入口的长期关注。",
+        "output": "设计一个“CLI Agent -> Presence UI”的转换图，展示无界面执行如何变成可理解的体验。"
       }
     },
     {
-      "id": "brief-2026-07-05-cli-agent-rollout",
+      "id": "brief-2026-07-07-claude-code-practice-carried",
       "topic": "brief",
-      "source": "AI 产品晨报",
-      "sourceUrl": "https://arxiv.org/abs/2607.01418",
-      "badge": "组织采用研究",
-      "title": "微软 CLI Agent 研究：采用不是平均发生，而是通过同伴扩散",
-      "summary": "arXiv 新论文研究微软在 2026 年初推广 Claude Code 和 GitHub Copilot CLI 的过程，发现首次使用主要通过社交网络扩散，留存更受编码活动影响，采用者合并 PR 约多 24%。",
+      "source": "Anthropic / Claude Code Docs",
+      "badge": "沿用 / 工作流",
+      "title": "Claude Code 的价值在于工作流，而不只是代码生成",
+      "summary": "沿用最近工作日来源：Claude Code 文档强调探索、计划、上下文管理、验证和子代理调查。今天无法确认新发布，但这套工作方式仍可直接转成 Agent UI 设计原则。",
       "bullets": [
-        "发生了什么：CLI coding agents 在组织内的采用路径被量化研究。",
-        "影响：Agent 推广不是发工具，而是设计可见的同伴使用和成果证据。",
-        "产出：把“同伴可见性”加入 AI 工作台设计。"
+        "发生了什么：编码 Agent 的最佳实践正在从 prompt 技巧变成完整工作流：读环境、定计划、执行、验证、汇报证据。",
+        "AI × 设计影响：Agent UI 应该呈现“理解中、执行中、等待确认、验证完成”的连续状态。",
+        "为什么值得关注：这正是 Bill 想要的系统感和 AI 存在感，而不是一次性生成结果。"
       ],
       "detail": {
-        "why": "这条研究对 AI 产品设计很关键：组织里不是每个人自然采用 Agent，采用会通过可见同伴、真实产出和工作习惯扩散。AI 工具如果只给个人入口，很难形成团队层面的行为改变。",
+        "why": "Claude Code 的关键启发是：AI 协作需要可观察、可中断、可恢复。平台应该让用户看到 Agent 如何理解任务、选择工具、验证结果。",
         "points": [
-          "首次使用主要经由社交网络扩散，而不是纯粹由人口特征决定。",
-          "留存与工程活动强相关，说明 Agent 更容易黏住高频工作者。",
-          "采用者合并 PR 的数量相对更高，但论文也提醒 PR 只是产出代理指标。",
-          "组织级 Agent UI 需要展示谁在用、产出了什么、是否可复用。"
+          "来源链接：https://code.claude.com/docs/en/best-practices",
+          "可转成产出：Agent 工作流体验原则清单。",
+          "可视化建议：三段式表达“先理解、再执行、后验证”。"
         ],
-        "impact": "Agent UI 不应只设计单人任务流，还要设计团队可见性、信任传播和结果复用。",
-        "reason": "Bill AI Presence 如果未来进入团队场景，需要让 AI 工作被看见，而不是只存在于个人聊天框。",
-        "output": "产出任务：画一张《Agent 采用扩散路径》：试用、同伴可见、产出证明、复用模板、团队规范。",
-        "next": "把这个研究转成一页作品集中的组织采用洞察。"
+        "impact": "为 Bill AI Presence 提供产品行为规范：先解释计划，再执行，再给证据和下一步。",
+        "reason": "这能避免平台变成普通信息流，而是形成具备产品理解能力的协作者感受。",
+        "output": "沉淀 6 条 Agent UI 原则：先探索、显性计划、证据优先、权限清楚、上下文可压缩、失败可恢复。"
       }
     },
     {
-      "id": "brief-2026-07-05-fable-5-governance",
+      "id": "brief-2026-07-07-figma-make-sites-carried",
       "topic": "brief",
-      "source": "AI 产品晨报",
-      "sourceUrl": "https://www.tomshardware.com/tech-industry/artificial-intelligence/anthropic-restores-claude-fable-5-as-us-lifts-export-controls",
-      "badge": "治理信号",
-      "title": "Fable 5 恢复访问：Agent 能力越强，治理状态越要前台化",
-      "summary": "围绕 Claude Fable 5 的访问限制和恢复，核心信号是模型能力、网络安全风险、政府评估和平台可用性开始直接影响产品体验。",
+      "source": "Figma 官方博客",
+      "badge": "沿用 / 设计生产",
+      "title": "Figma Make / Sites 继续把设计意图推向可运行产物",
+      "summary": "沿用最近工作日来源：Figma Make、Sites 等能力把自然语言、设计稿、交互原型和发布链路拉近。今天无法确认新动态，但它对 AI Native 设计交付方式仍然关键。",
       "bullets": [
-        "发生了什么：高级模型访问与安全策略成为公共议题。",
-        "影响：能力边界、降级、审计和风险提示要成为 UI 的一部分。",
-        "产出：设计 Agent 治理状态标签。"
+        "发生了什么：设计工具正在把静态稿、原型、代码、响应式发布和内容规模化放进同一生产环境。",
+        "AI × 设计影响：设计师交付物会更像可运行系统，必须定义状态、约束、响应式规则和验收标准。",
+        "为什么值得关注：Bill 的作品集可以从“我会做 UI”升级为“我能定义 AI 可执行体验”。"
       ],
       "detail": {
-        "why": "这条不是普通模型新闻，而是说明高级 Agent 能力会被治理、风险评估和访问策略直接影响。用户看到的不应该只是“失败”，而应知道当前能力是可用、受限、降级、需审计还是不可执行。",
+        "why": "AI 设计工具的核心不是自动出图，而是让设计意图进入可验证原型。设计师的价值在于控制范围、保真度、动效节奏和跨端一致性。",
         "points": [
-          "高级模型能力和网络安全风险正在被政府和平台共同评估。",
-          "访问恢复依赖具体安全缓解措施，而不是简单开关。",
-          "对用户来说，模型治理最终会表现成能力可用性和执行边界。",
-          "Agent 产品需要把权限、审计、降级和拒绝解释设计清楚。"
+          "来源链接：https://www.figma.com/blog/config-2025-recap/",
+          "可转成产出：Bill AI Presence 的原型生成与发布链路说明。",
+          "可视化建议：展示“设计意图 -> Agent 生成 -> 人工精修 -> 公开页面”的闭环。"
         ],
-        "impact": "AI 工作台要有治理层：可执行、需授权、受限、降级、安全拒绝、等待审计。",
-        "reason": "这是企业级 AI Native 体验的关键门槛，也是作品集里能体现系统思维的部分。",
-        "output": "产出任务：设计 6 个 Agent 治理状态标签，并写清每个状态下用户能做什么。",
-        "next": "把治理状态加入 Bill AI Desk 的组件库。"
+        "impact": "平台晨报条目可以进一步转成页面原型、组件规则和作品集材料。",
+        "reason": "这贴近体验设计师的转型路径：从画 UI 到定义可运行系统。",
+        "output": "做一个“晨报条目一键转作品集卡片”的交互演示。"
       }
     },
     {
-      "id": "brief-2026-07-05-figma-ai-canvas",
+      "id": "brief-2026-07-07-mcp-architecture-patterns-carried",
       "topic": "brief",
-      "source": "AI 产品晨报",
-      "sourceUrl": "https://www.theverge.com/tech/955831/figma-code-design-tools-config-2026-announcements",
-      "badge": "设计工具演进",
-      "title": "Figma AI 画布：设计工具从静态文件走向 Agent 协作场",
-      "summary": "Config 相关更新显示，Figma 正在把代码层、AI 动效、Shader、工作流工具和 Agent 能力带进画布，设计文件正在变成可执行的协作空间。",
+      "source": "arXiv 研究论文",
+      "badge": "沿用 / MCP",
+      "title": "MCP 工具治理决定多智能体体验是否可信",
+      "summary": "沿用最近工作日来源：MCP Server Architecture Patterns 研究总结了资源网关、工具编排、会话服务、代理聚合和领域适配等模式。今天无法确认新论文或新版本，因此作为架构趋势继续引用。",
       "bullets": [
-        "发生了什么：Figma 画布加入更强的代码、动效、Shader 和 AI workflow 能力。",
-        "影响：设计交付从静态稿变成可执行、可协作、可被 Agent 理解的空间。",
-        "产出：定义 Bill AI Desk 的“证据画布”结构。"
+        "发生了什么：MCP 已从“接工具”进入“如何组织、鉴权、版本化、观测工具生态”的系统问题。",
+        "AI × 设计影响：多智能体 UI 的难点包括工具命名、能力边界、权限感知、失败解释和证据链。",
+        "为什么值得关注：Bill 的多 Agent 作品集可以用 MCP 模式解释后台架构如何影响前台 AI Presence。"
       ],
       "detail": {
-        "why": "Figma 的方向非常贴近你的 AI Native 设计主题：画布不再只是放组件，而是让设计、代码、AI Agent 和工作流在同一空间协作。",
+        "why": "Agent 能力越多，用户越需要理解它为什么调用这个工具、能访问什么、失败在哪里。工具层的信息架构会直接影响信任。",
         "points": [
-          "代码层让设计和实现之间的边界变薄。",
-          "AI 动效和 Shader 工具让视觉表达更可生成、可调节。",
-          "Agent skills 和 workflow 工具让画布开始承担执行和协作能力。",
-          "这会改变作品集：不是只展示页面，而是展示系统如何运转。"
+          "来源链接：https://arxiv.org/abs/2606.30317",
+          "可转成产出：MCP 工具分组与权限可视化图。",
+          "可视化建议：把工具层画成可审计的能力地图，而不是隐藏在后台。"
         ],
-        "impact": "AI × 设计的重点会从“生成 UI”转成“在画布里组织证据、状态、动作和交付”。",
-        "reason": "这正是你要做的方向：设计下一代 AI 工作空间，而不是普通页面。",
-        "output": "产出任务：为 Bill AI Desk 设计一张“证据画布”：左侧来源，中间 AI 判断，右侧产出任务，下方是可复用组件。",
-        "next": "把 Figma AI 画布趋势转成你的 Agent UI 作品集章节。"
+        "impact": "为 Bill AI Presence 的多 Agent 架构提供可解释框架：资源、工具、会话、代理聚合、领域适配。",
+        "reason": "这能把作品集从“会用 AI 工具”提升到“能设计 AI 系统的能力边界和治理界面”。",
+        "output": "做一张“Agent 能力地图”：每个工具标注用途、权限、风险、触发条件和用户可见状态。"
       }
     }
   ],
   "topicCounts": {
-    "all": 8,
-    "calendar": 0,
-    "message": 0,
+    "calendar": 1,
+    "message": 1,
     "design": 3,
     "brief": 5
+  },
+  "freshness": {
+    "designSources": {
+      "updatedAt": "2026-07-07 09:08 CST",
+      "status": "limited-network-local-review",
+      "uisdc": "2026-07-07 09:08 CST 自动化环境 curl 访问 https://www.uisdc.com/ 失败：Could not resolve host；不能确认首页新内容，沿用平台已保存优设封面缩略图复盘。",
+      "pinterest": "2026-07-07 09:08 CST 自动化环境 curl 访问 https://www.pinterest.com/ 失败：Could not resolve host；不能确认登录态首页或个人图板，沿用已保存可见 pin 缩略图。",
+      "dribbble": "2026-07-07 09:08 CST 自动化环境 curl 访问 https://dribbble.com/search/ai-dashboard 失败：Could not resolve host；不能确认搜索页新内容，沿用本地已保存公开缩略图复盘组件模式。",
+      "behance": "地区不可用，继续暂停，不做重试循环。"
+    },
+    "brief": {
+      "updatedAt": "2026-07-07 09:20 CST",
+      "status": "carried-forward-limited-network",
+      "reason": "沿用最近工作日：2026-07-07 是工作日，但本地外网 DNS 解析失败，curl 无法解析 openai.com、anthropic.com、blog.google、figma.com，无法确认今日全新官方发布；本次沿用最近工作日已保存公开来源，不写入私人日程、飞书消息或邮件原文。",
+      "calendar": "公开数据不写私人日程；当前只保留同步/授权状态。",
+      "email": "当前未接入邮箱，无法读取未读邮件。",
+      "network": "本次尝试访问 OpenAI、Anthropic、Google Blog、Figma 官方页面均返回 Could not resolve host。"
+    }
   }
 }

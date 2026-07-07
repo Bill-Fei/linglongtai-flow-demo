@@ -43,6 +43,8 @@ const MESSAGE_REFRESH_INTERVAL_MS = 10 * 60 * 1000;
 const FULL_PAGE_REFRESH_INTERVAL_MS = 12 * 60 * 60 * 1000;
 const LOCAL_CALENDAR_FILE = "data/feishu-calendar.local.json";
 const LOCAL_MESSAGES_FILE = "data/feishu-messages.local.json";
+const runtimeConfig = window.BILL_AI_PRESENCE_CONFIG || {};
+const CONTENT_ENDPOINT = runtimeConfig.contentEndpoint || "data/daily-content.json";
 const APP_VERSION = "20260705-final-clean";
 
 const fallbackDesignImages = {
@@ -1045,7 +1047,7 @@ function addCurrentDetailToOutput() {
 async function loadDailyContent({ silent = false } = {}) {
   try {
     setSyncStatus("正在读取已发布数据...", "loading");
-    const response = await fetch(`data/daily-content.json?t=${Date.now()}`, { cache: "no-store" });
+    const response = await fetch(`${CONTENT_ENDPOINT}?t=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await mergeLocalPrivateData(await response.json());
     applyContentData(data);
@@ -1060,7 +1062,7 @@ async function loadDailyContent({ silent = false } = {}) {
 
 async function refreshFeishuMessages({ silent = true } = {}) {
   try {
-    const response = await fetch(`data/daily-content.json?t=${Date.now()}`, { cache: "no-store" });
+    const response = await fetch(`${CONTENT_ENDPOINT}?t=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await mergeLocalPrivateData(await response.json(), { includeCalendar: false, includeMessages: true });
     applyMessageContentData(data);
