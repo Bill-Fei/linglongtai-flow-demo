@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">优设来源状态：Agent 工作流</title>
+  <desc id="desc">将优设 AI 设计内容转译为 Agent UI 工作流组件。</desc>
+  <rect width="960" height="540" rx="42" fill="#f6f7fb"/>
+  <rect x="74" y="68" width="812" height="404" rx="36" fill="#fff" stroke="#dce2ee"/>
+  <text x="124" y="134" fill="#738094" font-family="Inter, PingFang SC, Arial, sans-serif" font-size="22">AISDC TO AUI</text>
+  <text x="124" y="194" fill="#172033" font-family="Inter, PingFang SC, Arial, sans-serif" font-size="44" font-weight="700">从文章到 Agent 工作流</text>
+  <g font-family="Inter, PingFang SC, Arial, sans-serif">
+    <g>
+      <rect x="124" y="264" width="172" height="118" rx="26" fill="#e8f1ff"/>
+      <text x="158" y="312" fill="#243b66" font-size="24" font-weight="700">来源</text>
+      <text x="158" y="350" fill="#5b6e8f" font-size="20">文章 / 封面 / 主题</text>
+    </g>
+    <g>
+      <rect x="334" y="264" width="172" height="118" rx="26" fill="#ebf6ef"/>
+      <text x="368" y="312" fill="#254934" font-size="24" font-weight="700">判断</text>
+      <text x="368" y="350" fill="#61786a" font-size="20">价值 / 风险 / 证据</text>
+    </g>
+    <g>
+      <rect x="544" y="264" width="172" height="118" rx="26" fill="#fff0df"/>
+      <text x="578" y="312" fill="#69421d" font-size="24" font-weight="700">转译</text>
+      <text x="578" y="350" fill="#8a6a4a" font-size="20">状态 / 组件 / 规则</text>
+    </g>
+  </g>
+  <path d="M302 323 H328 M512 323 H538" stroke="#aeb8c8" stroke-width="4" stroke-linecap="round"/>
+  <text x="124" y="430" fill="#4f5d70" font-family="Inter, PingFang SC, Arial, sans-serif" font-size="22">WAF 拦截时保留状态，不伪装成抓取成功。</text>
+</svg>
