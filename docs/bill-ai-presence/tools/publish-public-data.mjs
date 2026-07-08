@@ -14,11 +14,12 @@ const sourcePath = path.resolve(
 const publishedTarget = path.join(projectRoot, "docs/bill-ai-presence/data/daily-content.json");
 
 function run(command, args, options = {}) {
-  return execFileSync(command, args, {
+  const output = execFileSync(command, args, {
     cwd: projectRoot,
     encoding: "utf8",
     stdio: options.stdio || "pipe",
-  }).trim();
+  });
+  return typeof output === "string" ? output.trim() : "";
 }
 
 function ensurePublicDataContract(data) {

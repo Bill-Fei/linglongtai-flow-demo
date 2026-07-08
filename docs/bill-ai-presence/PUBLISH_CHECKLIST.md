@@ -12,6 +12,24 @@
 
 ## 第一阶段自动发布命令
 
+推荐只跑一个入口：
+
+```bash
+node docs/bill-ai-presence/tools/publish-bill-ai-presence.mjs
+```
+
+这个入口会默认读取：
+
+```text
+/Users/wangpengfei/Documents/AI自创工具/bill-ai-presence/data/daily-content.json
+```
+
+然后完成公开数据校验、同步、commit、push 和线上校验。发布结果会追加到：
+
+```text
+/Users/wangpengfei/Documents/AI自创工具/bill-ai-presence/data/publish-log.jsonl
+```
+
 如果公开数据已经在发布仓库：
 
 ```bash
@@ -29,6 +47,7 @@ node docs/bill-ai-presence/tools/verify-published.mjs
 ```
 
 `publish-public-data.mjs` 只同步公开 `daily-content.json`，不会提交私有飞书文件。
+`publish-bill-ai-presence.mjs` 是自动化推荐入口，避免忘记设置跨工作区数据路径。
 
 ## 当前边界
 
