@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-08 20:52 CST / 设计风格源巡检已更新；优设 403、Pinterest 超时、Dribbble 无可用正文，沿用已保存可见图片做设计判断",
+  "updatedAt": "2026-07-08 21:18 CST / 优设来源已复检；优设 / WAF 拦截，已降级，图片已改为本地状态图",
   "todayFocus": {
     "title": "沿用最近工作日：把 AI Presence 从资讯页推进到可验证工作系统",
     "summary": "今天是 2026-07-08 工作日，但本地 curl 访问 OpenAI、Anthropic、Google Developers Blog、Figma 官方页面仍返回 Could not resolve host，无法确认今日全新官方发布；本次不伪装成今日新鲜晨报，沿用最近工作日已保存的公开 AI 产品信号。重点仍是 Codex 异步委托、Gemini CLI 无界面 Agent、Claude Code 工作流、Figma Make/Sites 交付链路，以及 MCP 工具治理，并把它们转成 Bill AI Presence 的作品集证据链。",
@@ -64,73 +64,45 @@
       "id": "uisdc",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "优设 / 403 可解析不可读",
-      "title": "优设：把 AI 设计内容压成作品集证据链",
-      "summary": "本轮优设首页可解析但返回 403 安全策略拦截页，不能确认 2026-07-08 新文章；继续使用平台已保存优设封面图，把 AI 动效、大屏、Codex+Obsidian 和作品集表达转成 Bill 的 AI Native 求职证据链。",
+      "badge": "优设 / WAF 拦截，已降级",
+      "title": "优设：抓取受限，已转为本地证据链",
+      "summary": "本轮优设首页返回安全策略拦截页，不能确认 2026-07-08 新文章；平台已改为本地状态图和明确失败说明，不再展示优设破图。",
       "bullets": [
-        "来源：优设；标题/关键词：AI 动效、AI 大屏、Codex+Obsidian、AI 能力作品集。",
-        "为什么值得看：这些内容可以把“会用 AI 工具”升级为“任务背景、协作流程、人工判断、验证结果、产出证据”的面试叙事。",
-        "能转成什么产出：作品集结构、文章选题、平台交互改进。"
+        "来源状态：首页未返回可用正文，HTTP 0。",
+        "为什么值得看：优设仍负责中文 AI 设计方法论，但必须先保证来源可信。",
+        "能转成什么产出：作品集证据链、Agent UI 工作流、视觉规则。"
       ],
       "images": [
         {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260706-uisdcbanner-coding-motion.webp",
-          "alt": "优设已保存封面：Coding 做动画",
-          "href": "https://www.uisdc.com/coding-motion"
+          "src": "assets/design-sources/uisdc/uisdc-evidence-chain.svg",
+          "alt": "优设抓取受限：作品集证据链",
+          "href": "https://www.uisdc.com/",
+          "sourceStatus": "blocked-local-fallback"
         },
         {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260704-uisdcbanner-ai-dashboard.webp",
-          "alt": "优设已保存封面：AI 大屏设计",
-          "href": "https://www.uisdc.com/ai-dashboard-design"
+          "src": "assets/design-sources/uisdc/uisdc-agent-workflow.svg",
+          "alt": "优设抓取受限：从文章到 Agent 工作流",
+          "href": "https://www.uisdc.com/",
+          "sourceStatus": "blocked-local-fallback"
         },
         {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260703-uisdcbanner-ai-portfolio.webp",
-          "alt": "优设已保存封面：呈现 AI 能力的作品集方向",
-          "href": "https://www.uisdc.com/ai-portfolio-capability"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/20260703-uisdcbanner-codex-obsidian.webp",
-          "alt": "优设已保存封面：Codex+Obsidian 工作流",
-          "href": "https://www.uisdc.com/codex-obsidian-workflow"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/07/ysbanner-20260631-3.webp",
-          "alt": "优设已保存封面：AI 动效关键词与生成流程",
-          "href": "https://www.uisdc.com/ai-motion-lab"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/20260621-uisdcbanner-prd-design4.webp",
-          "alt": "优设已保存封面：AI Pipeline 与 PRD 设计流程",
-          "href": "https://www.uisdc.com/ai-pipeline"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/20260615-uisdcbanner-vibecoding-5.webp",
-          "alt": "优设已保存封面：Vibe Coding 设计工具",
-          "href": "https://www.uisdc.com/vibe-coding-10"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/06/20260607-uisdcbanner-codex.webp",
-          "alt": "优设已保存封面：Codex 工作流",
-          "href": "https://www.uisdc.com/codex-5"
-        },
-        {
-          "src": "https://image.uisdc.com/wp-content/uploads/2026/05/20250527-uisdcbanner-gpt-figma.webp",
-          "alt": "优设已保存封面：GPT 与 Figma AI 设计流",
-          "href": "https://www.uisdc.com/ai-design-flow-3"
+          "src": "assets/design-sources/uisdc/uisdc-visual-rules.svg",
+          "alt": "优设抓取受限：不看破图，看规则",
+          "href": "https://www.uisdc.com/",
+          "sourceStatus": "blocked-local-fallback"
         }
       ],
       "detail": {
-        "why": "优设对 Bill 的价值不是单纯灵感，而是中文方法论和可面试表达。当前页面被 403 拦截时，仍应把已保存封面图转成可复用的作品集证据链。",
+        "why": "优设对 Bill 的价值是中文方法论和可面试表达；当自动化被 WAF 拦截时，正确做法是标明失败状态，并把既有方向转成可发布的本地规则资产。",
         "points": [
-          "AI 动效：拆成状态、触发条件、节奏参数和验收标准。",
-          "AI 大屏：从数据墙改成 Agent 判断、证据来源、行动建议和人工确认。",
-          "Codex+Obsidian：包装为长期记忆、知识沉淀和作品集资产生产流程。",
-          "AI 能力呈现：少列工具名，多展示任务、过程、决策、验证和产出。"
+          "抓取状态：优设首页被安全策略拦截，不能确认今日新文章。",
+          "图片策略：不再引用 image.uisdc.com 外链，避免页面破图。",
+          "处理方式：使用本地状态图，把已沉淀方向转成作品集证据链。"
         ],
-        "impact": "Bill AI Presence 可以从每日资讯页转成一个可解释的 AI Native 体验设计案例。",
-        "reason": "招聘方更需要看到你如何用 AI 改造工作系统，而不是只看到你会用哪些工具。",
-        "output": "作品集结构：背景 / AI 协作流程 / Agent 状态 / 人工判断 / 证据沉淀 / 产出验证。",
-        "next": "下一步写文章选题：《AI 时代体验设计师的作品集，应该展示 AI 协作证据链》。"
+        "impact": "Bill AI Presence 不再把抓取失败伪装成采集成功，页面会清楚区分来源可读、来源受限和本地降级。",
+        "reason": "稳定的 AI 工作台必须先保证证据可信；破图和错误成功状态会削弱作品集可信度。",
+        "output": "产出一页《优设来源受限时的 AI Presence 降级规则》：状态透明、图片本地化、判断可复用。",
+        "next": "下一步若需要真实优设内容，用浏览器登录态人工确认后再导入公开摘要，不绕过站点安全策略。"
       }
     },
     {
@@ -444,9 +416,9 @@
   },
   "freshness": {
     "designSources": {
-      "updatedAt": "2026-07-08 20:52 CST",
+      "updatedAt": "2026-07-08 21:18 CST",
       "status": "limited-local-visible-review",
-      "uisdc": "2026-07-08 20:52 CST 本地 curl -L --max-time 20 https://www.uisdc.com/ 可解析但返回 403 安全策略拦截页；不能确认首页新文章，继续使用平台已保存优设封面缩略图复盘。",
+      "uisdc": "2026-07-08 21:18 CST 优设 HTTP 0 未返回可用正文；不再发布 image.uisdc.com 外链图片。",
       "pinterest": "2026-07-08 20:52 CST 本地 curl -L --max-time 20 https://www.pinterest.com/ 连接超时；不能确认登录态首页或个人图板，不绕过登录态，沿用已保存可见 pin 缩略图。",
       "dribbble": "2026-07-08 20:52 CST 本地 curl -L --max-time 20 https://dribbble.com/search/ai-dashboard 未返回可用正文；不能确认今日新搜索结果，沿用本地已保存公开缩略图复盘组件模式。",
       "behance": "地区不可用，继续暂停，不做重试循环。"
