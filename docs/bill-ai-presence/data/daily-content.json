@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-08 20:41 CST / 工作日 AI 产品晨报已更新；本地 DNS 仍无法访问官方来源，沿用最近工作日公开信号",
+  "updatedAt": "2026-07-08 20:52 CST / 设计风格源巡检已更新；优设 403、Pinterest 超时、Dribbble 无可用正文，沿用已保存可见图片做设计判断",
   "todayFocus": {
     "title": "沿用最近工作日：把 AI Presence 从资讯页推进到可验证工作系统",
     "summary": "今天是 2026-07-08 工作日，但本地 curl 访问 OpenAI、Anthropic、Google Developers Blog、Figma 官方页面仍返回 Could not resolve host，无法确认今日全新官方发布；本次不伪装成今日新鲜晨报，沿用最近工作日已保存的公开 AI 产品信号。重点仍是 Codex 异步委托、Gemini CLI 无界面 Agent、Claude Code 工作流、Figma Make/Sites 交付链路，以及 MCP 工具治理，并把它们转成 Bill AI Presence 的作品集证据链。",
@@ -64,9 +64,9 @@
       "id": "uisdc",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "优设 / 本地不可访问",
+      "badge": "优设 / 403 可解析不可读",
       "title": "优设：把 AI 设计内容压成作品集证据链",
-      "summary": "本轮本地 DNS 仍无法解析优设首页，不能确认 2026-07-08 新文章；继续使用平台已保存优设封面图，把 AI 动效、大屏、Codex+Obsidian 和作品集表达转成 Bill 的 AI Native 求职证据链。",
+      "summary": "本轮优设首页可解析但返回 403 安全策略拦截页，不能确认 2026-07-08 新文章；继续使用平台已保存优设封面图，把 AI 动效、大屏、Codex+Obsidian 和作品集表达转成 Bill 的 AI Native 求职证据链。",
       "bullets": [
         "来源：优设；标题/关键词：AI 动效、AI 大屏、Codex+Obsidian、AI 能力作品集。",
         "为什么值得看：这些内容可以把“会用 AI 工具”升级为“任务背景、协作流程、人工判断、验证结果、产出证据”的面试叙事。",
@@ -120,7 +120,7 @@
         }
       ],
       "detail": {
-        "why": "优设对 Bill 的价值不是单纯灵感，而是中文方法论和可面试表达。当前无法实时访问时，仍应把已保存封面图转成可复用的作品集证据链。",
+        "why": "优设对 Bill 的价值不是单纯灵感，而是中文方法论和可面试表达。当前页面被 403 拦截时，仍应把已保存封面图转成可复用的作品集证据链。",
         "points": [
           "AI 动效：拆成状态、触发条件、节奏参数和验收标准。",
           "AI 大屏：从数据墙改成 Agent 判断、证据来源、行动建议和人工确认。",
@@ -139,7 +139,7 @@
       "source": "设计风格源",
       "badge": "Pinterest / 登录态不可确认",
       "title": "Pinterest：把空间感图源收敛为四套视觉规则",
-      "summary": "本轮无法确认 Pinterest 登录态、首页推荐或个人图板；不绕过登录态，继续使用平台已保存可见 pin 缩略图，把 HMI、Apple design、Website-data、UI dynamic、2.5D 收敛为空间感规则库。",
+      "summary": "本轮 Pinterest 连接超时，无法确认登录态、首页推荐或个人图板；不绕过登录态，继续使用平台已保存可见 pin 缩略图，把 HMI、Apple design、Website-data、UI dynamic、2.5D 收敛为空间感规则库。",
       "bullets": [
         "来源：Pinterest；标题/关键词：HMI、Apple design、Website-data、UI dynamic、2.5D、AI workspace。",
         "为什么值得看：这些图源能把空间感、光感、轻拟态和数据密度沉淀成 Bill AI Presence 的长期视觉语言。",
@@ -225,9 +225,9 @@
       "id": "dribbble",
       "topic": "design",
       "source": "设计风格源",
-      "badge": "Dribbble / 本地不可访问",
+      "badge": "Dribbble / 无可用正文",
       "title": "Dribbble：把 AI dashboard 拆成 Agent 工作台组件",
-      "summary": "本轮本地 DNS 无法解析 Dribbble 搜索页，不能确认今日新作品；继续使用本地已保存公开缩略图，把 AI dashboard 拆成 Assistant Header、状态胶囊、证据抽屉、产出队列、人工确认面板和跨端继续卡。",
+      "summary": "本轮 Dribbble 搜索页请求未返回可用正文，不能确认今日新作品；继续使用本地已保存公开缩略图，把 AI dashboard 拆成 Assistant Header、状态胶囊、证据抽屉、产出队列、人工确认面板和跨端继续卡。",
       "bullets": [
         "来源：Dribbble；标题/关键词：AI dashboard、assistant UI、workflow、task manager、productivity。",
         "为什么值得看：AI dashboard 的关键不再是大屏视觉，而是 Assistant + Workflow 如何并列承载判断、执行和确认。",
@@ -296,19 +296,18 @@
         }
       ],
       "detail": {
-        "why": "Dribbble 更适合拆组件节奏。Bill AI Presence 需要的是可落地的 Agent 工作台模式，而不是把参考图照搬成卡片墙。",
+        "why": "Dribbble 的价值在于把成熟商业 UI 的组件密度、状态排布和微交互节奏拆出来，而不是复制视觉表层。",
         "points": [
-          "Assistant Header：入口要表达 AI 当前身份、目标、可接管范围和置信状态。",
-          "Agent 状态胶囊：用短标签显示观察中、规划中、执行中、等待确认和失败恢复。",
-          "证据抽屉：把信息来源、判断依据、引用和风险从主界面中分层展开。",
-          "产出队列：把文章、作品集、视觉规则和平台改进变成可追踪队列。",
-          "人工确认面板：关键动作必须保留用户确认，不让 AI 静默替用户发布或覆盖。",
-          "跨端继续卡：Phone / Pad / PC 之间延续同一任务状态，而不是重新开一个聊天。"
+          "Assistant Header：始终说明当前 Agent 在做什么、需要用户判断什么。",
+          "状态胶囊：把运行中、等待确认、已完成、需介入做成轻量可扫读状态。",
+          "证据抽屉：把来源、推断、风险和下一步与结果并列呈现。",
+          "产出队列：把 brief、设计源、任务、消息转成可继续处理的工作流。",
+          "跨端继续卡：Phone/Pad/PC 之间保留任务状态和上下文。"
         ],
-        "impact": "平台可以从“每日内容展示”升级为“AI Presence 工作台”：AI 观察、整理、判断、建议，用户确认后进入产出。",
-        "reason": "Agent UI 的成熟度取决于状态、证据和控制权是否清楚，而不是界面是否有 AI 字样。",
+        "impact": "平台交互可以从资讯卡片升级为 Agent 工作台：看到信息、判断可信度、继续产出、跨端接续。",
+        "reason": "AI Presence 的关键不是更炫的 dashboard，而是让 Agent 的状态、证据和下一步可被人稳定接管。",
         "output": "组件模式：Assistant Header、Agent 状态胶囊、证据抽屉、产出队列、人工确认面板、跨端继续卡。",
-        "next": "下一步优先改平台交互：设计源详情增加组件模式区，并让每个模式能对应到作品集证据。"
+        "next": "下一步改平台交互：把设计源详情区从普通说明改成“组件模式提取器”。"
       }
     },
     {
@@ -445,11 +444,11 @@
   },
   "freshness": {
     "designSources": {
-      "updatedAt": "2026-07-08 20:42 CST",
-      "status": "limited-network-local-review",
-      "uisdc": "2026-07-08 20:42 CST 自动化环境 curl -L --max-time 20 https://www.uisdc.com/ 失败：Could not resolve host；不能确认首页新内容，沿用平台已保存优设封面缩略图复盘。",
-      "pinterest": "2026-07-08 20:42 CST 自动化环境 curl -L --max-time 20 https://www.pinterest.com/ 失败：Could not resolve host；不能确认登录态首页或个人图板，不绕过登录态，沿用已保存可见 pin 缩略图。",
-      "dribbble": "2026-07-08 20:42 CST 自动化环境 curl -L --max-time 20 https://dribbble.com/search/ai-dashboard 失败：Could not resolve host；不能确认搜索页新内容，沿用本地已保存公开缩略图复盘组件模式。",
+      "updatedAt": "2026-07-08 20:52 CST",
+      "status": "limited-local-visible-review",
+      "uisdc": "2026-07-08 20:52 CST 本地 curl -L --max-time 20 https://www.uisdc.com/ 可解析但返回 403 安全策略拦截页；不能确认首页新文章，继续使用平台已保存优设封面缩略图复盘。",
+      "pinterest": "2026-07-08 20:52 CST 本地 curl -L --max-time 20 https://www.pinterest.com/ 连接超时；不能确认登录态首页或个人图板，不绕过登录态，沿用已保存可见 pin 缩略图。",
+      "dribbble": "2026-07-08 20:52 CST 本地 curl -L --max-time 20 https://dribbble.com/search/ai-dashboard 未返回可用正文；不能确认今日新搜索结果，沿用本地已保存公开缩略图复盘组件模式。",
       "behance": "地区不可用，继续暂停，不做重试循环。"
     },
     "brief": {
